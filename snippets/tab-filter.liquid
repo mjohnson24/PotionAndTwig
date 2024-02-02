@@ -1,0 +1,15 @@
+<div class="shop-tab nav" role=tablist>
+  <a class="change-view cursor_pointer{% unless template contains 'list' %} change-view--active{% endunless %}" data-view="grid">
+    <i class="ti-layout-grid4-alt"></i>
+  </a>
+  <a class="change-view cursor_pointer{% if template contains 'list' %} change-view--active{% endif %}" data-view="list">
+    <i class="ti-menu"></i>
+  </a>
+</div>
+
+
+<style>
+  a.change-view.change-view--active, a.change-view.change-view--active:hover, a.change-view:hover {
+    color: #050035 !important;
+  }
+</style>

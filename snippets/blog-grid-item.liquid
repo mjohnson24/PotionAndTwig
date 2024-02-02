@@ -1,0 +1,18 @@
+<div class="blog-wrapper mb-30 wow fadeInLeft">
+  <div class="blog-img-2">
+    <a href="{{ article.url }}"><img alt="" class="lazyload" data-src="{{ article | img_url: 'large' }}"></a>
+  </div>
+  <div class="blog-info-wrapper-2 text-center">
+    
+
+    <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+    <div class="blog-meta-2 blog-meta-3">
+      <ul>
+        <li>{{ article.published_at | date: "%b %d, %Y" }}</li>
+        {% if article.comments_enabled? %}
+        <li><a href="{{ article.url }}#comments">{{ article.comments.size }} {{ article.comments.size | pluralize: 'comment' , 'comments' }}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>

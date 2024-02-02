@@ -1,0 +1,65 @@
+<div class="product-wrapper mb-95 grid_style_3">
+  <div class="product-img-2">
+    <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | img_url: '303x' }}" alt="">
+    </a>
+    <div class="product-action-2">
+      {% if product.description contains '[affiliate_link]' %}
+      {% assign affiliate_link_first = product.description | split:'[/affiliate_link]' | first %}
+      {% assign affiliate_link_final = affiliate_link_first | split:'[affiliate_link]' | last %}
+      <a class="animate-left add-style-2" href="{{ affiliate_link_final }}" title="{{ settings.add_to_cart_text }}">
+        {{ settings.add_to_cart_text }} <i class="ti-shopping-cart"></i></a>
+
+      {% elsif product.available %}
+      <a class="animate-left add-style-2 add_cart cart-item" title="{{ settings.add_to_cart_text }}" 
+         href="javascript:void(0);" onclick="{{ func }}; return false;">
+
+        {{ settings.add_to_cart_text }} <i class="ti-shopping-cart"></i>
+        <i class="ti-settings animated rotateIn infinite"></i>
+        <i class="ti-check"></i>
+      </a>
+      {% else %}
+      <a href="#" class="disabled-add-to-cart animate-left add-style-2" title="{{ settings.out_of_stock_text }}">
+        {{ settings.out_of_stock_text }} <i class="ti-shopping-cart"></i>
+      </a>
+      {% endif %}
+
+      {% if customer %}
+      <a class="animate-right wishlist-style-2 action--wishlist tile-actions--btn wishlist-btn cart-item" href="#" data-product-handle="{{ product.handle }}" title="Wishlist">
+        <i class="ti-heart"></i>
+        <i class="ti-settings animated rotateIn infinite"></i>
+        <i class="ti-check"></i>
+      </a>
+      {% else %}
+      <a class="animate-right wishlist-style-2" href="/account/login" title="Wishlist">
+        <i class="ti-heart"></i>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="product-content-2 text-center">
+    <h4><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h4>
+
+    {% if product.description contains '[book_author]' %}         
+    {% assign book_author_first = product.description | split:'[/book_author]' | first %}
+    {% assign book_author_final = book_author_first | split:'[book_author]' | last %}
+    <span>{{ book_author_final }}</span>
+    {% endif %}
+
+    {% if settings.product_review_enable %}
+    <div class="product-rating spr-badge-caption-none">
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+    </div>
+    {% endif %}
+
+    <div class="fruit-price book_price">
+      {% if on_sale %}
+      <span>{{ product.price | money }}</span>
+      <span class="old">{{ product.compare_at_price | money }}</span>
+      {% else %}
+      <span>{{ product.price | money }}</span>
+      {% endif %}
+    </div>
+  </div>
+</div>

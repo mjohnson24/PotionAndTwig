@@ -1,0 +1,28 @@
+<div class="blog-replay-wrapper">
+  {% if article.comments.size > 0 %}
+  <h4 class="blog-details-title2">{{ 'blogs.comments.with_count' | t: count: article.comments_count }}</h4>         
+
+  {% for comment in article.comments %}
+  <div class="single-blog-replay">
+    <div class="replay-img">       
+      {% if section.settings.commentator_image %}
+      <img src="{{ section.settings.commentator_image | img_url: '70x' }}" alt="">
+      {% else %}
+      <img src="https://via.placeholder.com/70x70" alt="author" />
+      {% endif %}
+    </div>
+    <div class="replay-info-wrapper">
+      <div class="replay-info">
+        <div class="replay-name-date">
+          <h5>{{ comment.author }}</h5>
+          <span>{{ comment.created_at | date: "%b %d, %Y at %H:%M" }}</span>
+        </div>
+      </div>
+      {{ comment.content }}
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+</div>
+

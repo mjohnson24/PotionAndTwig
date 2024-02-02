@@ -1,0 +1,343 @@
+{%- if section.settings.about_enable -%}
+
+<div class="about-story" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row{% if section.settings.about_story_img_position == 'right' %} flex-row-reverse{% endif %}">
+      {% if section.settings.about_story_img_enable %}
+      <div class="col-lg-6">
+        <div class="story-img">
+          {% if section.settings.about_story_img %}
+          <img src="{{ section.settings.about_story_img | img_url: 'master' }}" alt="">
+          {% else %}
+          <img src="https://via.placeholder.com/570x471" alt="">
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="{% if section.settings.about_story_img_enable %}col-lg-6{% else %}col-lg-12{% endif %}">
+        <div class="story-details{% if settings.enable_rtl %} pr-50 text-right {% else %} pl-50{% endif %}">
+          <div class="story-details-top">
+            {% if section.settings.about_story_title != '' %}
+            <h2>{{ section.settings.about_story_title }}</h2>
+            {% endif %}
+
+            {% if section.settings.about_story_des != '' %}
+            <p>{{ section.settings.about_story_des }}</p>
+            {% endif %}
+          </div>
+
+          {% if section.settings.about_story_btm_enable != '' %}
+          <div class="story-details-bottom">
+            {% if section.settings.about_story_title_btm != '' %}
+            <h4>{{ section.settings.about_story_title_btm }}</h4>
+            {% endif %}
+
+            {% if section.settings.about_story_des_btm != '' %}
+            <p>{{ section.settings.about_story_des_btm }}</p>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+
+
+{%- include 'section-style' -%}
+
+
+<style>
+  
+  #section-{{ section.id }} .story-details-bottom > h4,#section-{{ section.id }} .story-details-top > h2 {
+    color: {{ section.settings.section_title_color }};
+}
+  #section-{{ section.id }} .story-details-top > p, #section-{{ section.id }} .story-details-bottom > p{
+    color: {{ section.settings.section_description_color }};
+}
+  #section-{{ section.id }} .story-details-top > h2 span {
+    color: {{ section.settings.section_high_light_title_color }};
+}
+  
+  
+</style>
+
+
+
+{% schema %}
+  {
+    "name": "About Us",
+    "settings": [
+              {
+                "type": "checkbox",
+                "id": "about_enable",
+                "label": "About Page Enable",
+                "default": true
+              },
+              {
+                "type": "checkbox",
+                "id": "about_story_img_enable",
+                "label": "Show Story Image",
+                "default": true
+			  },
+			  {
+                "type": "image_picker",
+                "id": "about_story_img",
+                "label": "About Image"
+			  },
+              {
+                "type": "radio",
+                "id": "about_story_img_position",
+                "label": "Story Image Position",
+                "options":[
+                    {
+                      "label": "Left Side",
+                      "value": "left"
+                    },
+                    {
+                      "label": "Right Side",
+                      "value": "right"
+                    }
+                  ],
+                  "default": "left"
+              },
+			  {
+                "type": "text",
+                "id": "about_story_title",
+                "label": "Story Title",
+                "default": "WELCOME TO <span>Lopez</span>"
+			  },
+			  {
+                "type": "textarea",
+                "id": "about_story_des",
+                "label": "Story Description",
+                "default": "Lopez provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a complete account of the system, and expound the actual teachings of the eat explorer."
+			  },
+              {
+                "type": "header",
+                "content": "Story Bottom Section"
+              },
+			  {
+                "type": "text",
+                "id": "about_story_title_btm",
+                "label": "Title",
+                "default": "WE START AT 2015"
+			  },
+			  {
+                "type": "textarea",
+                "id": "about_story_des_btm",
+                "label": "Story Bottom Description",
+                "default": "Lopez provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a complete account of the system, and expound the actual teachings of the eat explorer."
+			  },
+              {
+                "type": "header",
+                "content": "Color"
+              }, 
+              {
+                 "type": "color",
+                 "id": "section_title_color",
+                 "label": "Section Title Color",
+                 "default": "#383838"
+              }, 
+              {
+                 "type": "color",
+                 "id": "section_high_light_title_color",
+                 "label": "Section High Light Title Color",
+                 "default": "#c09578"
+              }, 
+              {
+                 "type": "color",
+                 "id": "section_description_color",
+                 "label": "Section Description Color",
+                 "default": "#666"
+              }
+	],
+    "blocks": [
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

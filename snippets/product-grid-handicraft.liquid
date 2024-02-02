@@ -1,0 +1,128 @@
+
+<div class="product-wrapper mb-65 ">
+  <div class="product-img-hanicraft">
+    <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | img_url: 'master' }}" alt="{{ featured_image.alt }}">
+    </a>
+
+    <!-- product new label/stiker with shortcode start -->
+    {% if product.description contains '[new_products]' %}      
+    {% assign new_products_first = product.description | split:'[/new_products]' | first %}
+    {% assign new_products_final = new_products_first | split:'[new_products]' | last %} 
+
+    {% comment %}Date calculate{% endcomment %}
+    {% assign date_pub_y = product.published_at | date:'%Y' %}
+    {% assign date_pub_d = product.published_at | date:'%j' %}
+    {% assign date_now_y = 'now' | date:'%Y' %}
+    {% assign date_now_d = 'now' | date:'%j' %}
+    {% assign dates_diff_y = date_now_y | minus: date_pub_y | times: 365 %}
+    {% assign dates_diff_d = date_now_d | minus: date_pub_d %}
+    {% assign dates_diff = dates_diff_y | plus: dates_diff_d %}
+    {% assign new_products_period = new_products_final | plus: 0 %}
+
+
+    {% if dates_diff <= new_products_period and settings.new_sticker_enable %}
+    <span class="new">{{ 'products.product.new' | t }}</span>
+    {% endif %}      
+    {% endif %}
+
+    {% if on_sale and settings.on_sale_sticker_enable %}
+    <span class="sell">{{ 'products.product.on_sale' | t }}</span>    
+    {% endif %}
+
+
+    
+      {%- if product.description contains '[countdown]' -%}
+      {%- assign count_down_first = product.description | split:'[/countdown]' | first -%}
+      {%- assign count_down_final = count_down_first | split:'[countdown]' | last -%}
+      <div class=" product_timing product-grid">
+        <div class="product_coundown" data-countdown="{{ count_down_final }}"></div> 
+      </div>
+      {%- endif -%}
+      
+
+    <div class="hanicraft-action-position">
+      <div class="hanicraft-action">
+        {% if product.description contains '[affiliate_link]' %}
+        {% assign affiliate_link_first = product.description | split:'[/affiliate_link]' | first %}
+        {% assign affiliate_link_final = affiliate_link_first | split:'[affiliate_link]' | last %}
+        <a class="action-cart" href="{{ affiliate_link_final }}" title="{{ settings.add_to_cart_text }}">
+          <i class="pe-7s-cart"></i>
+        </a>
+
+        {% elsif product.available %}
+        <a class="action-cart add_cart cart-item" title="{{ settings.add_to_cart_text }}" href="javascript:void(0);" onclick="{{ func }}; return false;">
+          <i class="pe-7s-cart"></i>
+          <i class="pe-7s-settings animated rotateIn infinite"></i>
+          <i class="pe-7s-check"></i>
+        </a>
+        {% else %}
+        <a href="#" class="disabled-add-to-cart action-cart" title="{{ settings.out_of_stock_text }}">
+          <i class="pe-7s-cart"></i>
+        </a>
+        {% endif %}
+            {%- if product.handle != blank -%}
+        <a class="action-like wishlist-style-2 action-wishlist tile-actions--btn wishlist-btn wishlist" href="javascript: void(0)" button-wishlist data-product-handle="{{ product.handle }}" title="Wishlist">
+            <span class="add-wishlist"><i class="pe-7s-like"></i></span>
+        <span class="loading-wishlist"><i class="pe-7s-settings animated rotateIn infinite"></i></span>
+        <span class="remove-wishlist"><i class="pe-7s-check"></i></span>
+        </a>
+           {%- endif -%}
+
+        <a title="Quick View" data-toggle="modal" data-target="#exampleModal" class="action-repeat" href="javascript:void(0);" 
+           onclick="quiqview('{{ product.handle | handleize }}')"><i class="pe-7s-look"></i>
+        </a>
+      </div> 
+    </div>
+  </div>
+  <div class="product-content-hanicraft">
+    
+    {% if on_sale %}
+    <h5>{{ product.price | money }}</h5> <del>{{ product.compare_at_price | money }}</del>
+    {% else %}
+    	{% if settings.show_price_with_percentage_off != "0" and settings.show_price_with_percentage_off != "" %}
+        	{% assign discountprice = product.price | times: settings.show_price_with_percentage_off | divided_by: 100 %}
+        	<h5>{{ product.price | minus: discountprice | money }} <span style="color:rgb(230, 0, 0);"><del>{{ product.price | money }}</del></span></h5>
+    	{% else %}
+    		<h5>{{ product.price | money }}</h5>
+    	{% endif %}
+    {% endif %}
+
+    <h4><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h4>
+    {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+	
+    <!-- MODIFIED BY MARK JOHNSON TO ADD LINK AROUND TAGS/SHORT-DESCRIPTION SECTION WHEN CLICKING THEM TO GO TO PRODUCT PAGE SAME AS CLICKING IMAGE -->
+    <a href="{{ product.url | within: collection }}">
+      
+    {% if product.metafields.my_fields.show_desc_instead_of_tags and product.metafields.my_fields.short_description %}
+    	<span>{{ product.metafields.my_fields.short_description }}</span>
+    {% else %}
+    
+      {% if product.tags.size > 0 %}
+    	
+        
+            <span>
+              {% assign isFirst = true %}
+              {% for product_tag in product.tags %}
+              {% if isFirst == false %}, {% endif %}
+
+
+              {% comment %}
+              <!-- MODIFIED BY MARK JOHNSON TO REMOVE LINKS ON TAGS -->
+                {% capture url %}/collections/all/{{ product_tag | handle }}{% endcapture %}
+                {{ product_tag | link_to: url }}
+              {% endcomment %}
+
+                {{ product_tag }}
+                {% assign isFirst = false %}
+              {% endfor %}
+            </span>
+        
+      {% endif %}
+    {% endif %}
+      </a>
+  
+    
+
+  </div>
+</div>

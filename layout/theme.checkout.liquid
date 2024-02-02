@@ -1,0 +1,357 @@
+<!doctype html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K3NLW3Z');</script>
+<!-- End Google Tag Manager -->
+  
+  {% render 'pagefly-head' %}
+
+  <!-- Hotjar Tracking Code for https://potionandtwig.com -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:2837433,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+  
+  
+  
+  <!-- Basic page needs ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  {% if settings.favicon_enable %}
+  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+  {% endif %}
+
+  <!-- Title and description ================================================== -->
+  <title>
+    {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+  <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <!-- Helpers ================================================== -->
+  {% include 'social-meta-tags' %}
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+
+  <!-- CSS ================================================== -->
+  
+  <!-- loaded with style.css now  'timber.scss.css' | asset_url | stylesheet_tag -->
+  {{ 'preloader.css' | asset_url | stylesheet_tag }}
+  
+  <link href="{{ 'application.css' | asset_url }}" rel="stylesheet" type="text/css" media="all" />
+  
+  <!-- 'bootstrap.min.css' | asset_url | stylesheet_tag }}-->
+  <!-- 'magnific-popup.css' | asset_url | stylesheet_tag }}-->
+  <!-- 'animate.css' | asset_url | stylesheet_tag }}-->
+  <!-- 'owl.carousel.min.css' | asset_url | stylesheet_tag }}-->
+  <!-- 'themify-icons.css' | asset_url | stylesheet_tag }}-->
+  <!-- 'pe-icon-7-stroke.css' | asset_url | stylesheet_tag }}-->
+  <!-- 'icofont.css' | asset_url | stylesheet_tag }}-->
+  <!-- loaded with style.css now 'hamburgers.min.css' | asset_url | stylesheet_tag -->
+  <!-- loaded with style.css now  'slinky.min.css' | asset_url | stylesheet_tag -->
+  <!-- 'jquery-ui.css' | asset_url | stylesheet_tag }}-->
+  <!-- 'easyzoom.css' | asset_url | stylesheet_tag }} -->
+
+  
+  <!-- 'meanmenu.min.css' | asset_url | stylesheet_tag }}-->
+  <!-- 'bundle.css' | asset_url | stylesheet_tag }}-->
+  <!-- 'style.css' | asset_url | stylesheet_tag }}-->
+
+ 
+  {{ 'header.scss' | asset_url | stylesheet_tag }}
+
+
+  <!-- 'custom.css' | asset_url | stylesheet_tag }}-->
+  
+  {{ 'responsive.css' | asset_url | stylesheet_tag }}
+  {{ 'custom-responsive.css' | asset_url | stylesheet_tag }}
+  {{ 'skin-theme.css' | asset_url | stylesheet_tag }}
+  {%- if settings.enable_rtl -%}
+  {{ 'theme-rtl.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+
+  <!-- Aromaimpressions custom CSS (added by mark johnson on 7-13-2022 ================================================== -->
+  {{ 'aroma-custom.css' | asset_url | stylesheet_tag }}
+
+  <!-- Header hook for plugins ================================================== -->
+  {{ content_for_header }}
+  {% include 'oldIE-js' %}
+
+  
+
+    <!-- 'modernizr-2.8.3.min.js' | asset_url | script_tag -->
+  <!-- "lazysizes.js" | asset_url | script_tag -->
+  <!-- 'popper.js' | asset_url | script_tag }-->
+
+ 
+  
+  <!-- <script src=" 'bootstrap.min.js' | asset_url }}" defer></script>-->
+  
+   
+  
+  <!-- 'jquery.magnific-popup.min.js' | asset_url | script_tag -->
+  
+  
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js' | script_tag }}
+  
+   <script src="{{ 'application.js' | asset_url }}" async></script> 
+  
+  
+<!--    'jquery-1.12.0.min.js' | asset_url | script_tag  -->
+  <script src="https://maps.googleapis.com/maps/api/js?key={{ settings.google_map_api_key }}" defer></script>
+
+  
+  
+
+<style>.lazyload,.lazyloading{opacity:0}.lazyloaded{opacity:1;transition:opacity.3s}</style>
+  
+  
+  <!-- 'isotope.pkgd.min.js' | asset_url | script_tag }}-->
+  <!-- 'imagesloaded.pkgd.min.js' | asset_url | script_tag }}-->
+  <!-- 'jquery.counterup.min.js' | asset_url | script_tag }}-->
+  <!-- 'waypoints.min.js' | asset_url | script_tag }}-->
+  {{ 'ajax-mail.js' | asset_url | script_tag }}
+  {{ 'owl.carousel.min.js' | asset_url | script_tag }}
+  {{ 'jquery.elevatezoom.js' | asset_url | script_tag }}
+  {{ 'jquery.matchHeight.js' | asset_url | script_tag }}
+  {{ 'instafeed.min.js' | asset_url | script_tag }}
+
+  <!-- Ajax Cart js -->
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+  {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+  {{ 'cart.api.js' | asset_url | script_tag }}
+  {{ 'plugins.js' | asset_url | script_tag }}
+  {{ 'theme.js' | asset_url | script_tag }}
+	
+  
+  
+  
+  {% comment %}
+  If you store has customer accounts disabled, you can remove the following JS file
+  {% endcomment %}
+  {% if template contains 'customers' or 'cart' %}
+  {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+  {% endif %}
+ 
+{% include 'pagefly-header' %}
+ {% include 'kart_discount' %}  {% render 'judgeme_core' %}
+</head> 
+
+{% comment %}
+Add the page template as a class for easy page or template specific styling.
+{% endcomment %}
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K3NLW3Z"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  
+  {% if settings.enable_preloader %}
+  {% include 'preloader' %} 
+  {% endif %}
+
+  {% if template == 'index' and settings.newsletter_popup_enable %}
+  {% include 'newsletter-popup' %}
+  {% endif %}
+
+  {% if template == 'index' and settings.topbar_notification_enable %}
+  {% include 'top-nocification-bar' %}
+  {% endif %}
+
+  <header class="header">
+    {% section 'header-bottom' %}
+  </header>
+
+  {% if template != 'index' %}
+  {% include 'breadcrumb-banner' %}
+  {% endif %}
+
+
+  <main role="main">
+
+    {{ content_for_layout }}
+
+  </main>
+
+  {% section 'footer-top' %}
+  {% section 'footer-bottom' %}
+
+      
+    {%- if settings.recommended -%}
+    {%- section 'recommended' -%}
+    {%- endif -%}
+
+
+
+  {{ 'fastclick.min.js' | asset_url | script_tag }}
+  {{ 'timber.js' | asset_url | script_tag }}
+
+  {% comment %}
+  Template-specific js
+  {% endcomment %}
+  <script>
+    {% if resetPassword %}
+    $(function() {
+      timber.resetPasswordSuccess();
+    });
+    {% endif %}
+  </script>
+
+  {% comment %}
+  Ajaxify your cart with this plugin.
+  Documentation:
+  - http://shopify.com/timber#ajax-cart
+  {% endcomment %}
+  {% if settings.ajax_cart_method == "drawer" %}
+  {{ 'handlebars.min.js' | asset_url | script_tag }}
+  {% include 'ajax-cart-template' %}
+  {{ 'ajax-cart.js' | asset_url | script_tag }}
+  
+  <script>
+    jQuery(function($) {
+      ajaxCart.init({
+        formSelector: '#AddToCartForm',
+        cartContainer: '#CartContainer',
+        addToCartSelector: '#AddToCart',
+        cartCountSelector: '#CartCount',
+        cartCostSelector: '#CartCost',
+        moneyFormat: {{ shop.money_format | json }}
+      });
+      });
+
+      jQuery(document.body).on('afterCartLoad.ajaxCart', function(evt, cart) {
+        // Bind to 'afterCartLoad.ajaxCart' to run any javascript after the cart has loaded in the DOM
+        timber.RightDrawer.open();
+      });
+  </script>
+  {% endif %}
+
+
+  <script id="dsq-count-scr" src="//your-site-name-1.disqus.com/count.js" async></script>
+
+  {% include 'popup_cart' %}
+  {% include 'facebook-comment-box-script' %}
+
+  {% if settings.ajax_search_enable %}
+  {% include 'ajax-search-bar' %}
+  {% endif %}
+
+  {% include 'product-quickview' %}
+  
+
+<script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
+
+
+
+  <!-- Begin Recently Viewed Products -->
+  {% if template contains 'product' %}
+  <script>
+    Shopify.Products.recordRecentlyViewed();
+  </script>
+  {% endif %}
+
+  {% include 'currency' %}
+
+  <!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56e400dc72b38d50"></script> 
+
+  <script type="text/javascript">
+    var nToggle = $('.notification-close-btn');
+    nToggle.on('click', function(){
+      $('.top-notification-bar').slideToggle();
+    })
+  </script>
+
+  {% if settings.google_analytic_enable %}
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '{{ settings.google_tracking_id }}', 'auto');
+       ga('send', 'pageview');
+
+  </script>
+  {% endif %}
+
+  
+  <script type="text/javascript">
+/*
+@require
+Jquery: https://jquery.com/
+jquery-cookie: https://github.com/carhartl/jquery-cookie
+
+Allows you to set a discount code via a URL and pass into shopify checkout
+
+https://myshopifystore.com?coupon=MYCOUPONCODE
+can append ?coupon=MYCOUPONCODE to any URL
+
+*/
+
+// Get paramaters from the URL
+function getParameterByName(name, url) {
+  if (!url) {
+    url = window.location.href;
+  }
+
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+// This must be added to your checkout form 
+// <input class="js-form-discount" type="hidden" name="discount" value="RESELLERDISCOUNTCODE" >
+$discountInput = $("input.js-form-discount");
+    //$cartButton = $(".cart-btn-wrapper .cart-btn:last-child");
+// set cookie with passed in coupon code to any URL
+$coupon = getParameterByName('coupon');
+if($coupon){
+  // set a cookie with the coupon code
+  // Valid for 7 days : can adjust { expires: 7 } to whatever you want
+  // single / is a session cookie
+  $.cookie('discountCode', $coupon, { expires: 7 });
+}
+// Get cookie discount code value and set form value
+$discountCode = $.cookie('discountCode');
+
+if($discountCode){
+  if ($discountInput.length > 0) { 
+    // if cookie is set and discount input field is on page set its value to cookie val 
+    $discountInput.val( $discountCode );
+    //$cartButton.attr('href' , "/checkout?discount="+$discountCode );
+  }
+  
+  $('.cart-btn-checkout').attr('href' , "/checkout?discount="+$discountCode );
+}
+    
+</script>
+  
+  <!-- Added by Mark Johnson on 2/24/2022 to make "Our Ingredients" tab open by default. -->
+  {{ 'custom.js' | asset_url | script_tag }}
+  
+
+<!-- **BEGIN** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
+    {% render 'hextom_fsb_main', product: product, customer: customer %}
+    <!-- **END** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
+</body>
+</html>

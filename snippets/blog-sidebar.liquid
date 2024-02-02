@@ -1,0 +1,139 @@
+<div class="blog-sidebar">
+  {% if section.settings.blog_author_enable %}
+  <div class="sidebar-widget mb-50">
+    {% if settings.author_image %}
+    <img src="{{ settings.author_image | img_url: 'master' }}" alt="">
+    {% endif %}
+
+    {% if settings.author_details_enable %}
+    <div class="sidebar-img-content">
+      {% if settings.author_details != blank %}
+      <p>{{ settings.author_details }}</p>
+      {% endif %}
+
+      {% if settings.author_name != blank %}
+      <h4>{{ settings.author_name }}</h4>
+      {% endif %}
+
+      {% if settings.author_designation != blank %}
+      <span>{{ settings.author_designation }}</span>
+      {% endif %}
+
+      {% if settings.author_social_enable %}
+      <div class="sidebar-img-social">
+        <ul>
+          {% if settings.social_1_name != blank %}
+          <li>
+            <a href="{{ settings.social_1_url }}">
+              <i class="icofont icofont-social-{{ settings.social_1_name }}"></i>
+            </a>
+          </li>
+          {% endif %}
+
+          {% if settings.social_2_name != blank %}
+          <li>
+            <a href="{{ settings.social_2_url }}">
+              <i class="icofont icofont-social-{{ settings.social_2_name }}"></i>
+            </a>
+          </li>
+          {% endif %}
+
+          {% if settings.social_3_name != blank %}
+          <li>
+            <a href="{{ settings.social_3_url }}">
+              <i class="icofont icofont-social-{{ settings.social_3_name }}"></i>
+            </a>
+          </li>
+          {% endif %}
+
+          {% if settings.social_4_name != blank %}
+          <li>
+            <a href="{{ settings.social_4_url }}">
+              <i class="icofont icofont-social-{{ settings.social_4_name }}"></i>
+            </a>
+          </li>
+          {% endif %}
+
+          {% if settings.social_5_name != blank %}
+          <li>
+            <a href="{{ settings.social_5_url }}">
+              <i class="icofont icofont-social-{{ settings.social_5_name }}"></i>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+
+
+
+
+  {% if section.settings.blog_search_bar_enable %}
+  <div class="sidebar-widget mb-50">
+    {% if settings.search_title != blank %}
+    <h3 class="sidebar-title">{{ settings.search_title }}</h3>
+    {% endif %}
+    <div class="sidebar-search">
+      <form action="/search" method="get" role="search">
+        <input id="search" type="search" name="q" class="input-text" value="{{ search.terms | escape }}" placeholder="{{ settings.blog_search_placeholder }}">
+        <button type="submit">
+          <i class="ti-search"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+
+
+
+
+
+  {% if section.settings.recent_post_enable %}
+  <div class="sidebar-widget mb-50">
+    {% if settings.recent_post_title != blank %}
+    <h3 class="sidebar-title">{{ settings.recent_post_title }}</h3>
+    {% endif %}
+
+    <div class="sidebar-top-rated-all">
+      {% assign recent_post_limit = settings.recent_post_limit_handle %}
+      {% for article in blogs[blog.handle].articles limit: recent_post_limit %}
+      <div class="sidebar-top-rated mb-30">
+        <div class="single-top-rated">
+          <div class="top-rated-img">
+            <a href="{{ article.url }}"><img src="{{ article | img_url: '140x' }}" alt=""></a>
+          </div>
+          <div class="top-rated-text">            
+            <span>{{ article.published_at | date: "%b %d, %Y" }}</span>
+            <h4><a href="{{ article.url }}">{{ article.title }}</a></h4>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+  {% endif %}
+
+
+
+  {% if section.settings.tags_enable and blog.all_tags.size > 0 %}
+  <div class="sidebar-widget mb-40">
+    {% if settings.blog_tags_title != blank %}
+    <h3 class="sidebar-title">{{ settings.blog_tags_title }}</h3>
+    {% endif %}
+    <div class="blog-tags-style">
+      <ul>
+        {% assign tags_list_limit = settings.blog_tags_list_limit_handle %}
+        {% for tag in blog.all_tags limit: tags_list_limit %}
+        <li><a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="{% if current_tags contains tag %}active{% endif %}">{{ tag }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+</div>

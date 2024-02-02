@@ -1,0 +1,85 @@
+<div class="custom-html padding-width-1" id="section-{{ section.id }}" 
+     style="background-color: {{ section.settings.cl_ban_bg_color }};
+            padding-top: {{ section.settings.cl_ban_padding_top }}px;
+            padding-bottom: {{ section.settings.cl_ban_padding_bottom }}px;">
+  <div class="container">
+    {%- if section.settings.section_title != '' or section.settings.section_sub_title != '' -%}
+    <div class="row mb-50">
+      <div class="col-xs-12">
+        <div class="section__title--2">
+          {%- if section.settings.section_title != '' -%}
+          <h2 class="title__line">{{ section.settings.section_title }}</h2>
+          {% endif %}
+          {%- if section.settings.section_sub_title != '' -%}
+          <p>{{ section.settings.section_sub_title }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    {% endif %} 
+    <div class="row">
+      <div class="col-md-12">
+        <div class="custom-html-content">
+          {{ pages[section.settings.custom_html].content }}
+        </div>
+      </div>
+    </div>	
+  </div>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Custom HTML",
+    "settings": [
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Heading",
+          "default": "Demo Haeding"	
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Subheading",
+          "default": "Demo Subheading",
+		  "info": "Use <br> for line break"
+      	},
+		{
+          "type": "page",
+          "id": "custom_html",
+          "label": "Select Page",
+          "info": "[Create a page](\/admin\/pages\/new)"
+        },
+        {
+          "type": "header",
+          "content": "Section Settings"
+        },
+        {
+          "type": "range",
+          "id": "cl_ban_padding_top",
+          "label": "Section Padding Top",
+          "max": 150,
+          "min": 0,
+          "step": 5,
+          "default": 75
+        },
+        {
+          "type": "range",
+          "id": "cl_ban_padding_bottom",
+          "label": "Section Padding Bottom",
+          "max": 150,
+          "min": 0,
+          "step": 5,
+          "default": 90
+        }
+	],
+	"presets": [
+		{
+			"name": "Custom HTML",
+			"category": "Custom Section"
+		}
+	]
+  }
+{% endschema %}

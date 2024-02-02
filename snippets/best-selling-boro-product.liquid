@@ -1,0 +1,79 @@
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+{% assign variant = product.selected_or_first_available_variant %}
+
+{% if product.available %}
+{% assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" %}
+{% endif %}
+
+
+
+
+
+<div class="product-wrapper" style="background-color: #f6f6f6">
+  <div class="product-img-4">
+    <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | img_url: 'master' }}" alt="{{ featured_image.alt }}">
+    </a>
+    <div class="product-action-right">
+
+      {% if product.description contains '[affiliate_link]' %}
+      {% assign affiliate_link_first = product.description | split:'[/affiliate_link]' | first %}
+      {% assign affiliate_link_final = affiliate_link_first | split:'[affiliate_link]' | last %}
+      <a class="animate-top" href="{{ affiliate_link_final }}" title="{{ settings.add_to_cart_text }}">
+        <i class="pe-7s-cart"></i>
+      </a>
+
+      {% elsif product.available %}
+      <a class="animate-top add_cart cart-item" title="{{ settings.add_to_cart_text }}" href="javascript:void(0);" onclick="{{ func }}; return false;">
+        <i class="pe-7s-cart"></i>
+        <i class="pe-7s-settings animated rotateIn infinite"></i>
+        <i class="pe-7s-check"></i>
+      </a>
+      {% else %}
+      <a href="#" class="disabled-add-to-cart animate-top" title="{{ settings.out_of_stock_text }}">
+        <i class="pe-7s-cart"></i>
+      </a>
+      {% endif %}
+
+      {% if customer %}
+      <a class="animate-left action--wishlist tile-actions--btn wishlist-btn cart-item" href="#" data-product-handle="{{ product.handle }}" title="Wishlist">
+        <i class="pe-7s-like"></i>
+        <i class="pe-7s-settings animated rotateIn infinite"></i>
+        <i class="pe-7s-check"></i>
+      </a>
+      {% else %}
+      <a class="animate-left" href="/account/login" title="Wishlist">
+        <i class="pe-7s-like"></i>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="product-content-5 text-center">
+    {% if settings.product_review_enable %}
+    <div class="product-rating-4 spr-badge-caption-none">
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+    </div>
+    {% endif %}
+
+    <h4><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h4>
+
+    {% if settings.product_type_enable %}
+    <span>{{ product.type }}</span>
+    {% endif %}
+
+    {% if on_sale %}
+    <h5>{{ product.price | money }}</h5> <del>{{ product.compare_at_price | money }}</del>
+    {% else %}
+    <h5>{{ product.price | money }}</h5>
+    {% endif %}
+  </div>
+</div>

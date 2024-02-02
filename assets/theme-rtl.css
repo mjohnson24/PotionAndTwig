@@ -1,0 +1,818 @@
+/* 86 of 578 CSS properties converted by rtl.daskhat.ir 
+These properties should be override originals. 
+just load rtl css file after original css file.*/ 
+
+body {
+  direction:rtl;
+}
+
+/*column rtl css*/
+.col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12,
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12,
+.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12,
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
+  float: right;
+}
+
+/* rtl css */
+.furniture-search form button, .cart-dropdown, .furniture-login ul li::before {
+  right: auto;
+}
+.furniture-search form button {
+  left: 30px;
+}
+.cart-dropdown {
+  left: 0;
+}
+.furniture-login ul li::before {
+  left: -10px;
+}
+.furniture-content *, .discount-details-wrapper, .services-content, .footer-widget, .slider-content-book, .blog-info {
+  float: right;
+  text-align: right;
+  clear: both;
+}
+.slider-animation > p {
+  width: 100%;
+}
+.services-content {
+  margin-right: 25px;
+}
+.container-fluid .footer-widget .subscribe-form-5 .mc-form .clear {
+  left: 0;
+  right: auto;
+}
+.ml-7 {
+  margin-right: 7px;
+}
+#scrollUp {
+  left: 12px;
+  right: auto;
+}
+.furniture-search form input {
+  padding-right: 27px;
+  padding-left: 60px;
+}
+.electronics-login-register ul li a::before {
+  left: -37px;
+  right: auto;
+}
+li.curr.currency.ml-0 {
+  padding-left: 0;
+  margin-right: 0;
+  padding-right: 70px;
+}
+.electronics-login-register ul li a i, .electronics-login-register ul li a span {
+  margin-left: 10px;
+  margin-right: 0;
+}
+.new-top-content {
+  text-align: right;
+  margin-right: 20px;
+}
+.product-price .old-price span {
+  margin-left: 10px;
+  margin-right: 0;
+}
+.footer-widget.ft_map {
+  width: 100%;
+}
+.food-info-icon {
+  margin-left: 10px;
+  margin-right: 0;
+}
+.new-top-wrapper {
+  padding-right: 0;
+}
+.product-content-7 {
+  margin-left: 0;
+  margin-right: 30px;
+}
+.notification-icon > button {
+  margin: 9px 53px 5px 0px;
+}
+.notification-icon.notification-icon-2 > button {
+  margin: 9px 169px 5px 0;
+}
+.menu-style-4 nav > ul > li:last-child {
+  margin: 0 64px 0 0;
+}
+.footer-widget-title-3::after, .footer-widget-title-6:before, .food-about > p:before {
+  right: 0;
+  left: auto;
+}
+.category-heading-2 > h3 i {
+  right: 20px;
+  left: auto;
+}
+.notification-pera-graph > p, .notification-pera-graph.notification-pera-graph-2 p, .notification-pera-graph-3 p {
+  color: #8185a0;
+  margin-left: 54px;
+}
+.footer-widget .subscribe-form {
+  padding: 0;
+}
+.slider-content.slider-content-style-fashion {
+  text-align: right;
+  left: auto;
+}
+.header-login ul li {
+  margin-left: 18px;
+  margin-right: 0;
+}
+.header-login ul li::after, .furits-login li::after {
+  left: -12px;
+  right: auto;
+}
+.ezone_currency .dropdown-toggle::after {
+  margin-left: 0;
+  margin-right: 50px;
+}
+.fashion-banner-content, .single-menu-product, .new-top-title, .section-title-5, .fexible-content, .slider-content-4, .product-content, .section-title-11, 
+.furits-banner-content, .single-fruits-choose, .fruits-services-content, .coundown-wrapper, .top-seller-wrapper, .fruits-newsletter-title, .fruits-services-img, 
+.slider-content-5, .offer-details-wrapper, .product-content-hanicraft, .newsletter-content, .product-details.single_product, .sidebar-widget, .contact-info-wrapper, 
+.contact-message, .product-list-info, .blog-info-wrapper, .blog-details-info, .button-box, .menu-hover ul li .single-dropdown a, .shop-menu .category-dropdown-style ul a,
+.categories-subtitle, .qwick-view-right, .description-review-text .tab-pane p, .tab-content ul, .tab-content ol, .tab-content ul li, .tab-content ol li, 
+.single_product ul, .single_product ol, .single_product ul li, .single_product ol li, #exampleModal ul, #exampleModal ul li, #exampleModal li, #exampleModal ol {
+  text-align: right;
+}
+.slinky-theme-default .next::after {
+  margin-left: 0;
+  margin-right: 1em;
+}
+.food-services-padding1::before {
+  left: -510px;
+  right: auto;
+}
+.menu-product-content {
+  margin-left: 0;
+  margin-right: 35px;
+}
+.fruits-choose-serial {
+  margin-right: 0;
+  margin-left: 30px;
+}
+.furits-login li {
+  margin-right: 18px;
+}
+.fruits-services-img {
+  margin-right: 0;
+  margin-left: 30px;
+}
+.top-seller-img {
+  margin-right: 0;
+  margin-left: 25px;
+}
+.handi_noti .notification-icon-3 button {
+  margin: 1px 405px 0 0;
+}
+.header_handi .header-cart-4 {
+  margin-left: 0;
+  margin-right: 50px;
+}
+.handicraft-search .handicraft-content.open {
+  left: 100%;
+  right: auto;
+}
+.offer-price {
+  margin-right: 0;
+  margin-left: 48px;
+}
+.footer-widget-title-4::before {
+  right: 0;
+  left: auto;
+}
+.footer-about > p {
+  padding-right: 0;
+}
+.swatch-element label, .swatch-element.color > label {
+  float: right;
+  margin-right: 0;
+  margin-left: 20px;
+}
+.header-cart.cart_other_page {
+  margin-top: -1px;
+}
+.breadcrumb-content li a::after {
+  left: 0;
+  right: auto;
+}
+.breadcrumb-content li a {
+  padding-right: 0;
+  padding-left: 18px;
+}
+.shop-selector label {
+  margin-left: 15px;
+}
+.shop-selector select {
+  background-position: left !important;
+}
+.sidebar-categories li a span {
+  float: left;
+}
+.product-color > ul li {
+  float: right;
+  margin-left: 20px;
+  margin-right: 0;
+}
+.product-size li {
+  margin-left: 20px;
+  margin-right: 0;
+}
+.top-rated-text {
+  margin-right: 20px;
+  margin-left: 0;
+}
+.goal-wrapper > p {
+  padding-left: 30px;
+  padding-right: 0;
+}
+.product-tags ul li {
+  margin: 0 0 0 10px;
+}
+.product-list-cart {
+  margin-left: 20px;
+  margin-right: 0;
+}
+.shop-tab a {
+  margin-left: 0;
+  margin-right: 10px;
+}
+.product-content-list {
+  margin-left: 0;
+  margin-right: 30px;
+}
+.blog-meta ul li {
+  margin-right: 0;
+  margin-left: 28px;
+}
+.blog-meta ul li::after {
+  left: -17px;
+  right: auto;
+}
+.blog-meta ul li:last-child {
+  margin-left: 0px;
+}
+.leave-btn button i {
+  margin-left: 4px;
+  margin-right: 0;
+}
+.categories-subtitle::before {
+  right: 0;
+  left: auto;
+}
+.qwick-view-left {
+  margin-right: 0;
+  margin-left: 30px;
+}
+.spr-badge-starrating {
+  margin: 0 0 0 3px !important;
+}
+.product-details-small a:last-child {
+  margin-right: 12px;
+}
+.product-details-small a:first-child {
+  margin-right: 0;
+}
+.hanicraft-action a::before {
+    height: 38px;
+    left: -10px;
+    right: auto;
+}
+.subscribe-form-4 .mc-form .clear {
+    left: 22px;
+    right: auto;
+}
+.category-menu-dropdown.shop-menu,.single-dropdown {
+    left: auto;
+    right: 0;
+}
+.footer-about li {
+    margin-right: 0;
+    margin-left: 15px;
+}
+.footer-menu li {
+    margin-right: 0;
+    margin-left: 10px;
+}
+  
+  .header-cart-4 > a span {
+    left: auto;
+    right: 18px;
+}
+  .sidebar-search form > button {
+    right: auto;
+    left: 0;
+}
+.sidebar-search form input {
+    padding-left: 55px;
+    padding-right: 15px;
+
+}
+.breadcrumb-content li a::after {
+    display: none;
+}
+.breadcrumb-content li a {
+    padding-left: 10px;
+}
+.subscribe-form .mc-form .clear {
+    right: auto;
+    left: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* rtl responsive css */
+
+/* Extra large desktop :1600px. */
+@media (min-width: 1600px) {
+
+
+
+
+
+}
+
+
+
+/* large desktop :1366px. */
+@media (min-width: 1200px) and (max-width: 1600px) {
+  .category-menu-list > ul > li {
+    padding-right: 70px !important;
+    padding-left: auto !important;
+  }
+  .category-menu-list > ul > li > a i:first-child {
+    left: auto !important;
+    right: 30px !important;
+  }
+  .category-heading-2 > h3 {
+    margin-right: 40px;
+    margin-left: auto;
+  }
+  .category-heading-2 > h3 i {
+    left: 20px;
+    right: auto;
+  }
+  .electronics-login-register ul li a::before {
+    left: -72px;
+  }
+
+
+}
+
+
+
+/* Normal desktop :1366. */
+@media (min-width: 1200px) and (max-width: 1600px) {
+  .position-slider-img.content_right {
+    right: 3px !important;
+    left: auto !important;
+  }
+  .ezone_header_fashion .category-menu-dropdown.shop-menu.header_fashion_cat {
+    right: -220px;
+    left: auto;
+  }
+  .footer-widget .subscribe-form-5 .mc-form .clear {
+    left: 20px;
+    right: auto;
+  }
+
+
+
+
+
+
+}
+
+
+
+
+/* 992px */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .electronics-login-register ul li a::before {
+    display: none;
+  }
+  .header-contact-info li {
+    margin-right: 0;
+    margin-left: 35px;
+  }
+  .header-contact-info li::before {
+    left: -23px;
+    right: auto;
+  }
+  .notification-icon.notification-icon-2 > button {
+    margin: 9px 70px 5px 0;
+  }
+
+
+}
+
+
+
+/* Tablet desktop :768px. */
+@media (min-width: 768px) and (max-width: 991px) {
+  .mean-container a.meanmenu-reveal {
+    left: 0;
+    right: auto;
+  }
+  .header-top-furniture .header-cart {
+    margin-right: 10px;
+    margin-left: 80px;
+  }
+  .services-content {
+    margin-right: 0;
+  }
+  .services-img {
+    float: right;
+  }
+  .header-cart-2 {
+    margin-left: 70px;
+    margin-right: 0;
+  }
+  .same-style-text .cart-dropdown, .footer-widget-title-3::after {
+    right: 0;
+    left: auto;
+  }
+  .subscribe-form-3 {
+    padding-right: 0;
+  }
+  .notification-icon > button {
+    margin: 9px 53px 5px 0px;
+  }
+  .mean-container a.meanmenu-reveal {
+    left: auto;
+    right: 0;
+  }
+  .header_1 .mean-container a.meanmenu-reveal {
+    left: 0;
+    right: auto;
+  }
+  .header_1 .header-cart {
+    margin-left: 82px;
+  }
+  .header_top_food a.meanmenu-reveal, .furits-header .mean-container a.meanmenu-reveal, .header_top_sports .mean-container a.meanmenu-reveal  {
+    left: 0;
+    right: auto;
+  }
+  .furits-header .header-cart-4 {
+    margin-right: 0;
+    margin-left: 40px;
+  }
+  .header_top_fur .mean-container a.meanmenu-reveal {
+    left: 0;
+    right: auto;
+  }
+  
+  .mean-container a.meanmenu-reveal {
+    left: 0;
+    right: auto;
+}
+.header_handi .header-cart-4 {
+    margin-left: 50px;
+    margin-right: 0;
+}
+  
+    
+  .header-cart-4 > a span {
+    left: auto;
+    right: 18px;
+}
+  
+  
+  
+
+
+
+}
+
+
+
+/* small mobile :320px. */
+@media (max-width: 767px) {
+  .header-top-furniture .header-cart {
+    margin-right: 10px;
+    margin-left: 45px;
+  }
+  .mean-container a.meanmenu-reveal {
+    left: 0;
+    right: auto;
+  }
+  .furniture-login, .furniture-wishlist {
+    justify-content: center;
+  }
+  .discount-content > h2 {
+    display: block;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 8px;
+  }
+  .services-content {
+    margin-right: 0;
+    text-align: center;
+    margin-bottom: 20px;
+    float: none;
+  }
+  .electronics-login-register ul li a::before {
+    left: -72px;
+    right: auto;
+  }
+  .header-cart-2 {
+    margin-left: 46px;
+    margin-right: 0;
+  }
+  .new-top-content {
+    text-align: center;
+    margin-right: 0;
+  }
+  .discount-right {
+    margin: 50px 0 0;
+  }
+  .new-top {
+    margin-right: 0;
+  }
+  .product-price {
+    justify-content: center;
+  }
+  .new-top-img > a {
+    margin: 0 auto;
+  }
+  .new-top-title {
+    text-align: center;
+  }
+  .blog-wrapper {
+    display: block;
+    float: left;
+    margin-bottom: 30px;
+  }
+  .discount-area {
+    padding-bottom: 0 !important;
+  }
+  .header-info {
+    text-align: center;
+  }
+  .notification-pera-graph > p, .notification-pera-graph.notification-pera-graph-2 p, .notification-pera-graph-3 p {
+    text-align: center;
+  }
+  .notification-btn-close {
+    justify-content: center;
+  }
+  .best-selling-right .product-content-6, .product-content-electro2, .product-content-7, .product-img-5 {
+    text-align: right;
+  }
+  .product-content-7 {
+    margin-right: 0;
+  }
+  .header-contact-info li {
+    display: block;
+    margin-right: 0;
+    text-align: center;
+  }
+  .header-contact-info li::before {
+    display: none;
+  }
+  .same-style-text .cart-dropdown, .footer-widget-title-3::after {
+    right: 0;
+    left: auto;
+  }
+  .footer-services-icon {
+    margin-left: 30px;
+  }
+  .mean-container a.meanmenu-reveal {
+    left: auto;
+    right: 0;
+  }
+  .notification-icon.notification-icon-2 > button {
+    margin: 9px 53px 5px 0px;
+  }
+  .header_top_food a.meanmenu-reveal, .header_top_sports .mean-container a.meanmenu-reveal {
+    left: 0;
+    right: auto;
+  }
+  .subscribe-form-7 .clear {
+    float: right;
+  }
+  .header_top_food .mean-container a.meanmenu-reveal {
+    top: -58px;
+  }
+  .header_top_food .cart-dropdown {
+    left: -32px;
+  }
+  .furits-header .handicraft-menu .mean-container a.meanmenu-reveal {
+    left: 0;
+    right: auto;
+  }
+  .furits-header.header-cart-4 {
+    margin-left: 40px;
+  }
+  .furits-header .header-cart-4 .cart-dropdown {
+    left: -26px;
+    right: auto;
+  }
+  .subscribe-form-furits .clear {
+    float: right;
+  }
+  .furits-login-cart {
+    margin-right: 0;
+    margin-left: 50px;
+  }
+  .header_top_fur .mean-container a.meanmenu-reveal {
+    left: 0;
+    right: auto;
+  }
+
+  .mean-container a.meanmenu-reveal {
+    left: 0;
+    right: auto;
+}
+.header_handi .header-cart-4 {
+    margin-left: 42px;
+    margin-right: 0;
+}
+  .header-cart-4 > a span {
+    left: auto;
+    right: 18px;
+}
+  .handicraft-search .search-toggle {
+    margin: 50px 0 40px 2px;
+}
+  .shop-selector {
+    text-align: right;
+margin-bottom: 15px;
+  }
+
+.header-cart-4 .cart-dropdown {
+    right: auto;
+    left: -42px;
+
+}
+  .handicraft-search .handicraft-content.open {
+    left: -71px;
+    right: auto;
+}
+  
+  
+  
+  
+  
+  
+}
+
+
+
+@media only screen and (min-width: 360px) and (max-width: 375px) {
+  .ezone_currency {
+    left: 16px !important;
+    right: auto !important;
+  }
+
+}
+
+
+
+@media only screen and (min-width: 375px) and (max-width: 384px) {
+  .ezone_currency {
+    left: 16px !important;
+    right: auto !important;
+  }
+
+
+
+}
+
+
+
+
+@media only screen and (min-width: 384px) and (max-width: 412px) {
+  .ezone_currency {
+    left: 16px !important;
+    right: auto !important;
+  }
+
+
+
+
+}
+
+
+
+
+@media only screen and (min-width: 412px) and (max-width: 414px) {
+  .ezone_currency {
+    left: 16px !important;
+    right: auto !important;
+  }
+
+
+
+
+}
+
+
+
+@media only screen and (min-width: 414px) and (max-width: 480px) {
+  .ezone_currency {
+    left: 16px !important;
+    right: auto !important;
+  }
+  .container-fluid .footer-widget .subscribe-form-5 .mc-form .clear {
+    left: 20px;
+    right: auto;
+  }
+
+
+
+
+
+
+}
+
+
+
+
+
+@media (min-width: 1024px) and (max-width: 1170px) {
+  .container-fluid .footer-widget .subscribe-form-5 .mc-form .clear {
+    left: 20px;
+    right: auto;
+  }
+  .subscribe-form-5 form input {
+    width: 250px;
+    padding-right: 30px;
+    padding-left: 0;
+  }
+  .container-fluid .footer-widget .subscribe-form-5 .mc-form .clear {
+    left: 5px;
+  }
+
+
+}
+
+
+
+
+
+
+/* Large Mobile :480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .position-slider-img {
+    left: 70px;
+    right: auto;
+  }
+  .position-slider-img.content_right {
+    right: 60px !important;
+    left: auto !important;
+  }
+  li.curr.currency.ml-0 {
+    padding-right: 22px;
+    padding-left: auto;
+  }
+  .handicraft-menu .mean-container a.meanmenu-reveal {
+    left: 0;
+    right: auto;
+  }
+  .handicraft-search .handicraft-content.open {
+    left: -102px;
+    right: auto;
+  }
+  .header-cart-4 {
+    margin-right: 15px;
+    margin-left: auto;
+  }
+  .header-cart-4 .cart-dropdown {
+    left: -51px;
+    right: auto;
+  }
+  .sports-slider-content-middele.sports-second-img {
+    right: 124px;
+    left: auto;
+  }   
+  .owl-carousel .owl-item .sports-slider-content-middele img {
+    margin-right: 0;  
+    margin-left: auto;  
+  }
+  .electronics-login-register ul li a::before {
+    left: -50px;
+  }
+  .header-top.header_5, .header-top {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+  }
+.handicraft-search .handicraft-content.open {
+    left: -82px;
+}
+
+  
+  
+
+}
+

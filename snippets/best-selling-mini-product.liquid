@@ -1,0 +1,71 @@
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+{% assign variant = product.selected_or_first_available_variant %}
+
+{% if product.available %}
+{% assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" %}
+{% endif %}
+
+
+
+<div class="new-top-wrapper mb-50">
+  <div class="new-top-img">
+    <a href="{{ product.url | within: collection }}"><img src="{{ product.featured_image.src | img_url: '160x' }}" alt="{{ featured_image.alt }}"></a>
+    <div class="discount-book-cart">
+
+      {% if product.description contains '[affiliate_link]' %}
+      {% assign affiliate_link_first = product.description | split:'[/affiliate_link]' | first %}
+      {% assign affiliate_link_final = affiliate_link_first | split:'[affiliate_link]' | last %}
+      <a class="animate-left add-style-2" href="{{ affiliate_link_final }}" title="{{ settings.add_to_cart_text }}"><i class="ti-shopping-cart"></i></a>
+
+      {% elsif product.available %}
+      <a class="animate-left add-style-2 cart-item" href="javascript:void(0);" onclick="{{ func }}; return false;">
+        <i class="ti-shopping-cart"></i>
+        <i class="ti-settings animated rotateIn infinite"></i>
+        <i class="ti-check"></i>
+      </a>
+      {% else %}
+      <a class="animate-left add-style-2 disabled-add-to-cart" href="#" title="{{ settings.out_of_stock_text }}"><i class="ti-shopping-cart"></i></a>
+      {% endif %}
+    </div>
+  </div>
+
+
+  <div class="new-top-content">
+    <h4><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h4>
+
+    {% if product.description contains '[book_author]' %}         
+    {% assign book_author_first = product.description | split:'[/book_author]' | first %}
+    {% assign book_author_final = book_author_first | split:'[book_author]' | last %}
+    <span>{{ book_author_final }}</span>
+    {% endif %}
+
+    <div class="product-price discount_product_price">
+      {% if on_sale %}
+      <div class="old-price">
+        <span>{{ product.compare_at_price | money }}</span>
+      </div>      
+      <div class="new-price">
+        <span>{{ product.price | money }}</span>
+      </div>
+      {% else %}
+      <div class="new-price">
+        <span>{{ product.price | money }}</span>
+      </div>
+      {% endif %}
+    </div>
+
+
+    <div class="product-rating-3 spr-badge-caption-none">
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+    </div>
+  </div>
+</div>

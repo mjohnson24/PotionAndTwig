@@ -1,0 +1,101 @@
+<div class="categories-menu">
+  <div class="category-heading">
+    <h3>{{ section.settings.cat_menu_title }}</h3>
+  </div>
+
+  <div class="category-menu-list">
+    <ul>
+      {% assign category_menu = section.settings.category_menu_handle %}
+      {% for link in linklists[category_menu].links %}
+      {% assign childlink_handle = link.title | handle %}
+      {% if linklists[childlink_handle] and linklists[childlink_handle].links.size > 3 %}
+      <li><a href="{{ link.url }}">{{ link.title }} <i class="pe-7s-angle-right"></i></a>
+        <div class="category-menu-dropdown">
+          {% for childlink in linklists[childlink_handle].links %}
+          {% assign grand_childlink_handle = childlink.title | handle %}
+          {% if linklists[grand_childlink_handle] and linklists[grand_childlink_handle].links.size > 0 %}
+          <div class="category-dropdown-style category-common4 mb-40">
+            <h4 class="categories-subtitle"> {{ childlink.title }}</h4>
+            <ul>
+              {% for grand_childlink_handle in linklists[grand_childlink_handle].links %}  
+              <li><a href="{{ grand_childlink_handle.url }}">{{ grand_childlink_handle.title }}</a></li>
+              {% endfor %} 
+            </ul>
+          </div>
+          {% else childlink.type == "collection_link" and childlink.object.image %}
+          <div class="mega-banner-img"><a href="{{ childlink.url }}"><img src="{{ childlink.object.image | img_url: 'master' }}" alt="" /></a></div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </li>
+
+      {% elsif linklists[childlink_handle] and linklists[childlink_handle].links.size > 0 %}
+      <li><a href="{{ link.url }}">{{ link.title }} <i class="pe-7s-angle-right"></i></a>
+        <div class="category-menu-dropdown">
+          {% for childlink in linklists[childlink_handle].links %}
+          {% assign grand_childlink_handle = childlink.title | handle %}
+          {% if linklists[grand_childlink_handle] and linklists[grand_childlink_handle].links.size > 0 %}
+          <div class="category-dropdown-style category-common3">
+            <h4 class="categories-subtitle"> {{ childlink.title }}</h4>
+            <ul>
+              {% for grand_childlink_handle in linklists[grand_childlink_handle].links %}  
+              <li><a href="{{ grand_childlink_handle.url }}">{{ grand_childlink_handle.title }}</a></li>
+              {% endfor %} 
+            </ul>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </li>
+
+      {% else %}
+      <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="sidebarmenu-wrapper">
+    <div class="sidebarmenu-style">
+      <nav class="menu">
+        <ul>
+          {% assign category_menu = section.settings.category_menu_handle %}
+          {% for link in linklists[category_menu].links %}
+          {% assign childlink_handle = link.title | handle %}
+          {% if linklists[childlink_handle] and linklists[childlink_handle].links.size > 0 %}
+          <li class="cr-dropdown"><a href="{{ link.url }}">{{ link.title }} <i class="pe-7s-angle-down menu_icon"></i></a>
+            <ul>
+              {% for childlink in linklists[childlink_handle].links %}
+              {% assign grand_childlink_handle = childlink.title | handle %}
+              {% if linklists[grand_childlink_handle] and linklists[grand_childlink_handle].links.size > 0 %}
+              <li class="cr-sub-dropdown sub-style"><a href="{{ childlink.url }}">{{ childlink.title }}<i class="pe-7s-angle-down menu_icon"></i></a>
+                <ul>
+                  {% for grand_childlink_handle in linklists[grand_childlink_handle].links %}  
+                  <li><a href="{{ grand_childlink_handle.url }}">{{ grand_childlink_handle.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
+              
+              
+              <!--Mobile menu image with category menu-->
+              {% elsif childlink.type == "collection_link" and childlink.object.image %}
+              <li class="mega-banner-img cat_mobile_img"><a href="{{ childlink.url }}"><img src="{{ childlink.object.image | img_url: 'master' }}" alt="" /></a></li>
+             
+              
+              {% else %}
+              <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </li>
+          {% else %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+
+</div>

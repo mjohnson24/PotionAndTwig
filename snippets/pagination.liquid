@@ -1,0 +1,40 @@
+{% if paginate.pages > 1 %}
+<ul>
+  {% if paginate.previous %}
+      {%- if settings.enable_rtl -%}
+        <li class="next"><a href="{{ paginate.previous.url }}"><i class="ti-angle-right"></i></a></li>
+      {%- else -%}
+        <li class="next"><a href="{{ paginate.previous.url }}"><i class="ti-angle-left"></i></a></li>
+      {%- endif -%}
+  {% else %}
+  <li class="disabled prev"></li>
+  {% endif %}
+
+
+  {% for part in paginate.parts %}
+  {% if part.is_link %}
+  <li>
+    <a href="{{ part.url }}" title="">{{ part.title }}</a>
+  </li>
+  {% else %}
+
+  {% if part.title == paginate.current_page %}
+  <li class="active"><a href="">{{ part.title }}</a></li>
+  {% else %}
+  <li><a href="">{{ part.title }}</a></li>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+
+
+  {% if paginate.next %}
+      {%- if settings.enable_rtl -%}
+      	<li class="next"><a href="{{ paginate.next.url }}" title="{{ paginate.next.title }}"><i class="ti-angle-left"></i></a></li>
+      {%- else -%}
+      	<li class="next"><a href="{{ paginate.next.url }}" title="{{ paginate.next.title }}"><i class="ti-angle-right"></i></a></li>
+      {%- endif -%}
+  {% else %}
+  <li class="disabled next"></li>
+  {% endif %}
+</ul>
+{% endif %}

@@ -1,0 +1,133 @@
+<div class="video-area bg-img" data-section-id="{{ section.id }}" 
+     style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;
+            background-image: url({{ section.settings.section_bg_img | img_url: 'master' }});">
+
+  <div class="container">
+    <div class="row">
+      <div class="ml-auto col-lg-6">
+        <div class="watch-video-content">
+          {% if section.settings.banner_title != '' %}
+          <h2 style="color: {{ section.settings.banner_title_color }}">{{ section.settings.banner_title }}</h2>
+          {% endif %}
+
+          {% if section.settings.banner_description != '' %}
+          <p style="color: {{ section.settings.banner_description_color }}">{{ section.settings.banner_description }}</p>
+          {% endif %}
+
+          {% if section.settings.video_url %}
+          <div class="video-btn">
+            <a class="video-popup" href="{{ section.settings.video_url }}"
+               style="background-color: {{ section.settings.video_btn_bg_color }}; 
+                      color: {{ section.settings.video_btn_icon_color }};">
+              
+              <i class="ti-control-play"></i>
+            </a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script>
+  /* magnificPopup video popup */
+  $('.video-popup').magnificPopup({
+    type: 'iframe'
+  });
+</script>
+
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Video Banner",
+    "settings": [
+		{
+          "type": "text",
+          "id": "banner_title",
+          "label": "Banner Title",
+          "default": "Explore <br>Every part of this <br>Watch.",
+          "info": "Use '<br>' tag for line break"
+      	},
+		{
+          "type": "textarea",
+          "id": "banner_description",
+          "label": "Banner Description",
+          "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+      	},
+		{
+          "type": "url",
+          "id": "video_url",
+          "label": "Video URL"
+      	},
+        {
+          "type": "header",
+          "content": "Section Settings"
+        },
+		{
+          "type": "image_picker",
+          "id": "section_bg_img",
+          "label": "Section BG Image"
+      	},
+        {
+          "type": "text",
+          "id": "padding_top",
+          "label": "Section Padding Top",
+          "default": "140",
+          "info": "Don't add 'px' unit. Just Put Number"
+        },
+        {
+          "type": "text",
+          "id": "padding_bottom",
+          "label": "Section Padding Bottom",
+          "default": "135",
+          "info": "Don't add 'px' unit. Just Put Number"
+        },
+		{
+			"type": "header",
+            "content": "Color [See More Color](https:\/\/www.w3schools.com/colors/colors_picker.asp)"
+        },
+		{
+          "type": "color",
+          "id": "banner_title_color",
+          "label": "Banner Title Color"
+      	},
+		{
+          "type": "color",
+          "id": "banner_description_color",
+          "label": "Banner Description Color"
+      	},
+		{
+          "type": "color",
+          "id": "video_btn_icon_color",
+          "label": "Button Icon Color"
+      	},
+		{
+          "type": "color",
+          "id": "video_btn_bg_color",
+          "label": "Button BG Color"
+      	}
+	],
+	"presets": [
+    	{
+          "name": "Video Banner",
+          "category": "Banner"
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

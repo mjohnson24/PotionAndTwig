@@ -1,0 +1,418 @@
+<div class="blog-area ezone_blog_m" data-section-id="blog_{{ section.id }}" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row {% if section.settings.sidebar_position == 'left' %}flex-row-reverse{% endif %}">
+
+      {% assign blogs_limit = section.settings.blog_limit_handle %}
+      {% paginate blog.articles by blogs_limit %} 
+      <div class="{% if section.settings.blog_sidebar_enable %}col-lg-8{% else %}col-lg-12{% endif %}">
+        <div class="blog-mesonry">
+          <div class="row grid">
+            {% for article in blog.articles %}
+            <div class="col-lg-{{ section.settings.blog_column }} col-md-{{ section.settings.blog_column_md }} grid-item">
+              {% include 'blog-grid-item' %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        {% if paginate.pages > 1 %}
+        <div class="row">
+          <div class="col-12">
+            <div class="pagination-style mt-20 text-center">
+              {% include 'pagination' %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endpaginate %}
+
+
+      {% if section.settings.blog_sidebar_enable %}
+      <div class="col-lg-4">
+        {% include 'blog-sidebar' %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+
+{%- include 'section-style' -%}
+
+
+{% schema %}
+  {
+    "name": "Blog Page",
+    "settings": [
+		{
+          "type": "select",
+          "id": "blog_column",
+          "label": "Blog Column for Large device",
+		  "options":[
+                {
+                  "label": "1",
+                  "value": "12"
+                },
+                {
+                  "label": "2",
+                  "value": "6"
+                },
+                {
+                  "label": "3",
+                  "value": "4"
+                },
+                {
+                  "label": "4",
+                  "value": "3"
+                },
+                {
+                  "label": "6",
+                  "value": "2"
+                }
+			],
+			"default": "6"
+      	},
+		{
+          "type": "select",
+          "id": "blog_column_md",
+          "label": "Blog Column for Medium device",
+		  "options":[
+                {
+                  "label": "1",
+                  "value": "12"
+                },
+                {
+                  "label": "2",
+                  "value": "6"
+                },
+                {
+                  "label": "3",
+                  "value": "4"
+                },
+                {
+                  "label": "4",
+                  "value": "3"
+                },
+                {
+                  "label": "6",
+                  "value": "2"
+                }
+			],
+			"default": "6"
+      	},
+		{
+          "type": "select",
+          "id": "blog_limit_handle",
+          "label": "Post Limit",
+		  "options":[
+				{
+					"label": "4 Blogs",
+					"value": "4"
+				},
+				{
+					"label": "6 Blogs",
+					"value": "6"
+				},
+				{
+					"label": "8 Blogs",
+					"value": "8"
+				},
+				{
+					"label": "9 Blogs",
+					"value": "9"
+				},
+				{
+					"label": "10 Blogs",
+					"value": "10"
+				},
+				{
+					"label": "12 Blogs",
+					"value": "12"
+				},
+				{
+					"label": "14 Blogs",
+					"value": "14"
+				},
+				{
+					"label": "15 Blogs",
+					"value": "15"
+				},
+				{
+					"label": "16 Blogs",
+					"value": "16"
+				},
+				{
+					"label": "18 Blogs",
+					"value": "18"
+				},
+				{
+					"label": "20 Blogs",
+					"value": "20"
+				},
+				{
+					"label": "21 Blogs",
+					"value": "21"
+				},
+				{
+					"label": "22 Blogs",
+					"value": "22"
+				},
+				{
+					"label": "24 Blogs",
+					"value": "24"
+				},
+				{
+					"label": "25 Blogs",
+					"value": "25"
+				},
+				{
+					"label": "Unlimited",
+					"value": "100"
+				}
+			],
+			"default": "12",
+			"info": "How many products show on per page"
+      	},
+		{
+			"type": "header",
+			"content": "Blog Sidebar"
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_sidebar_enable",
+			"label": "Show Sidebar",
+			"default": true
+		},
+		{
+			"type": "radio",
+			"id": "sidebar_position",
+			"label": "Blog Sidebar Position",
+			"options": [
+				{
+					"label": "Left",
+					"value": "left"
+				},
+				{
+					"label": "Right",
+					"value": "right"
+				}
+			],
+			"default": "left"
+		},
+		{
+			"type": "header",
+			"content": "Sidebar Widgets"
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_author_enable",
+			"label": "Show Author Section",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_search_bar_enable",
+			"label": "Show Searchbar",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "recent_post_enable",
+			"label": "Show Recent Posts",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "tags_enable",
+			"label": "Show Tags",
+			"default": true
+		}
+	 ],
+    "blocks": [
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

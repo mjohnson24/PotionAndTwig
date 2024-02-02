@@ -1,0 +1,73 @@
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+{% assign variant = product.selected_or_first_available_variant %}
+
+{% if product.available %}
+{% assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" %}
+{% endif %} 
+
+
+<div class="product-wrapper">
+  <div class="product-img-hanicraft">
+      <img src="{{ product.featured_image.src | img_url: '326x' }}" alt="{{ featured_image.alt }}">
+    
+
+    <!-- product new label/stiker with shortcode start -->
+    {% if product.description contains '[new_products]' %}      
+    {% assign new_products_first = product.description | split:'[/new_products]' | first %}
+    {% assign new_products_final = new_products_first | split:'[new_products]' | last %} 
+
+    {% comment %}Date calculate{% endcomment %}
+    {% assign date_pub_y = product.published_at | date:'%Y' %}
+    {% assign date_pub_d = product.published_at | date:'%j' %}
+    {% assign date_now_y = 'now' | date:'%Y' %}
+    {% assign date_now_d = 'now' | date:'%j' %}
+    {% assign dates_diff_y = date_now_y | minus: date_pub_y | times: 365 %}
+    {% assign dates_diff_d = date_now_d | minus: date_pub_d %}
+    {% assign dates_diff = dates_diff_y | plus: dates_diff_d %}
+    {% assign new_products_period = new_products_final | plus: 0 %}
+
+
+          
+    {% endif %}
+  </div>
+  <div class="product-content-hanicraft">
+    <h4>{{ product.title }}</h4>
+    {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: new_products %}
+   
+    
+    <input type="radio" name="product" value="{{ product.url }}.json" data-product-id="{{ variant.id }}" />
+  </div>
+  	
+   {% if product.metafields.my_fields.show_desc_instead_of_tags and product.metafields.my_fields.short_description %}
+    	<span>{{ product.metafields.my_fields.short_description }}</span>
+    {% else %}
+  {% if product.tags.size > 0 %}
+    <span style="text-align: center;display: block;">
+      {% assign isFirst = true %}
+      {% for product_tag in product.tags %}
+      {% if isFirst == false %},{% endif %}
+	  
+      {% comment %}
+      <!-- MODIFIED BY MARK JOHNSON TO REMOVE LINKS ON TAGS -->
+      	{% capture url %}/collections/all/{{ product_tag | handle }}{% endcapture %}{{ product_tag | link_to: url }}{% assign isFirst = false %}
+      {% endcomment %}
+      
+      {% capture url %}/collections/all/{{ product_tag | handle }}{% endcapture %}{{ product_tag }}{% assign isFirst = false %}
+      {% endfor %}
+    </span>
+    {% endif %}
+  {% endif %}
+</div>
+
+
+

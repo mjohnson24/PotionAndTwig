@@ -1,0 +1,20 @@
+<div class="notification-section {% if settings.notification_style == 'style_1' %}notification-section-padding notification-img ptb-10{% elsif settings.header_style == 'style_8' %}handi_noti notification-section-padding-2 notification-img-3 ptb-10{% elsif settings.notification_style == 'style_2' %}notification-section-padding notification-img-2 ptb-15{% else %}notification-section-padding-2 notification-img-3 ptb-10{% endif %}">
+  <div class="container-fluid">
+    <div class="notification-wrapper">
+
+      <div class="{% if settings.notification_style == 'style_1' %}notification-pera-graph{% elsif settings.notification_style == 'style_2' %}notification-pera-graph notification-pera-graph-2{% else %}notification-pera-graph-3{% endif %}">
+        <p>{{ settings.notification_text }}</p>
+      </div>
+
+      <div class="notification-btn-close">
+        <div class="{% if settings.notification_style == 'style_1' %}notification-btn{% elsif settings.notification_style == 'style_2' %}notification-btn notification-btn-2{% else %}notification-btn-3{% endif %}">
+          <a href="{{ settings.notification_button_url }}">{{ settings.notification_button_name }}</a>
+        </div>
+        <div class="notification-close {% if settings.notification_style == 'style_1' %}notification-icon{% elsif settings.notification_style == 'style_2' %}notification-icon notification-icon-2{% else %}notification-icon-3{% endif %}">
+          <button><i class="pe-7s-close"></i></button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

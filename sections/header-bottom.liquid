@@ -1,0 +1,513 @@
+{% include 'header-handicraft' %}
+
+
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+        {
+          "type": "radio",
+          "id": "cl_page_width",
+          "label": "Collection Page Width",
+          "options":[
+                {
+                  "label": "Full Wide",
+                  "value": "full_wide"
+                },
+                {
+                  "label": "Wide",
+                  "value": "wide"
+                }
+			],
+        	"default": "full_wide"
+        },
+		{
+			"type": "image_picker",
+			"id": "logo",
+			"label": "Logo for Index Page"
+		},
+		{
+          "type": "header",
+          "content": "Color"
+        },
+        {
+          "type": "color",
+          "id": "menu_color",
+          "label": "Menu Color",
+          "default": "#383838"
+        },
+        {
+          "type": "color",
+          "id": "menu_hover_color",
+          "label": "Menu Hover Color",
+          "default": "#c09578"
+        },
+        {
+          "type": "color",
+          "id": "sub_menu_color",
+          "label": "Sub Menu Color",
+          "default": "#383838"
+        },
+        {
+          "type": "color",
+          "id": "sub_menu_hover_color",
+          "label": "Sub Menu Hover Color",
+          "default": "#c09578"
+        },
+        {
+          "type": "color",
+          "id": "sub_menu_bg_color",
+          "label": "Sub Menu BG Color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "mega_menu_title_color",
+          "label": "Mega Menu Title Color",
+          "default": "#383838"
+        },
+        {
+          "type": "color",
+          "id": "mega_menu_title_border_bottom_color",
+          "label": "Mega Menu Title Border Bottom Color",
+          "default": "#c6c6c6"
+        },
+        {
+          "type": "color",
+          "id": "mega_menu_color",
+          "label": "Mega Menu Color",
+          "default": "#383838"
+        },
+        {
+          "type": "color",
+          "id": "mega_menu_hover_color",
+          "label": "Mega Menu Hover Color",
+          "default": "#c09578"
+        },
+        {
+          "type": "color",
+          "id": "mega_menu_bg_color",
+          "label": "Mega Menu BG Color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon Color",
+          "default": "#2a2b2c"
+        },
+        {
+          "type": "color",
+          "id": "search_input_text_color",
+          "label": "Search Input Text Color",
+          "default": "#333"
+        },
+        {
+          "type": "color",
+          "id": "search_input_bg_color",
+          "label": "Search Input BG Color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "search_input_border_color",
+          "label": "Search Input Border Color",
+          "default": "#ddd"
+        },
+        {
+          "type": "color",
+          "id": "counter_text_color",
+          "label": "Counter Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "counter_text_bg_color",
+          "label": "Counter Text BG Color",
+          "default": "#2c2c2c"
+        },
+        {
+          "type": "color",
+          "id": "cart_button_text_color",
+          "label": "Cart Button Text Color",
+          "default": "#070b21"
+        },
+        {
+          "type": "color",
+          "id": "cart_button_bg_color",
+          "label": "Cart Button BG Color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "cart_button_border_color",
+          "label": "Cart Button Border Color",
+          "default": "#666666"
+        },
+        {
+          "type": "color",
+          "id": "cart_button_text_hover_color",
+          "label": "Cart Button Text Hover Color",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "id": "cart_button_bg_hover_color",
+          "label": "Cart Button BG Hover Color",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "id": "cart_button_border_hover_color",
+          "label": "Cart Button Border Hover Color",
+          "default": "#000"
+        },
+		{
+          "type": "header",
+          "content": "Mobile Color"
+        },
+        {
+          "type": "color",
+          "id": "mobile_menu_icon_color",
+          "label": "Mobile Menu Icon Color",
+          "default": "#333"
+        },
+        {
+          "type": "color",
+          "id": "mobile_menu_close_icon_color",
+          "label": "Mobile Menu Close Icon Color",
+          "default": "#252525"
+        },
+        {
+          "type": "color",
+          "id": "mobile_menu_border_color",
+          "label": "Mobile Menu Border Color",
+          "default": "#333"
+        },
+        {
+          "type": "color",
+          "id": "mobile_menu_color",
+          "label": "Mobile Menu Color",
+          "default": "#242424"
+        },
+        {
+          "type": "color",
+          "id": "mobile_menu_hover_color",
+          "label": "Mobile Menu Hover Color",
+          "default": "#C09578"
+        },
+        {
+          "type": "color",
+          "id": "mobile_menu_bg_color",
+          "label": "Mobile Menu BG Color",
+          "default": "#f8f8f8"
+        },
+        {
+          "type": "color",
+          "id": "mobile_menu_border_top_color",
+          "label": "Mobile Menu Border Top Color",
+          "default": "#ddd"
+        },
+        {
+          "type": "color",
+          "id": "mobile_sub_menu_color",
+          "label": "Mobile Sub Menu Color",
+          "default": "#242424"
+        },
+        {
+          "type": "color",
+          "id": "mobile_sub_menu_hover_color",
+          "label": "Mobile Sub Menu Hover Color",
+          "default": "#C09578"
+        },
+        {
+          "type": "color",
+          "id": "mobile_sub_menu_border_top_color",
+          "label": "Mobile Sub Menu Border Top Color",
+          "default": "#ddd"
+        },
+        {
+          "type": "color",
+          "id": "mobile_mega_menu_color",
+          "label": "Mobile Mega Menu Color",
+          "default": "#242424"
+        },
+        {
+          "type": "color",
+          "id": "mobile_mega_menu_hover_color",
+          "label": "Mobile Mega Menu Hover Color",
+          "default": "#C09578"
+        },
+        {
+          "type": "color",
+          "id": "mobile_mega_menu_border_top_color",
+          "label": "Mobile Mega Menu Border Top Color",
+          "default": "#ddd"
+        },
+		{
+          "type": "textarea",
+          "id": "bottom_content_left",
+          "label": "Bottom content left"
+        },
+		{
+          "type": "textarea",
+          "id": "bottom_content_middle",
+          "label": "Bottom content middle"
+        },
+		{
+          "type": "textarea",
+          "id": "bottom_content_right",
+          "label": "Bottom content right"
+        },
+{
+          "type": "text",
+          "id": "menu_item_one_label",
+          "label": "Menu Item One Label"
+        },
+{
+          "type": "color",
+          "id": "menu_item_one_color",
+          "label": "Menu Item One Label Background Color",
+          "default": "#ddd"
+        },
+{
+          "type": "text",
+          "id": "menu_item_two_label",
+          "label": "Menu Item Two Label"
+        },
+{
+          "type": "color",
+          "id": "menu_item_two_color",
+          "label": "Menu Item Two Label Background Color",
+          "default": "#ddd"
+        },
+{
+          "type": "text",
+          "id": "menu_item_three_label",
+          "label": "Menu Item Three Label"
+        },
+{
+          "type": "color",
+          "id": "menu_item_three_color",
+          "label": "Menu Item Three Label Background Color",
+          "default": "#ddd"
+        },
+{
+          "type": "text",
+          "id": "menu_item_four_label",
+          "label": "Menu Item Four Label"
+        },
+{
+          "type": "color",
+          "id": "menu_item_four_color",
+          "label": "Menu Item Four Label Background Color",
+          "default": "#ddd"
+        },
+{
+          "type": "text",
+          "id": "menu_item_five_label",
+          "label": "Menu Item Five Label"
+        },
+{
+          "type": "color",
+          "id": "menu_item_five_color",
+          "label": "Menu Item Five Label Background Color",
+          "default": "#ddd"
+        },
+
+{
+          "type": "font_picker",
+          "id": "menu_item_font_family",
+          "label": "Menu Item Font Family",
+          "default": "poppins_n6"
+        }
+
+	],
+    "blocks": [
+
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

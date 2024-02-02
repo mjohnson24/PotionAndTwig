@@ -1,0 +1,335 @@
+<div class="footer-middle" data-section-id="{{ section.id }}" id="section-{{ section.id }}">
+  <div class="{% if section.settings.cl_page_width == 'full_wide' %}container-fluid{% else %}container{% endif %}">
+    <div class="row">
+      {% for block in section.blocks %}
+     {% case block.type %}
+     {% when 'services' %}
+      <div class="col-lg-4 col-md-4" id="block-{{ block.id }}" >
+        <div class="footer-services-wrapper mb-30">
+          {% if block.settings.service_icon != '' %}
+          <div class="footer-services-icon">
+            <i class="{{ block.settings.service_icon }}"></i>
+          </div>
+          {% endif %}
+          <div class="footer-services-content text-{% if block.settings.text_style == 'text_style_left' %}left{% elsif block.settings.text_style == 'text_style_center' %}center{% elsif block.settings.text_style == 'text_style_right' %}right{% endif %}">
+            {% if block.settings.service_title != '' %}
+            <h3 >{{ block.settings.service_title }}</h3>
+            {% endif %}
+            {% if block.settings.service_description != '' %}
+            <p>{{ block.settings.service_description }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+     {% endcase %}
+     {% endfor %}     
+    </div>
+  </div>
+</div>
+
+{%- include 'section-style' -%}
+
+    
+    <style>
+
+            {% for block in section.blocks %}
+     {% case block.type %}
+     {% when 'services' %}
+      
+      #block-{{ block.id }} .footer-services-content > h3 {
+    color: {{ block.settings.title_color }};
+}
+      #block-{{ block.id }} .footer-services-content > p {
+    color: {{ block.settings.description_color }};
+}
+      
+      
+     {% endcase %}
+     {% endfor %} 
+      
+      
+     </style>     
+      
+
+{% schema %}
+  {
+    "name": "Services",
+    "settings": [
+        {
+          "type": "radio",
+          "id": "cl_page_width",
+          "label": "Collection Page Width",
+          "options":[
+                {
+                  "label": "Full Wide",
+                  "value": "full_wide"
+                },
+                {
+                  "label": "Wide",
+                  "value": "wide"
+                }
+			],
+        	"default": "wide"
+        }
+	],
+    "blocks": [
+		{
+          "type": "services",
+          "name": "Services",
+          "settings": [
+			  {
+                "type": "text",
+                "id": "service_icon",
+                "label": "Service Icon",
+                "default": "pe-7s-car",
+                "info": "[See More Icon](http:\/\/themes-pixeden.com\/font-demos/7-stroke/)"
+			  },
+                {
+                     "type": "radio",
+                     "id": "text_style",
+                     "label": "Text Style",
+                     "options":[
+                       {
+                           "value":"text_style_left",
+                           "label": "Left"
+                       },
+                       {
+                           "value":"text_style_center",
+                           "label": "center"
+                       },
+                       {
+                           "value":"text_style_right",
+                           "label": "right"
+                       }
+
+                      ],
+
+                     "default": "text_style_left"
+                },
+			  {
+                "type": "text",
+                "id": "service_title",
+                "label": "Service Title",
+                "default": "Free Shipping"
+			  },
+			  {
+                "type": "textarea",
+                "id": "service_description",
+                "label": "Service Description",
+                "default": "Contrary to popular belief, Lorem Ipsum is random text."
+			  },
+                {
+                    "type": "header",
+                    "content": "Color"
+                },
+                {
+                  "type": "color",
+                  "id": "title_color",
+                  "label": "Title Color",
+                  "default": "#383838"
+                },
+                {
+                  "type": "color",
+                  "id": "description_color",
+                  "label": "Description Color",
+                  "default": "#3e3e3e"
+                }
+          ]
+        },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+			"name": "Services",
+			"category": "Services",
+			"blocks": [
+				{"type": "services"},
+				{"type": "services"},
+				{"type": "services"}
+			]
+		}
+	]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,205 @@
+<div class="shop-sidebar mr-50">
+  {% if section.settings.sidebar_top_content %}
+  <div class="sidebar-widget mb-50">
+    {{ section.settings.sidebar_top_content }}
+  </div>
+  {% endif %}
+  {% if section.settings.cl_sidebar_search_enable %}
+  <div class="sidebar-widget mb-50">
+    <h3 class="sidebar-title">{{ settings.cl_search_title }}</h3>
+    <div class="sidebar-search">
+      <form action="/search" method="get" role="search">
+        <input id="search" type="search" name="q" class="input-text" value="{{ search.terms | escape }}" placeholder="{{ settings.cl_search_placeholder }}">
+        <button type="submit">
+          <i class="ti-search"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+
+
+
+  {% if section.settings.categories_enable %}
+  <div class="sidebar-widget mb-45">    
+    {% if settings.categories_title != '' %}
+    <h3 class="sidebar-title">{{ settings.categories_title }}</h3>
+    {% endif %}
+
+    <div class="sidebar-categories">
+      <ul>
+        {% assign categories_list_limit = settings.categories_list_limit_handle %}
+        {% for c in collections limit: categories_list_limit %}
+        	{% if c.handle != 'diffuser-aromas' and c.handle != 'aroma-samples' %}
+        		<li class="{% if collection and collection.handle == c.handle %}active{% endif %}"><a href="{{ c.url }}">{{ c.title }} <span>{{ c.products_count }}</span></a></li>
+        	{% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+
+
+  {% if section.settings.vendors_enable %}
+  <div class="sidebar-widget mb-45">
+    {% if settings.vendors_title != '' %}
+    <h3 class="sidebar-title">{{ settings.vendors_title }}</h3>
+    {% endif %}
+    <div class="sidebar-categories">
+      <ul>
+        {% assign vendor_list_limit = settings.vendor_list_limit_handle %}
+        {% for vendor in shop.vendors limit: vendor_list_limit %}
+        <li {% if collection.current_vendor == vendor %}class="active"{% endif %}><a href="{{ vendor | url_for_vendor }}">{{ vendor }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+{% if section.settings.sidebar_middle_content %}
+  <div class="sidebar-widget mb-50">
+    {{ section.settings.sidebar_middle_content }}
+  </div>
+  {% endif %}
+
+  {% if section.settings.types_enable %}
+  <div class="sidebar-widget mb-45">
+    {% if settings.types_title != '' %}
+    <h3 class="sidebar-title">{{ settings.types_title }}</h3>
+    {% endif %}
+    <div class="sidebar-categories">
+      <ul>
+        {% assign types_list_limit = settings.types_list_limit_hanlde %}
+        {% for type in shop.types limit: types_list_limit %}
+        {% if type != '' %}
+        <li class="{% if collection.current_type == type %}active{% endif %}"><a href="{{ type | url_for_type }}">{{ type }}</a></li> 
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+
+
+  {% if section.settings.color_enable %}
+  <div class="sidebar-widget sidebar-overflow mb-45">
+    {% if settings.color_title != '' %}
+    <h3 class="sidebar-title">{{ settings.color_title }}</h3>
+    {% endif %}
+    <div class="product-color">
+      <ul>
+        {% assign tags = settings.color_picker | replace: ', ', ',' | replace: ' ,', ',' | split: ',' %}
+        {% assign colors_list_limit = settings.colors_list_limit_hanlde %}
+
+        {% for t in tags limit: colors_list_limit %}
+        {% assign tag = t | strip %}
+        {% if collection.all_tags contains tag %}
+        <li class="{{ tag }} {% if current_tags contains tag %}active{% endif %}" style="background: {{ tag }};">
+          <a href="/collections/all/{{ tag | handle }}"></a>
+        </li>
+        {% else %}
+        <li class="{{ tag }}" style="background: {{ tag }};"><a href="/collections/all/{{ tag | handle }}"></a></li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+
+
+
+  {% if section.settings.size_enable %}
+  <div class="sidebar-widget mb-40">
+    {% if settings.size_title != '' %}
+    <h3 class="sidebar-title">{{ settings.size_title }}</h3>
+    {% endif %}
+    <div class="product-size">
+      <ul>
+        {% assign tags = settings.size_picker | replace: ', ', ',' | replace: ' ,', ',' | split: ',' %}
+        {% assign size_list_limit = settings.size_list_limit_hanlde %}
+
+        {% for t in tags limit: size_list_limit %}
+        {% assign tag = t | strip %}
+        {% if collection.all_tags contains tag %}
+        <li {% if current_tags contains tag %}class="active"{% endif %}><a href="/collections/all/{{ tag | handle }}">{{ tag }}</a></li>
+        {% else %}
+        <li><a href="/collections/all/{{ tag | handle }}">{{ tag }}</a></li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+
+
+
+  {% if section.settings.tags_enable %}
+  <div class="sidebar-widget mb-40">
+    {% if settings.tags_title != '' %}
+    <h3 class="sidebar-title">{{ settings.tags_title }}</h3>
+    {% endif %}
+
+    <div class="product-tags">
+      <ul>
+        {% assign tags_list_limit = settings.tags_list_limit_handle %}
+        {% for tag in collection.tags limit: tags_list_limit %}
+        <li class="{% if current_tags contains tag %}active neha_active{% endif %}"><a href="/collections/all/{{ tag | handle }}">{{ tag }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+
+
+  {% if section.settings.categories_enable %}
+  <div class="sidebar-widget">
+    {% if settings.top_product_title != '' %}
+    <h3 class="sidebar-title">{{ settings.top_product_title }}</h3>
+    {% endif %}
+
+    <div class="sidebar-top-rated-all">
+      {% assign top_product = collections[settings.top_product_handle] %}
+
+      {% for product in top_product.products limit: settings.top_product_limit_handle %}
+      <div class="sidebar-top-rated mb-30">
+        <div class="single-top-rated">
+          <div class="top-rated-img">
+            <a href="{{ product.url | within: collection }}"><img src="{{ product.featured_image.src | img_url: 'small' }}" alt=""></a>
+          </div>
+          <div class="top-rated-text">
+            <h4><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h4>
+            <div class="top-rated-rating spr-badge-caption-none">
+              <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+            </div>
+            
+            {% if product.compare_at_price_max > product.price %}
+            <del><span>{{ product.compare_at_price | money }}</span></del>
+            {% endif %}
+            
+            <span>
+            {% if settings.show_price_with_percentage_off != "0" and settings.show_price_with_percentage_off != "" %}
+            {% assign discountprice = product.price | times: settings.show_price_with_percentage_off | divided_by: 100 %}
+    		{{ product.price | minus: discountprice | money }} <span style="color:rgb(230, 0, 0);"><del>{{ product.price | money }}</del></span>
+    		{% else%}
+              {{ product.price| money }}
+            {% endif%}
+            </span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  
+  {% if section.settings.sidebar_bottom_content %}
+  <div class="sidebar-widget mb-50">
+    {{ section.settings.sidebar_bottom_content }}
+  </div>
+  {% endif %}
+</div>

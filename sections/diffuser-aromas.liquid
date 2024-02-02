@@ -1,0 +1,656 @@
+{% assign is_first = true %}
+{% assign wrapperWidth = collection.products.size %}
+{% assign collectionhandles = section.settings.collection_handles | split: "," %}
+{% assign columns_for_mobile = '6' %}
+{% assign columns_for_tablet = section.settings.product_column_lg | plus:0 %}
+{% assign columns_for_desktop = section.settings.product_column_xl | plus:0 %}
+{% assign products_limit_handle = section.settings.products_limit_handle | plus:0 %}
+{% assign products_limit_mobile_handle = section.settings.products_limit_mobile_handle | plus:0 %}
+
+<div class="diffuser-free-aroma">
+  <div class="container">
+    
+    
+    
+    <div class="row">
+      <div class="col-sm-12 col-lg-9 col-xl-9">
+       <h1>Choose your <strong>Aroma</strong></h1>
+       <!-- <h1>Choose your <strong>Free Aroma</strong></h1> -->
+        <label style="margin: 0 auto 20px;float: none;display: inline-block;width: 100%;text-align: center;">Select A Category:</label>
+        <ul class="collection-menu">
+          {% for collectionhandle in collectionhandles %}
+        	{% assign collect = collections[collectionhandle] %}
+          <li class="collection-products-link collection-products-link-{{ collect.handle }}"><a onclick="showCollectionProducts('{{ collect.handle }}');return false;">{{collect.title}}</a></li>
+         {% endfor %}
+        </ul>
+        {% assign num_collection = 1 %}
+        
+        
+        {% for collectionhandle in collectionhandles %}
+        	{% assign collect = collections[collectionhandle] %}
+        <div id="collection-products-{{ collect.handle}}" class="collection-products product-limit-{{ products_limit_handle }} mobile-product-limit-{{ products_limit_mobile_handle }} row {% if num_collection == 1 %}active{% endif %}">
+          {% assign num_product = 1 %}
+          {% for product in collect.products %}
+          {% if num_product == 3 %}
+          	<div class="clear-on-tablet">&nbsp;</div>
+            {% endif %}
+            <div class="col-lg-{{ columns_for_desktop }} col-md-{{ columns_for_tablet }} col-sm-{{ columns_for_tablet }} col-{{ columns_for_mobile }} {% if is_first and num_collection == 1 %}isFirst{% endif%}">
+               {% include 'product-grid-item-free-aromas' %}
+          	</div>
+            
+          {% assign num_product = num_product | plus: 1 %}
+          {% assign is_first = false %}
+          {% endfor %}
+        </div>
+        	{% assign num_collection = num_collection | plus: 1 %}
+        {% endfor %}
+      </div>
+      <div class="col-sm-12 col-lg-3 col-xl-3 product-description"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <a id="diffuserCheckout" href="#" onclick="diffuserCheckout();return false;">Continue to cart</a>
+      </div>
+    </div>
+    <div class="row products-bottom">
+      <div class="col-sm-4">
+        <h4><img src="{{ "clock.png" | asset_url }}" /> Get more from<br />Sienna</h4>
+        <p>Last as long as 800 hours</p>
+      </div>
+      <div class="col-sm-4">
+        <h4 class="leaf"><img class="leaf" src="{{ "leaf.png" | asset_url }}" />
+         High-Quality<br />Essential Oils</h4>
+        <p>No Harmful VOC's and Safe for Pets and children</p>
+      </div>
+      <div class="col-sm-4">
+        <h4 class="phone"><img class="phone" src="{{ "phone.png" | asset_url }}" />
+         Smart App Control</h4>
+        <p>Control timing and scent levels throughout your home</p>
+      </div>
+    </div>
+    
+  </div>
+
+ 
+  
+</div>
+
+
+{%- include 'section-style' -%}
+<style>
+
+</style>
+
+
+{% schema %}
+{
+"name": "Collection Diff Aromas",
+"settings": [
+		{
+          "type": "header",
+          "content": "Collections to Display"
+		},{
+           "type": "text",
+           "id": "collection_handles",
+           "default": ",",
+           "label": "Collection Handles"
+        },{
+          "type": "header",
+          "content": "Product Options"
+		},{
+           "type": "text",
+           "id": "discount_code",
+           "default": "FREEAROMA",
+           "label": "Discount Code",
+		"info": "Use a | to separate codes (no spaces)"
+        },
+        {
+          "type": "select",
+          "id": "product_column_lg",
+          "label": "Product Column for Tablets",
+          "options":[
+                {
+                  "label": "1",
+                  "value": "12"
+                },
+                {
+                  "label": "2",
+                  "value": "6"
+                },
+                {
+                  "label": "3",
+                  "value": "4"
+                },
+                {
+                  "label": "4",
+                  "value": "3"
+                }
+			],
+        	"default": "6"
+        },
+        {
+          "type": "select",
+          "id": "product_column_xl",
+          "label": "Product Column for Large Device",
+          "options":[
+                {
+                  "label": "1",
+                  "value": "12"
+                },
+                {
+                  "label": "2",
+                  "value": "6"
+                },
+                {
+                  "label": "3",
+                  "value": "4"
+                },
+                {
+                  "label": "4",
+                  "value": "3"
+                }
+			],
+        	"default": "3"
+        },
+
+		{
+          "type": "select",
+          "id": "products_limit_handle",
+          "label": "Product Limit",
+		  "options":[
+				{
+					"label": "4 Products",
+					"value": "4"
+				},
+				{
+					"label": "6 Products",
+					"value": "6"
+				},
+				{
+					"label": "8 Products",
+					"value": "8"
+				},
+				{
+					"label": "9 Products",
+					"value": "9"
+				},
+				{
+					"label": "10 Products",
+					"value": "10"
+				},
+				{
+					"label": "12 Products",
+					"value": "12"
+				},
+				{
+					"label": "14 Products",
+					"value": "14"
+				},
+				{
+					"label": "15 Products",
+					"value": "15"
+				},
+				{
+					"label": "16 Products",
+					"value": "16"
+				},
+				{
+					"label": "20 Products",
+					"value": "20"
+				},
+				{
+					"label": "25 Products",
+					"value": "25"
+				},
+				{
+					"label": "30 Products",
+					"value": "30"
+				},
+				{
+					"label": "40 Products",
+					"value": "40"
+				},
+				{
+					"label": "50 Products",
+					"value": "50"
+				}
+			],
+			"default": "16",
+			"info": "How many products show on per page"
+      	},
+{
+          "type": "select",
+          "id": "products_limit_mobile_handle",
+          "label": "Mobile Product Limit",
+		  "options":[
+				{
+					"label": "2 Products",
+					"value": "2"
+				},
+				{
+					"label": "4 Products",
+					"value": "4"
+				},
+				{
+					"label": "6 Products",
+					"value": "6"
+				},
+				{
+					"label": "8 Products",
+					"value": "8"
+				},
+				{
+					"label": "10 Products",
+					"value": "10"
+				},
+				{
+					"label": "12 Products",
+					"value": "12"
+				},
+				{
+					"label": "14 Products",
+					"value": "14"
+				},
+				{
+					"label": "16 Products",
+					"value": "16"
+				},
+				{
+					"label": "20 Products",
+					"value": "20"
+				},
+				{
+					"label": "30 Products",
+					"value": "30"
+				},
+				{
+					"label": "40 Products",
+					"value": "40"
+				},
+				{
+					"label": "50 Products",
+					"value": "50"
+				}
+			],
+			"default": "6",
+			"info": "How many products show on mobile per page"
+      	},
+		{
+			"type": "header",
+			"content": "Collection Sorting"
+		},
+		{
+			"type": "checkbox",
+			"id": "sorting_enable",
+			"label": "Show Short By",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "tab_filter_enable",
+			"label": "Show Tab Filter",
+			"default": true
+		},
+		{
+			"type": "header",
+			"content": "Collection Sidebar"
+		},
+		{
+			"type": "checkbox",
+			"id": "collection_sidebar_enable",
+			"label": "Show Collection Sidebar",
+			"default": true
+		},
+		{
+			"type": "radio",
+			"id": "sidebar_position",
+			"label": "Collection Sidebar Position",
+			"options": [
+				{
+					"label": "Left",
+					"value": "left"
+				},
+				{
+					"label": "Right",
+					"value": "right"
+				}
+			],
+			"default": "left"
+		},
+		{
+			"type": "header",
+			"content": "Collection Sidebar/Filter List"
+		},
+		{
+			"type": "checkbox",
+			"id": "cl_sidebar_search_enable",
+			"label": "Show Search Option",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "categories_enable",
+			"label": "Show Categories",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "vendors_enable",
+			"label": "Show Vendors",
+			"default": false
+		},
+		{
+			"type": "checkbox",
+			"id": "types_enable",
+			"label": "Show Types",
+			"default": false
+		},
+		{
+			"type": "checkbox",
+			"id": "color_enable",
+			"label": "Show Color",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "size_enable",
+			"label": "Show Size",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "tags_enable",
+			"label": "Show Tags",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "top_rated_product_enable",
+			"label": "Show Top Rated Products",
+			"default": true
+		}
+	],
+    "blocks": [
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	]
+}
+{% endschema %}
+
+
+<script>
+  
+  const deviceType = () => {
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+        return "tablet";
+    }
+    else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+        return "mobile";
+    }
+    return "desktop";
+};
+  
+  $(function(){
+    let dType = deviceType();
+    console.log(dType);
+    let ref = $('.isFirst .product-wrapper input').val();
+    console.log(ref);
+    $('.isFirst input').prop('checked','checked');
+    getProductInformation(ref);
+    
+    $('.collection-products .product-wrapper').on('click', function(){
+      let radio = $(this).find('input');
+      let ref = radio.val();
+      if(!radio.is(':checked')){
+        radio.prop("checked", true);
+      }
+      getProductInformation(ref);
+	});
+    
+    $('.collection-menu li.collection-products-link:first-child').addClass('active');
+  });
+  
+  
+    
+   
+  
+  function diffuserCheckout(){
+    let radio = $('.collection-products .product-wrapper input:checked');
+    productID = radio.attr('data-product-id');
+    jQuery.post('/cart/add.js', { quantity: 1, id: productID });
+   
+    setTimeout(function(){   
+      window.location.href = '/cart?coupon={{ section.settings.discount_code }}';       
+    }, 1000);
+  }
+  
+  function showCollectionProducts(handle){
+    $('.collection-products-link').not('.collection-products-link-'+handle).removeClass('active');
+    $('.collection-products-link-'+handle).addClass('active');
+    
+    $('.collection-products').not('.collection-products-'+handle).removeClass('active');
+    $('#collection-products-'+handle).addClass('active');
+    return false;
+  }
+  
+  
+  function getProductInformation(ref){
+    $('.product-description').html('<img class="logoloader" src="{{ "logo.webp" | asset_url }}" />');
+  	$.getJSON(ref, function(response) {
+      let product = response.product;
+      let title = product.title;
+      let imageSrc = product.image.src;
+      let description = product.body_html;
+      let tags = product.tags;
+      let html = '<div class="product-description-inner"><label style="margin-top: 40px;">You have selected:</label><img src="'+imageSrc+'" /><h4>'+title+'</h4><p>'+description+'</p>';
+      
+      if(tags.length > 0){
+        html += '<p>TAGS: '+tags+'</p>';
+      }
+      
+      html += '<p class="product-categories"></p>';
+      html += '</div>';
+      
+      $(html).insertAfter($('.logoloader'));
+      
+      let collections = '';
+      $.getJSON('/admin/collects.json?product_id='+product.id, function(response) {
+
+        if(response.collects.length > 0){
+          $('.product-categories').html('<p>CATEGORIES: </p>');
+        }
+
+        for(let i=0;i<response.collects.length;i++){
+          $.getJSON('/admin/api/2021-07/custom_collections/'+response.collects[i].collection_id+'.json', function(response) {
+            $('.product-categories p').append('<span>' + response.custom_collection.title + '</span>');
+          });
+        }
+
+      });
+      
+      setTimeout(function(){      
+      	$('.logoloader').remove();
+        $('.product-description-inner').fadeIn();
+      }, 500);
+     });
+  }
+  
+  
+
+</script>
+

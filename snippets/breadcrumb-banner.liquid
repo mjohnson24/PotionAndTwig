@@ -1,0 +1,13 @@
+{% if settings.breadcrumb_banner_enable %}
+<div class="breadcrumb-area pt-50 breadcrumb-padding pb-50" 
+     style="background-image: url({% if settings.breadcrumb_banner_image %}{{ settings.breadcrumb_banner_image | img_url: 'master' }}
+            {% else %}https://via.placeholder.com/1903x500{% endif %})">
+  
+  <div class="container-fluid">
+    <div class="breadcrumb-content text-center">
+      <h2 class="breadcrumbs-title" style="color: {{ settings.breadcurmb_title_color }};">{{ page_title }}</h2>
+      {% include 'breadcrumb-builtin' %}
+    </div>
+  </div>
+</div>
+{% endif %}

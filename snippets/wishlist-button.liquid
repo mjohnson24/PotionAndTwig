@@ -1,0 +1,7 @@
+{%- if product.handle != blank -%}
+<a class="furit-animate-right action-wishlist tile-actions--btn wishlist-btn wishlist" href="javascript: void(0)" button-wishlist data-product-handle="{{ product.handle }}" title="Wishlist">
+  <span class="add-wishlist"><i class="pe-7s-like"></i></span>
+  <span class="loading-wishlist"><i class="pe-7s-settings animated rotateIn infinite"></i></span>
+  <span class="remove-wishlist"><i class="pe-7s-check"></i></span>
+</a>
+{%- endif -%}

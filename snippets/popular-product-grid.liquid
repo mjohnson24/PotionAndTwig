@@ -1,0 +1,40 @@
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+{% assign variant = product.selected_or_first_available_variant %}
+
+{% if product.available %}
+{% assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" %}
+{% endif %} 
+
+
+<div class="single-popular-product food-border-1 text-center mb-40">
+  <a href="{{ product.url | within: collection }}">
+    <img src="{{ product.featured_image.src | img_url: '421x' }}" alt="">
+  </a>
+  <h3><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h3>
+
+  {% if product.description contains '[short_description]' %}         
+  {% assign short_description_first = product.description | split:'[/short_description]' | first %}
+  {% assign short_description_final = short_description_first | split:'[short_description]' | last %}
+  {{ short_description_final }}          
+  {% else %}
+  {{ product.description | strip_html | truncatewords: 20 | split: '[affiliate_link]' | first | split: '[product_video]' | first | split: '[short_description]' | first | split: '[product_description]' | first | split: '[more_info]' | first }}
+  {% endif %}
+
+  <div class="popular-product">
+    {% if on_sale %}
+    <span class="pizza-old-price">{{ product.compare_at_price | money }}</span>
+    <span class="pizza-new-price">{{ product.price | money }}</span>
+    {% else %}
+    <span class="pizza-new-price">{{ product.price | money }}</span>
+    {% endif %}
+  </div>
+</div>

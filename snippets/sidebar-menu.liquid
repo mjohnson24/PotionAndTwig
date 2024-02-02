@@ -1,0 +1,68 @@
+<nav>
+  <ul>
+    {% for link in linklists.main-menu.links %}
+    {% assign childlink_handle = link.title | handle %}
+    
+    {% if linklists[childlink_handle] and linklists[childlink_handle].links.size > 2 %}
+    <li><a href="{{ link.url }}">{{ link.title }}</a>
+      <div class="single-dropdown">
+        {% for childlink in linklists[childlink_handle].links %}
+        {% assign grand_childlink_handle = childlink.title | handle %}
+        {% if linklists[grand_childlink_handle] and linklists[grand_childlink_handle].links.size > 0 %}
+        <div class="mega-dropdown-style mega-common4 mb-40 ezone_megamenu">
+          <h4 class="mega-subtitle">{{ childlink.title }}</h4>
+          <ul>
+            {% for grand_childlink_handle in linklists[grand_childlink_handle].links %}  
+            <li><a href="{{ grand_childlink_handle.url }}">{{ grand_childlink_handle.title }}</a></li>
+            {% endfor %} 
+          </ul>
+        </div>
+
+        {% elsif childlink.type == "collection_link" and childlink.object.image %}
+        <div class="mega-banner-img-2"><a href="{{ childlink.url }}"><img src="{{ childlink.object.image | img_url: 'master' }}" alt="" /></a></div>
+        {% else %}
+        <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </li>
+
+
+    {% elsif linklists[childlink_handle] and linklists[childlink_handle].links.size > 0 %}
+    <li><a href="{{ link.url }}">{{ link.title }}</a>
+      <div class="single-dropdown">
+
+        {% for childlink in linklists[childlink_handle].links %}
+        {% assign grand_childlink_handle = childlink.title | handle %}
+        {% if linklists[grand_childlink_handle] and linklists[grand_childlink_handle].links.size > 0 %}
+        <div class="mega-dropdown-style mega-common2 mega-common4">
+          <h4 class="mega-subtitle">{{ childlink.title }}</h4>
+          <ul>
+            {% for grand_childlink_handle in linklists[grand_childlink_handle].links %}  
+            <li><a href="{{ grand_childlink_handle.url }}">{{ grand_childlink_handle.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% else %}
+        <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </li>
+    
+
+    {% else %}
+    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
+
+
+
+<script>
+  $('.ezone_megamenu').parent('div').addClass('mega-menu-dropdown mega-dropdown-width');
+  $('.ezone_megamenu').parent('div').removeClass('single-dropdown');
+  $('.mega-common2').parent('div').addClass('mega-menu-dropdown mega-dropdown-width-2');
+  $('.mega-common2').parent('div').removeClass('single-dropdown');
+</script>

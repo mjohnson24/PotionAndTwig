@@ -1,0 +1,412 @@
+{%- if section.settings.our_vission_enable -%}
+<div class="goal-area" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'our_mission' %}
+      <div class="col-lg-{{ block.settings.goal_column_lg }} col-md-{{ block.settings.goal_column_md }}">
+        <div class="goal-wrapper mb-30 text-{% if block.settings.slider_position == 'slider_right' %}right{% elsif block.settings.slider_position == 'slider_left' %}left{% elsif block.settings.slider_position == 'slider_center' %}center{% endif %}" id="block-{{ block.id }}">          
+          {% if block.settings.goal_title != '' %}
+          <h3>{{ block.settings.goal_title }}</h3>
+          {% endif %}
+          {% if block.settings.goal_des != '' %}
+          <p>{{ block.settings.goal_des }}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+
+
+{%- include 'section-style' -%}
+
+
+<style>
+        {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'our_mission' %}
+  
+  
+  #block-{{ block.id }}.goal-wrapper > h3 {
+        color: {{ block.settings.section_title_color }};
+}
+  #block-{{ block.id }}.goal-wrapper > p {
+    color: {{ block.settings.section_description_color }};
+}
+  
+      {% endcase %}
+      {% endfor %}
+  
+  </style>
+
+
+{% schema %}
+  {
+    "name": "Our Mission",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "our_vission_enable",
+          "label": "Our Vission Enable",
+          "default": true
+        }
+		
+	],
+    "blocks": [
+		{
+          "type": "our_mission",
+          "name": "Our Vission",
+          "settings": [
+                {
+                  "type": "radio",
+                  "id": "slider_position",
+                  "label": "Text Style",
+                  "options":[                        
+                    {
+                      "label": "Left",
+                      "value": "slider_left"
+                    },
+                    {
+                      "label": "center",
+                      "value": "slider_center"
+                    },
+                    {
+                      "label": "Right",
+                      "value": "slider_right"
+                    }
+                  ],
+                  "default": "slider_left"
+                },
+			  {
+                "type": "text",
+                "id": "goal_title",
+                "label": "Section Title",
+                "default": "OUR VISSION"
+			  },
+			  {
+                "type": "textarea",
+                "id": "goal_des",
+                "label": "Section Description",
+                "default": "ezone provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a ete account of the system, and expound the actual teangs of the eat explorer of the truth."
+			  },
+              {
+                "type": "select",
+                "id": "goal_column_lg",
+                "label": "Column for Large Device",
+                "options":[
+                      {
+                        "label": "1 (1/12)",
+                        "value": "1"
+                      },
+                      {
+                        "label": "2 (2/12)",
+                        "value": "2"
+                      },
+                      {
+                        "label": "3 (3/12)",
+                        "value": "3"
+                      },
+                      {
+                        "label": "4 (4/12)",
+                        "value": "4"
+                      },
+                      {
+                        "label": "5 (5/12)",
+                        "value": "5"
+                      },
+                      {
+                        "label": "6 (6/12)",
+                        "value": "6"
+                      },
+                      {
+                        "label": "7 (7/12)",
+                        "value": "7"
+                      },
+                      {
+                        "label": "8 (8/12)",
+                        "value": "8"
+                      },
+                      {
+                        "label": "9 (9/12)",
+                        "value": "9"
+                      },
+                      {
+                        "label": "10 (10/12)",
+                        "value": "10"
+                      },
+                      {
+                        "label": "11 (11/12)",
+                        "value": "11"
+                      },
+                      {
+                        "label": "12 (12/12)",
+                        "value": "12"
+                      }
+                  ],
+                  "default": "4"
+              },
+              {
+                "type": "select",
+                "id": "goal_column_md",
+                "label": "Column for Medium Device",
+                "options":[
+                      {
+                        "label": "1 (1/12)",
+                        "value": "1"
+                      },
+                      {
+                        "label": "2 (2/12)",
+                        "value": "2"
+                      },
+                      {
+                        "label": "3 (3/12)",
+                        "value": "3"
+                      },
+                      {
+                        "label": "4 (4/12)",
+                        "value": "4"
+                      },
+                      {
+                        "label": "5 (5/12)",
+                        "value": "5"
+                      },
+                      {
+                        "label": "6 (6/12)",
+                        "value": "6"
+                      },
+                      {
+                        "label": "7 (7/12)",
+                        "value": "7"
+                      },
+                      {
+                        "label": "8 (8/12)",
+                        "value": "8"
+                      },
+                      {
+                        "label": "9 (9/12)",
+                        "value": "9"
+                      },
+                      {
+                        "label": "10 (10/12)",
+                        "value": "10"
+                      },
+                      {
+                        "label": "11 (11/12)",
+                        "value": "11"
+                      },
+                      {
+                        "label": "12 (12/12)",
+                        "value": "12"
+                      }
+                  ],
+                  "default": "4"
+              },
+              {
+                "type": "header",
+                "content": "Color"
+              }, 
+              {
+                 "type": "color",
+                 "id": "section_title_color",
+                 "label": "Section Title Color",
+                 "default": "#383838"
+              }, 
+              {
+                 "type": "color",
+                 "id": "section_description_color",
+                 "label": "Section Description Color",
+                 "default": "#666"
+              }
+           ]
+        },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

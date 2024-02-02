@@ -1,0 +1,74 @@
+{% assign grid_results = false %}
+{% assign respond_js_secret_key = shop.domain | md5 %}
+{% unless search.terms == respond_js_secret_key %}
+
+{% paginate search.results by 10 %}
+<div class="ezone_search_page shop-page-wrapper shop-page-padding ptb-100">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="categories-search-wrapper categories-search-wrapper2 mb-40">
+          <div class="categories-wrapper">
+            <form action="/search" method="get" role="search">
+              <input id="search" type="search" name="q" class="input-text" value="{{ search.terms | escape }}" placeholder="{{ settings.search_text }}">
+              <button type="submit">{{ settings.search_submit_text }}</button>
+            </form>
+          </div>
+        </div>
+
+
+        {% if search.performed %}
+        {% if search.results_count == 0 %}
+        <h1 class="cart-heading">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
+        {% else %}
+        <h1 class="cart-heading">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
+        {% endif %}
+        {% else %}
+        <h1 class="cart-heading">{{ 'general.search.title' | t }}</h1>
+        {% endif %}
+      </div>
+
+      <div class="col-lg-12">
+        {% if search.performed %}
+        <hr class="hr--clear">
+        <div class="shop-product-wrapper">
+          <div class="shop-bar-area">
+            <div class="shop-product-content tab-content">
+              <div>
+                <div class="row">
+                  {% for item in search.results %}
+                  {% include 'search-item' %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+
+        {% if paginate.pages > 1 %}
+        <div class="pagination-style mt-30 text-center">
+          {% include 'pagination' %}
+        </div>
+        {% endif %}
+
+
+
+
+
+
+
+
+
+      </div> 
+    </div>
+  </div>
+</div>
+
+{% endpaginate %}
+
+{% else %}
+{% include 'respond' %}
+{% layout none %}
+{% endunless %}

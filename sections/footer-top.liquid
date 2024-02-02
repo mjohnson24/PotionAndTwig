@@ -1,0 +1,1041 @@
+<footer class="footer-area" data-section-id="{{ section.id }}" id="section-{{ section.id }}">
+  <div class="footer-top-area">
+    <div class="{% if section.settings.cl_page_width == 'full_wide' %}container-fluid{% else %}container{% endif %}">
+      <div class="row match_height">       
+        {% for block in section.blocks %}
+        {% case block.type %}
+        {% when 'footer_menu' %}
+        <div class="col-lg-{{ block.settings.footer_menu_col_lg }} col-md-{{ block.settings.footer_menu_col_md }}" id="block-{{ block.id }}"  >
+          <div class="footer-widget mb-40">
+            {% if block.settings.footer_menu_title != '' %}
+            <h3 class="footer-widget-title-4">{{ block.settings.footer_menu_title }}</h3>
+            {% endif %}
+            <div class="footer-widget-content-4">
+              <ul>
+                {% assign footer_menu_select = block.settings.footer_menu_handle %}
+                {% for link in linklists[footer_menu_select].links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        {% when 'newsletter_contact' %}
+        <div class="col-lg-{{ block.settings.footer_newsletter_contact_col_lg }} col-md-{{ block.settings.footer_newsletter_contact_col_md }}" id="block-{{ block.id }}"  >
+          <div class="footer-widget mb-40">
+            {% if block.settings.footer_newsletter_title != '' %}
+            <h3 class="footer-widget-title-4">{{ block.settings.footer_newsletter_title }}</h3>
+            {% endif %}
+            <div class="footer-newsletter">
+              {% if block.settings.footer_newsletter_description != '' %}
+              <p>{{ block.settings.footer_newsletter_description }}</p>
+              {% endif %}
+              {% if block.settings.newsletter_enable %}
+              <div id="mc_embed_signup" class="subscribe-form">
+                
+                {% include 'newsletter-subscribe-form' %}
+              </div>
+              {% endif %}
+              {% if block.settings.contact_info_enable %}
+              <div class="footer-contact">
+                {% if block.settings.business_location != '' %}
+                <p>
+                  {% if block.settings.business_location_icon != '' %}
+                  <span><i class="{{ block.settings.business_location_icon }}"></i></span>{% endif %} 
+                  {{ block.settings.business_location }} 
+                </p>
+                {% endif %} 
+                {% if block.settings.phn_fax_number != '' %}
+                <p>
+                  {% if block.settings.phn_fax_icon != '' %}
+                  <span><i class="{{ block.settings.phn_fax_icon }}"></i></span>{% endif %} 
+                  {{ block.settings.phn_fax_number }}
+                </p>
+                {% endif %} 
+              </div>
+              {% endif %}              
+            </div>
+          </div>
+        </div>
+        {% when 'about' %}
+        <div class="col-lg-{{ block.settings.about_col_lg }} col-md-{{ block.settings.about_col_md }}" id="block-{{ block.id }}" >
+          <div class="footer-widget mb-40">
+            {% if block.settings.about_logo and block.settings.about_logo_enable %}
+            <a href="{{ block.settings.about_logo_url }}">
+              <img class="lazyload" data-src="{{ block.settings.about_logo | img_url: '500x' }}" alt="" width="175" height="79">
+            </a>
+            {% endif %}
+            <div class="footer-about">
+              {% if block.settings.about_description != '' %}
+              <p>{{ block.settings.about_description }}</p>
+              {% endif %}
+              {% if block.settings.social_enable %}
+              <ul>
+                {% if block.settings.social_1 != '' %}
+                <li><a href="{{ block.settings.social_1_url }}"><i class="icofont icofont-social-{{ block.settings.social_1 }}"></i></a></li>
+                {% endif %}
+
+                {% if block.settings.social_2 != '' %}
+                <li><a href="{{ block.settings.social_2_url }}"><i class="icofont icofont-social-{{ block.settings.social_2 }}"></i></a></li>
+                {% endif %}
+
+                {% if block.settings.social_3 != '' %}
+                <li><a href="{{ block.settings.social_3_url }}"><i class="icofont icofont-social-{{ block.settings.social_3 }}"></i></a></li>
+                {% endif %}
+
+                {% if block.settings.social_4 != '' %}
+                <li><a href="{{ block.settings.social_4_url }}"><i class="icofont icofont-social-{{ block.settings.social_4 }}"></i></a></li>
+                {% endif %}
+
+                {% if block.settings.social_5 != '' %}
+                <li><a href="{{ block.settings.social_5_url }}"><i class="icofont icofont-social-{{ block.settings.social_5 }}"></i></a></li>
+                {% endif %}
+              </ul>
+              {% endif %}
+            </div>
+          </div>
+        </div> 
+        {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div> 
+</footer>
+
+
+
+{%- include 'section-style' -%}
+
+
+
+<style>
+  
+  
+  {% for block in section.blocks %}
+        {% case block.type %}
+        {% when 'footer_menu' %}
+  
+  #block-{{ block.id }} .footer-widget-title-4 {
+    color: {{ block.settings.section_title_color }};
+}
+  #block-{{ block.id }} .footer-widget-title-4::before {
+    background-color: {{ block.settings.section_title_border_bottom_color }};
+}
+  #block-{{ block.id }} .footer-widget-content-4 li a {
+    color: {{ block.settings.menu_color }};
+}
+    #block-{{ block.id }} .footer-widget-content-4 li a:hover {
+    color: {{ block.settings.menu_hover_color }};
+}
+  
+  {% when 'newsletter_contact' %}
+  
+    
+  #block-{{ block.id }} .footer-widget-title-4 {
+    color: {{ block.settings.section_title_color }};
+}
+  #block-{{ block.id }} .footer-widget-title-4::before {
+    background-color: {{ block.settings.section_title_border_bottom_color }};
+}
+  
+  #block-{{ block.id }} .footer-newsletter > p {
+    color: {{ block.settings.description_color }};
+}
+    #block-{{ block.id }} .subscribe-form form {
+    background: {{ block.settings.input_bg_color }} none repeat scroll 0 0;
+}
+  
+  #block-{{ block.id }} .subscribe-form form > input {
+    background: {{ block.settings.input_bg_color }} none repeat scroll 0 0;
+    border: 2px solid {{ block.settings.input_border_color }};
+    color: {{ block.settings.input_text_color }};
+}
+  #block-{{ block.id }} .footer-contact > p {
+    color: {{ block.settings.address_color }};
+}
+  
+  #block-{{ block.id }} .footer-contact > p > span {
+    color: {{ block.settings.address_icon_color }};
+}
+  
+
+        {% when 'about' %}
+  
+  #block-{{ block.id }} .footer-about > p {
+    color: {{ block.settings.description_color }};
+}
+  #block-{{ block.id }} .footer-about li a {
+    color: {{ block.settings.social_icon_color }};
+    background-color: {{ block.settings.social_icon_bg_color }};
+}
+  #block-{{ block.id }} .footer-about li a:hover {
+    color: {{ block.settings.social_icon_hover_color }};
+    background-color: {{ block.settings.social_icon_bg_hover_color }};
+}
+  
+  
+        {% endcase %}
+        {% endfor %}
+  
+  
+  .footer-widget .subscribe-form .mc-form .clear {
+    background: rgba(0, 0, 0, 0) url({{ 'subcribe.png' | asset_url }}) no-repeat scroll right 0 center;
+  }
+
+  
+  .footer-widget img{
+  width:175px;
+  }
+
+</style>
+
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Footer Top",
+    "settings": [
+        {
+          "type": "radio",
+          "id": "cl_page_width",
+          "label": "Collection Page Width",
+          "options":[
+                {
+                  "label": "Full Wide",
+                  "value": "full_wide"
+                },
+                {
+                  "label": "Wide",
+                  "value": "wide"
+                }
+			],
+        	"default": "wide"
+        }
+	],
+    "blocks": [
+		{
+			"type": "footer_menu",
+			"name": "Footer Menu",
+			"settings": [
+				{
+					"type": "text",
+					"id": "footer_menu_title",
+					"label": "Menu Title",
+					"default": "custom service"
+				},
+				{
+					"type": "link_list",
+					"id": "footer_menu_handle",
+					"label": "Select Menu"
+				},
+                {
+                  "type": "select",
+                  "id": "footer_menu_col_lg",
+                  "label": "Menu Column for Large Device",
+                  "options":[
+                        {
+                          "label": "1 (1/12)",
+                          "value": "1"
+                        },
+                        {
+                          "label": "2 (2/12)",
+                          "value": "2"
+                        },
+                        {
+                          "label": "3 (3/12)",
+                          "value": "3"
+                        },
+                        {
+                          "label": "4 (4/12)",
+                          "value": "4"
+                        },
+                        {
+                          "label": "5 (5/12)",
+                          "value": "5"
+                        },
+                        {
+                          "label": "6 (6/12)",
+                          "value": "6"
+                        },
+                        {
+                          "label": "7 (7/12)",
+                          "value": "7"
+                        },
+                        {
+                          "label": "8 (8/12)",
+                          "value": "8"
+                        },
+                        {
+                          "label": "9 (9/12)",
+                          "value": "9"
+                        },
+                        {
+                          "label": "10 (10/12)",
+                          "value": "10"
+                        },
+                        {
+                          "label": "11 (11/12)",
+                          "value": "11"
+                        },
+                        {
+                          "label": "12 (12/12)",
+                          "value": "12"
+                        }
+                    ],
+                    "default": "4"
+                },
+                {
+                  "type": "select",
+                  "id": "footer_menu_col_md",
+                  "label": "Menu Column for Tablet Device",
+                  "options":[
+                        {
+                          "label": "1 (1/12)",
+                          "value": "1"
+                        },
+                        {
+                          "label": "2 (2/12)",
+                          "value": "2"
+                        },
+                        {
+                          "label": "3 (3/12)",
+                          "value": "3"
+                        },
+                        {
+                          "label": "4 (4/12)",
+                          "value": "4"
+                        },
+                        {
+                          "label": "5 (5/12)",
+                          "value": "5"
+                        },
+                        {
+                          "label": "6 (6/12)",
+                          "value": "6"
+                        },
+                        {
+                          "label": "7 (7/12)",
+                          "value": "7"
+                        },
+                        {
+                          "label": "8 (8/12)",
+                          "value": "8"
+                        },
+                        {
+                          "label": "9 (9/12)",
+                          "value": "9"
+                        },
+                        {
+                          "label": "10 (10/12)",
+                          "value": "10"
+                        },
+                        {
+                          "label": "11 (11/12)",
+                          "value": "11"
+                        },
+                        {
+                          "label": "12 (12/12)",
+                          "value": "12"
+                        }
+                    ],
+                    "default": "3"
+                },
+                  {
+                    "type": "header",
+                    "content": "Color"
+                  },
+                  {
+                    "type": "color",
+                    "id": "section_title_color",
+                    "label": "Section Title Color",
+                    "default": "#383838"
+                  },
+                  {
+                    "type": "color",
+                    "id": "section_title_border_bottom_color",
+                    "label": "Section Title Border Bottom Color",
+                    "default": "#000000"
+                  },
+                  {
+                    "type": "color",
+                    "id": "menu_color",
+                    "label": "Menu Color",
+                    "default": "#666666"
+                  },
+                  {
+                    "type": "color",
+                    "id": "menu_hover_color",
+                    "label": "Menu Hover Color",
+                    "default": "#c09578"
+                  }
+			]
+		},
+		{
+			"type": "newsletter_contact",
+			"name": "Newsletter & Contact",
+			"settings": [
+				{
+					"type": "text",
+					"id": "footer_newsletter_title",
+					"label": "Title",
+					"default": "Contact"
+				},
+				{
+					"type": "textarea",
+					"id": "footer_newsletter_description",
+					"label": "Description",
+					"default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is dummy."
+				},
+                {
+                  "type": "select",
+                  "id": "footer_newsletter_contact_col_lg",
+                  "label": "Newsletter & Contact Column for Large Device",
+                  "options":[
+                        {
+                          "label": "1 (1/12)",
+                          "value": "1"
+                        },
+                        {
+                          "label": "2 (2/12)",
+                          "value": "2"
+                        },
+                        {
+                          "label": "3 (3/12)",
+                          "value": "3"
+                        },
+                        {
+                          "label": "4 (4/12)",
+                          "value": "4"
+                        },
+                        {
+                          "label": "5 (5/12)",
+                          "value": "5"
+                        },
+                        {
+                          "label": "6 (6/12)",
+                          "value": "6"
+                        },
+                        {
+                          "label": "7 (7/12)",
+                          "value": "7"
+                        },
+                        {
+                          "label": "8 (8/12)",
+                          "value": "8"
+                        },
+                        {
+                          "label": "9 (9/12)",
+                          "value": "9"
+                        },
+                        {
+                          "label": "10 (10/12)",
+                          "value": "10"
+                        },
+                        {
+                          "label": "11 (11/12)",
+                          "value": "11"
+                        },
+                        {
+                          "label": "12 (12/12)",
+                          "value": "12"
+                        }
+                    ],
+                    "default": "4"
+                },
+                {
+                  "type": "select",
+                  "id": "footer_newsletter_contact_col_md",
+                  "label": "Newsletter & Contact Column for Tablet Device",
+                  "options":[
+                        {
+                          "label": "1 (1/12)",
+                          "value": "1"
+                        },
+                        {
+                          "label": "2 (2/12)",
+                          "value": "2"
+                        },
+                        {
+                          "label": "3 (3/12)",
+                          "value": "3"
+                        },
+                        {
+                          "label": "4 (4/12)",
+                          "value": "4"
+                        },
+                        {
+                          "label": "5 (5/12)",
+                          "value": "5"
+                        },
+                        {
+                          "label": "6 (6/12)",
+                          "value": "6"
+                        },
+                        {
+                          "label": "7 (7/12)",
+                          "value": "7"
+                        },
+                        {
+                          "label": "8 (8/12)",
+                          "value": "8"
+                        },
+                        {
+                          "label": "9 (9/12)",
+                          "value": "9"
+                        },
+                        {
+                          "label": "10 (10/12)",
+                          "value": "10"
+                        },
+                        {
+                          "label": "11 (11/12)",
+                          "value": "11"
+                        },
+                        {
+                          "label": "12 (12/12)",
+                          "value": "12"
+                        }
+                    ],
+                    "default": "6"
+                },
+				{
+					"type": "header",
+					"content": "Newsletter"
+				},
+				{
+					"type": "checkbox",
+					"id": "newsletter_enable",
+					"label": "Show Newsletter",
+					"default": true
+				},
+                {
+                    "type": "paragraph",
+                    "content": "Add Newsletter Action & Email Placeholder: Theme Settings > Newsletter"
+                },
+                {
+                    "type": "paragraph",
+                    "content": "[See Documentation](https:\/\/image.prntscr.com/image/uK8QCu-_SlaSqL_lUqOjWA.png)"
+                },
+				{
+					"type": "header",
+					"content": "Contact Info"
+				},
+				{
+					"type": "checkbox",
+					"id": "contact_info_enable",
+					"label": "Show Contact info",
+					"default": true
+				},
+				{
+					"type": "text",
+					"id": "business_location",
+					"label": "Business Location",
+					"default": "77 Seventh avenue USA 12555."
+				},
+				{
+					"type": "text",
+					"id": "business_location_icon",
+					"label": "Business Location Icon",
+					"default": "ti-location-pin",
+					"info": "e.g. ti-location-pin [See More Icon](https:\/\/themify.me/themify-icons)"
+				},
+				{
+					"type": "text",
+					"id": "phn_fax_number",
+					"label": "Business Phone/Fax Number",
+					"default": "88 (015) 609735 or +88 (012) 112266"
+				},
+				{
+					"type": "text",
+					"id": "phn_fax_icon",
+					"label": "Business Phone/Fax Icon",
+					"default": "ti-headphone-alt",
+					"info": "e.g. ti-headphone-alt [See More Icon](https:\/\/themify.me/themify-icons)"
+				},
+                  {
+                    "type": "header",
+                    "content": "Color"
+                  },
+                  {
+                    "type": "color",
+                    "id": "section_title_color",
+                    "label": "Section Title Color",
+                    "default": "#383838"
+                  },
+                  {
+                    "type": "color",
+                    "id": "section_title_border_bottom_color",
+                    "label": "Section Title Border Bottom Color",
+                    "default": "#000000"
+                  },
+                  {
+                     "type": "color",
+                     "id": "description_color",
+                     "label": "Description Color",
+                     "default": "#666"
+                  },
+                  {
+                     "type": "color",
+                     "id": "input_text_color",
+                     "label": "Input Text Color",
+                     "default": "#999999"
+                  },
+                  {
+                     "type": "color",
+                     "id": "input_bg_color",
+                     "label": "Input BG Color",
+                     "default": "#1e1e1e"
+                  },
+                  {
+                     "type": "color",
+                     "id": "input_border_color",
+                     "label": "Input Border Color",
+                     "default": "#1e1e1e"
+                  },
+                  {
+                     "type": "color",
+                     "id": "address_color",
+                     "label": "Address Color",
+                     "default": "#666"
+                  },
+                  {
+                     "type": "color",
+                     "id": "address_icon_color",
+                     "label": "Address Icon Color",
+                     "default": "#666"
+                  }
+			]
+		},
+		{
+			"type": "about",
+			"name": "About",
+			"settings": [
+                {
+                  "type": "select",
+                  "id": "about_col_lg",
+                  "label": "About Column for Large Device",
+                  "options":[
+                        {
+                          "label": "1 (1/12)",
+                          "value": "1"
+                        },
+                        {
+                          "label": "2 (2/12)",
+                          "value": "2"
+                        },
+                        {
+                          "label": "3 (3/12)",
+                          "value": "3"
+                        },
+                        {
+                          "label": "4 (4/12)",
+                          "value": "4"
+                        },
+                        {
+                          "label": "5 (5/12)",
+                          "value": "5"
+                        },
+                        {
+                          "label": "6 (6/12)",
+                          "value": "6"
+                        },
+                        {
+                          "label": "7 (7/12)",
+                          "value": "7"
+                        },
+                        {
+                          "label": "8 (8/12)",
+                          "value": "8"
+                        },
+                        {
+                          "label": "9 (9/12)",
+                          "value": "9"
+                        },
+                        {
+                          "label": "10 (10/12)",
+                          "value": "10"
+                        },
+                        {
+                          "label": "11 (11/12)",
+                          "value": "11"
+                        },
+                        {
+                          "label": "12 (12/12)",
+                          "value": "12"
+                        }
+                    ],
+                    "default": "4"
+                },
+                {
+                  "type": "select",
+                  "id": "about_col_md",
+                  "label": "About Column for Tablet Device",
+                  "options":[
+                        {
+                          "label": "1 (1/12)",
+                          "value": "1"
+                        },
+                        {
+                          "label": "2 (2/12)",
+                          "value": "2"
+                        },
+                        {
+                          "label": "3 (3/12)",
+                          "value": "3"
+                        },
+                        {
+                          "label": "4 (4/12)",
+                          "value": "4"
+                        },
+                        {
+                          "label": "5 (5/12)",
+                          "value": "5"
+                        },
+                        {
+                          "label": "6 (6/12)",
+                          "value": "6"
+                        },
+                        {
+                          "label": "7 (7/12)",
+                          "value": "7"
+                        },
+                        {
+                          "label": "8 (8/12)",
+                          "value": "8"
+                        },
+                        {
+                          "label": "9 (9/12)",
+                          "value": "9"
+                        },
+                        {
+                          "label": "10 (10/12)",
+                          "value": "10"
+                        },
+                        {
+                          "label": "11 (11/12)",
+                          "value": "11"
+                        },
+                        {
+                          "label": "12 (12/12)",
+                          "value": "12"
+                        }
+                    ],
+                    "default": "6"
+                },
+				{
+					"type": "checkbox",
+					"id": "about_logo_enable",
+					"label": "Show Logo",
+					"default": true
+				},
+				{
+					"type": "image_picker",
+					"id": "about_logo",
+					"label": "Logo"
+				},
+				{
+					"type": "url",
+					"id": "about_logo_url",
+					"label": "URL",
+					"default": "\/"
+				},
+				{
+					"type": "textarea",
+					"id": "about_description",
+					"label": "About Description",
+					"default": "Ezone is a Multipurpose Powerful Design for your eCommerce Business" 
+				},
+				{
+					"type": "header",
+					"content": "Social Media"
+				},
+				{
+					"type": "checkbox",
+					"id": "social_enable",
+					"label": "Show Social Media",
+					"default": true
+				},
+				{
+					"type": "text",
+					"id": "social_1",
+					"label": "Social Media 1",
+					"default": "facebook",
+					"info": "e.g. facebook [See More Icon](http:\/\/icofont.com/icons/)"
+				},
+				{
+					"type": "url",
+					"id": "social_1_url",
+					"label": "Social Media 1 URL"
+				},
+				{
+					"type": "text",
+					"id": "social_2",
+					"label": "Social Media 2",
+					"default": "twitter",
+					"info": "e.g. twitter [See More Icon](http:\/\/icofont.com/icons/)"
+				},
+				{
+					"type": "url",
+					"id": "social_2_url",
+					"label": "Social Media 2 URL"
+				},
+				{
+					"type": "text",
+					"id": "social_3",
+					"label": "Social Media 3",
+					"default": "pinterest",
+					"info": "e.g. pinterest [See More Icon](http:\/\/icofont.com/icons/)"
+				},
+				{
+					"type": "url",
+					"id": "social_3_url",
+					"label": "Social Media 3 URL"
+				},
+				{
+					"type": "text",
+					"id": "social_4",
+					"label": "Social Media 4",
+					"default": "linkedin",
+					"info": "e.g. linkedin [See More Icon](http:\/\/icofont.com/icons/)"
+				},
+				{
+					"type": "url",
+					"id": "social_4_url",
+					"label": "Social Media 4 URL"
+				},
+				{
+					"type": "text",
+					"id": "social_5",
+					"label": "Social Media 5",
+					"info": "e.g. facebook [See More Icon](http:\/\/icofont.com/icons/)"
+				},
+				{
+					"type": "url",
+					"id": "social_5_url",
+					"label": "Social Media 5 URL"
+				},
+                  {
+                    "type": "header",
+                    "content": "Color"
+                  },
+                  {
+                    "type": "color",
+                    "id": "description_color",
+                    "label": "Description Color",
+                    "default": "#666666"
+                  },
+                  {
+                    "type": "color",
+                    "id": "social_icon_color",
+                    "label": "Social Icon Color",
+                    "default": "#666666"
+                  },
+                  {
+                    "type": "color",
+                    "id": "social_icon_bg_color",
+                    "label": "Social Icon BG Color",
+                    "default": "#f1f1f1"
+                  },
+                  {
+                    "type": "color",
+                    "id": "social_icon_hover_color",
+                    "label": "Social Icon Hover Color",
+                    "default": "#f1f1f1"
+                  },
+                  {
+                    "type": "color",
+                    "id": "social_icon_bg_hover_color",
+                    "label": "Social Icon BG Hover Color",
+                    "default": "#666"
+                  }
+			]
+		},
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,73 @@
+{% assign itemStyle = '' %}{% if cart.item_count == 0 %}{% assign itemStyle = ' style="display:none;"' %}{% endif %}
+{% assign itemEmpty = '' %}{% if cart.item_count == 0 %}{% assign itemEmpty = ' style="display:block;"' %}{% endif %}
+
+
+{% if settings.header_style == 'style_5' %}
+<a class="icon-cart" href="/cart">My Cart <br><span class="bigcounter">{{ cart.item_count }}</span> Item</a>
+
+{% elsif settings.header_style == 'style_6' %}
+<a href="/cart">
+  <i class="ti-shopping-cart"></i>My Cart
+  <span class="bigcounter">{{ cart.item_count }}</span>
+</a>
+
+{% elsif settings.header_style == 'style_7' %}
+<a class="icon-cart-furniture" href="/cart">
+  <i class="ti-shopping-cart"></i>
+  <span class="shop-count-furniture green bigcounter">{{ cart.item_count }}</span>
+</a>
+
+{% elsif settings.header_style == 'style_11' %}
+<a class="icon-cart-furniture white-cart" href="/cart">
+  <i class="ti-shopping-cart"></i>
+  <span class="shop-count-furniture green bigcounter">{{ cart.item_count }}</span>
+</a>
+
+{% else %}
+<a class="icon-cart" href="/cart">
+  <i class="{% if settings.header_style == 'style_3' or settings.header_style == 'style_8' %}pe-7s-shopbag{% else %}ti-shopping-cart{% endif %}"></i>
+  <span class="{% if settings.header_style == 'style_3' or settings.header_style == 'style_8' %}handicraft-count{% unless template == 'index' %} shop-count{% endunless %}
+               {% elsif settings.header_style == 'style_4' %}shop-count book-count{% else %}shop-count pink{% endif %} bigcounter">{{ cart.item_count }}</span>
+</a>
+{% endif %}
+
+
+
+
+
+<div class="cart-dropdown shp__cart__wrap" {{ itemStyle }}>
+  <div class="mini_cart">
+    {% for item in cart.items limit: 20 %}
+    <div class="single-product-cart fix">
+      <div class="cart-img">
+        <a href="{{ item.url }}"><img src="{{ item | img_url: 'compact' }}" alt=""></a>
+      </div>
+      <div class="cart-title">
+        <h5><a href="{{ item.url }}">{{ item.title }}</a></h5>
+        <span>{{ item.price | money }} x {{ item.quantity }}</span>
+      </div>
+      <div class="cart-delete">
+        <a href="javascript:void(0);" onclick="Shopify.removeItem({{ item.variant.id }})"><i class="ti-trash"></i></a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="cart-space">
+    <div class="cart-sub">
+      <h4>{{ settings.total_title }}</h4>
+    </div>
+    <div class="cart-price">
+      <h4 class="shopping-cart__total">{{ cart.total_price | money }}</h4>
+    </div>
+  </div>
+  <div class="cart-btn-wrapper">
+    <a class="cart-btn btn-hover" href="/cart">{{ settings.view_cart_title }}</a>
+    <a class="cart-btn cart-btn-checkout btn-hover" href="/checkout">{{ settings.checkout_title }}</a>
+  </div>
+</div>
+
+<div class="cart_empty_title cart-dropdown" {{ itemEmpty }}>
+  <h5>{{ 'cart.general.empty' | t }}</h5>
+</div>
+

@@ -1,0 +1,42 @@
+<div class="leave-area mt-40">
+  <h3 class="blog-details-title">{{ 'blogs.comments.title' | t }}</h3>
+  {% form 'new_comment', article %}
+
+  {{ form.errors | default_errors }}
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-12">
+          <div class="leave-form mb-20">
+            <input type="text" class="{% if form.errors contains 'author' %}error{% endif %}" name="comment[author]" 
+                   id="commentAuthor" value="{{ form.author }}" placeholder="{{ 'blogs.comments.name' | t }}" required>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="leave-form mb-20">
+            <input type="text" class="{% if form.errors contains 'email' %}error{% endif %}" name="comment[email]" id="commentEmail" 
+                   value="{{ form.email }}" placeholder="{{ 'blogs.comments.email' | t }}" required>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="leave-form mb-20">
+            <input type="text" class="{% if form.errors contains 'website' %}error{% endif %}" name="comment[website]" id="commentWebsite" 
+                   value="{{ form.website }}" placeholder="Website">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="text-leave">
+        <textarea name="comment[body]" id="commentBody"  placeholder="{{ 'blogs.comments.message' | t }}" required>{{ form.body }}</textarea>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="leave-btn">
+        <button class="submit btn-hover" type="submit"><i class="pe-7s-mail"></i> {{ 'contact.form.send' | t }}</button>
+      </div>
+    </div>
+  </div>
+  {% endform %}
+</div>

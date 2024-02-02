@@ -1,0 +1,324 @@
+<div class="handicraft-banner-area" data-section-id="fpf_{{ section.id }}"  id="section-{{ section.id }}">
+  <div class="{% if section.settings.cl_page_width == 'full_wide' %}container-fluid{% else %}container{% endif %}">
+    <div class="row">
+      {% for block in section.blocks %}
+     {% case block.type %}
+     {% when 'banner' %}
+      <div class="col-lg-{{ block.settings.banner_col }} col-md-{{ block.settings.banner_col }} mb-30">
+        <div class="handicraft-banner-wrapper">
+          {% if block.settings.banner_img %}
+          <img src="{{ block.settings.banner_img | img_url: 'master' }}" alt="">
+          {% else %}
+          <img src="https://via.placeholder.com/570x350" alt="">
+          {% endif %}
+        </div>
+      </div>
+     {% endcase %}
+     {% endfor %}  
+    </div>
+  </div>
+</div>
+
+
+
+
+{%- include 'section-style' -%}
+
+
+<style>
+
+  
+  
+  
+  
+</style>
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Banner",
+    "settings": [
+        {
+          "type": "radio",
+          "id": "cl_page_width",
+          "label": "Collection Page Width",
+          "options":[
+                {
+                  "label": "Full Wide",
+                  "value": "full_wide"
+                },
+                {
+                  "label": "Wide",
+                  "value": "wide"
+                }
+			],
+        	"default": "wide"
+        }
+	],
+    "blocks": [
+		{
+			"name": "Banner",
+			"type": "banner",
+			"settings": [
+                {
+                  "type": "select",
+                  "id": "banner_col",
+                  "label": "Banner Column",
+                  "options":[
+                        {
+                            "label": "1 (1/12)",
+                            "value": "1"
+                        },
+                        {
+                            "label": "2 (2/12)",
+                            "value": "2"
+                        },
+                        {
+                            "label": "3 (3/12)",
+                            "value": "3"
+                        },
+                        {
+                            "label": "4 (4/12)",
+                            "value": "4"
+                        },
+                        {
+                            "label": "5 (5/12)",
+                            "value": "5"
+                        },
+                        {
+                            "label": "6 (6/12)",
+                            "value": "6"
+                        },
+                        {
+                            "label": "7 (7/12)",
+                            "value": "7"
+                        },
+                        {
+                            "label": "8 (8/12)",
+                            "value": "8"
+                        },
+                        {
+                            "label": "9 (9/12)",
+                            "value": "9"
+                        },
+                        {
+                            "label": "10 (10/12)",
+                            "value": "10"
+                        },
+                        {
+                            "label": "11 (11/12)",
+                            "value": "11"
+                        },
+                        {
+                            "label": "12 (12/12)",
+                            "value": "12"
+                        }
+                    ],
+                    "default": "6"
+                },
+				{
+					"type": "image_picker",
+					"id": "banner_img",
+					"label": "Banner Image"
+				}
+			]
+		},
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+    "presets": [
+		{
+			"name": "Banner",
+			"category": "Banner",
+			"blocks": [
+				{"type": "banner"},
+				{"type": "banner"}
+			]
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

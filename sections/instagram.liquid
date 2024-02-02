@@ -1,0 +1,521 @@
+<div class="insta-feed" id="section-{{ section.id }}" data-section-type="instafeed-section" data-section-id="{{ section.id }}" data-section="InstagramSection">
+  <div class="{% if section.settings.cl_page_width == 'full_wide' %}container-fluid{% else %}container{% endif %}">
+    <div class="section-title-2 {% if section.settings.section_text_align == 'section_text_left' %}text-left{% elsif section.settings.section_text_align == 'section_text_center' %}text-center{% elsif section.settings.section_text_align == 'section_text_right' %}text-right{% endif %} mb-50">
+      {% if section.settings.section_title != '' %}
+      <h2>{{ section.settings.section_title }}</h2>
+      {% endif %}
+      {% if section.settings.subtitle_enable %}
+      <h4>{% if section.settings.section_subtitle != '' %}{{ section.settings.section_subtitle }}{% endif %}
+        {% if section.settings.instagram_profile != '' %}
+        <a href="{{ section.settings.instagram_url }}">
+          <span>{{ section.settings.instagram_profile }}</span>
+        </a>
+        {% endif %}
+      </h4>
+      {% endif %}      
+    </div>
+    <div class="row">
+      {% if section.settings.instagram_feed_style == 'default' %}
+      <div class="col-12">
+        <div class="instagram-feed-thumb">
+          <div id="instafeed-{{ section.id }}" class="instagram-activation" data-username="{{ section.settings.username }}" data-limit="{{ section.settings.feed_limit }}" data-hashtag="{{ section.settings.instgram_hastag }}" data-size="{{ section.settings.image_size }}"></div>
+        </div>
+      </div>
+      {% elsif section.settings.instagram_feed_style == 'image_gallery' %}
+      {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'image_gallery_banner' %}
+      <div id="block-{{ block.id }}" class="col-lg-{{ block.settings.image_gallery_banner_coloum }} col-md-{{ block.settings.image_gallery_banner_coloum_md }} col-{{ block.settings.image_gallery_banner_coloum_xs }}">
+        <div class="single_banner mb-30">
+          <div class="banner_thumb">
+            <a class=" banner-animation"  href="{{ block.settings.image_gallery_banner_img_url }}"><img src="{% if block.settings.image_gallery_banner_img %}{{ block.settings.image_gallery_banner_img | img_url: 'master' }}{% else %}http:\/\/via.placeholder.com\/640x640{% endif %}" alt="{{ block.settings.image_gallery_banner_img.alt }}"></a>
+          </div>
+        </div>
+      </div>
+      {% endcase %}
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{%- include 'section-style' -%}
+
+<style>
+  
+  
+  #section-{{ section.id }} .section-title-2 > h2 {
+    color: {{ section.settings.section_title_color }};
+}
+ #section-{{ section.id }}  .section-title-2.text-center > h4 {
+    color: {{ section.settings.section_sub_title_color }};
+}
+  #section-{{ section.id }} .section-title-2 > h4 span {
+    color: {{ section.settings.section_high_light_sub_title_color }};
+}
+  
+</style>
+
+
+
+{% if section.settings.instagram_feed_style == 'default' %}
+
+<script src="{{ 'instafeed.min.js' | asset_url }}"></script>
+
+<script>
+  // Instgram Active Normal Js
+    function instgramNewsFeed(){
+      var $sectionInstagram = $('[data-section="InstagramSection"]'),
+          activation = $sectionInstagram.find('[data-username]'),
+          activeId = activation.attr('id'),
+          clientUsername = activation.attr('data-username'),
+          instagramHastag = activation.attr('data-hashtag'),
+          ItemsLimit = activation.attr('data-limit'),
+          imageSize = activation.attr('data-size');
+
+      $.instagramFeed({
+        'tag': instagramHastag,
+        'username': clientUsername,
+        'container': "#"+activeId,
+        'display_profile': false,
+        'display_biography': false,
+        'display_gallery': true,
+        'styling': false,
+        'items': ItemsLimit,
+        'margin': 1,
+        'image_size': imageSize
+      });
+    }
+    instgramNewsFeed();
+</script>
+
+{% elsif section.settings.instagram_feed_style == 'image_gallery' %}
+
+{% endif %}
+
+
+{% schema %}
+  {
+    "name": "Instagram",
+    "settings": [
+        {
+          "type": "radio",
+          "id": "cl_page_width",
+          "label": "Collection Page Width",
+          "options":[
+                {
+                  "label": "Full Wide",
+                  "value": "full_wide"
+                },
+                {
+                  "label": "Wide",
+                  "value": "wide"
+                }
+			],
+        	"default": "wide"
+        },
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "radio",
+          "id": "section_text_align",
+          "label": "Heading Text Align",
+		  "options":[
+				{
+					"label": "Left",
+					"value": "section_text_left"
+				},
+				{
+					"label": "Center",
+					"value": "section_text_center"
+				},
+				{
+					"label": "Right",
+					"value": "section_text_right"
+				}
+			],
+			"default": "section_text_center"
+      	},
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Insta Feed"
+      	},
+		{
+          "type": "checkbox",
+          "id": "subtitle_enable",
+          "label": "Show Sub-title Section",
+          "default": true
+      	},
+		{
+          "type": "text",
+          "id": "section_subtitle",
+          "label": "Section Sub-title",
+          "default": "Follow us on intagram."
+      	},
+		{
+          "type": "text",
+          "id": "instagram_profile",
+          "label": "Instagram Profile",
+          "default": "@Lopezpro"
+      	},
+		{
+          "type": "url",
+          "id": "instagram_url",
+          "label": "Instagram Profile URL"
+      	},
+		{
+		  "type": "header",
+          "content": "Instagram Options"
+        },
+		{
+          "type": "radio",
+          "id": "instagram_feed_style",
+          "label": "Instagram Feed",
+		  "options":[
+				{
+					"label": "Default",
+					"value": "default"
+				},
+				{
+					"label": "Image Gallery",
+					"value": "image_gallery"
+				}
+			],
+			"default": "image_gallery"
+      	},
+		{
+            "type": "text",
+            "id": "username",
+            "label": "Username",
+            "default": "portfolio.devitems",
+			"info": "Instagram can display up to first 12 images using a username"
+        },
+		{
+            "type": "text",
+            "id": "instgram_hastag",
+            "label": "Please Enter HasTag",
+			"info": "Instagram can display up to first 72 images using a HasTag"
+        },
+		{
+		  "type": "paragraph",
+          "content": "HasTag Note: It will work, if \"Username\" is empty"
+        },
+		{
+            "type": "number",
+            "id": "feed_limit",
+            "label": "Post Limit",
+            "default": 8,
+			"info": "For \"Username\" : Will accept max 12. and For \"HasTag\" Will accept max 72 Image"
+        },	
+		{
+            "type": "select",
+            "id": "image_size",
+            "label": "Image Size",
+            "options":[
+                {
+                    "label": "640 x 640px",
+                    "value": "640"
+                },
+                {
+                    "label": "480 x 480px",
+                    "value": "480"
+                },
+				{
+                    "label": "320 x 320px",
+                    "value": "320"
+                },
+				{
+                    "label": "240 x 240px",
+                    "value": "240"
+                },
+				{
+                    "label": "150 x 150px",
+                    "value": "150"
+                }
+            ],
+            "default": "640"
+        },
+		{
+          "type": "header",
+          "content": "Color"
+        }, 
+        {
+           "type": "color",
+           "id": "section_title_color",
+           "label": "Section Title Color",
+           "default": "#383838"
+        }, 
+        {
+           "type": "color",
+           "id": "section_sub_title_color",
+           "label": "Section Sub Title Color",
+           "default": "#666666"
+        }, 
+        {
+           "type": "color",
+           "id": "section_high_light_sub_title_color",
+           "label": "Section High light Sub Title Color",
+           "default": "#c09578"
+        }  
+	],
+    "blocks": [
+	   {
+           "type": "image_gallery_banner",
+           "name": "Image Gallery",
+           "settings": [
+              {
+                  "type": "text",
+                  "id": "image_gallery_banner_coloum",
+                  "label": "Image Gallery Column Desktop",
+                  "default": "3",
+                  "info": "Follow Bootstrap Column"
+              },
+              {
+                  "type": "text",
+                  "id": "image_gallery_banner_coloum_md",
+                  "label": "Image Gallery Column Tablet",
+                  "default": "4",
+                  "info": "Follow Bootstrap Column"
+              },
+              {
+                  "type": "text",
+                  "id": "image_gallery_banner_coloum_xs",
+                  "label": "Image Gallery Column Mobile",
+                  "default": "12",
+                  "info": "Follow Bootstrap Column"
+              },
+              {
+                  "type": "image_picker",
+                  "id": "image_gallery_banner_img",
+                  "label": "Image",
+                  "info": "Recommended Size: 640 x 640"
+              },
+              {
+                  "type": "url",
+                  "id": "image_gallery_banner_img_url",
+                  "label": "URL"
+              }
+           ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+    	{
+          "name": "Instagram",
+          "category": "Social Media",
+		  	"blocks":[
+				{
+					"type": "image_gallery_banner"
+				},
+				{
+					"type": "image_gallery_banner"
+				},
+				{
+					"type": "image_gallery_banner"
+				},
+				{
+					"type": "image_gallery_banner"
+				},
+				{
+					"type": "image_gallery_banner"
+				},
+				{
+					"type": "image_gallery_banner"
+				},
+				{
+					"type": "image_gallery_banner"
+				},
+				{
+					"type": "image_gallery_banner"
+				}
+			]
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

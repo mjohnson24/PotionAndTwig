@@ -1,0 +1,151 @@
+{% if section.settings.contact_form_enable %}
+<div class="contact-message" data-section-id="{{ section.id }}">
+  {% if section.settings.contact_form_title != blank %}
+  <div class="contact-title">
+    <h4>{{ section.settings.contact_form_title }}</h4>
+  </div>
+  {% endif %}
+
+
+
+
+  {% form 'contact' %}
+
+  {% if form.posted_successfully? %}
+  <p class="note form-success form-messege">{{ 'contact.form.post_success' | t }}</p>
+  {% endif %}
+
+  {{ form.errors | default_errors }}
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="contact-input-style mb-30">
+        <label>{{ section.settings.name_placeholder }}*</label>
+        <input required type="text" class="{% if form.errors contains 'name' %}error{% endif %}" name="contact[name]" id="ContactFormName" value="{% if form.name %}{{ form.name }}{% elsif customer.name %}{{ customer.name }}{% endif %}">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="contact-input-style mb-30">
+        <label>{{ section.settings.email_placeholder }}*</label>
+        <input required type="email" class="{% if form.errors contains 'email' %}error{% endif %}" name="contact[email]" id="ContactFormEmail" value="{% if form.email %}{{ form.email }}{% elsif customer.email %}{{ customer.email }}{% endif %}">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="contact-input-style mb-30">
+        <label>{{ section.settings.telephone_placeholder }}</label>
+        <input type="text" id="ContactFormTelephone" name="contact[telephone]" value="{{ form.telephone }}">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="contact-input-style mb-30">
+        <label>{{ section.settings.subject_placeholder }}</label>
+        <input type="text" id="ContactFormSubject" name="contact[subject]" value="{{ form.subject }}">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="contact-textarea-style mb-30">
+        <label>{{ section.settings.comment_placeholder }}*</label>
+        <textarea class="form-control2" name="contact[body]" id="ContactFormMessage">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+      </div>
+      <button class="submit contact-btn btn-hover" type="submit">
+        {{ section.settings.form_button_name }} 
+      </button>
+    </div>
+  </div>
+  {% endform %}
+  <p class="form-messege"></p>
+</div>
+{% endif %}
+
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Contact Form",
+    "settings": [
+		{
+			"type": "checkbox",
+			"id": "contact_form_enable",
+			"label": "Show Contact Form Section",
+			"default": true
+		},
+		{
+			"type": "text",
+			"id": "contact_form_title",
+			"label": "Contact Form Title",
+			"default": "Contact Information"
+		},
+		{
+			"type": "header",
+			"content": "Name"
+		},
+		{
+			"type": "text",
+			"id": "name_placeholder",
+			"label": "Placeholder Text for Name",
+			"default": "Name"
+		},
+		{
+			"type": "header",
+			"content": "Email"
+		},
+		{
+			"type": "text",
+			"id": "email_placeholder",
+			"label": "Placeholder Text for Email",
+			"default": "Email"
+		},
+		{
+			"type": "header",
+			"content": "Telephone"
+		},
+		{
+			"type": "text",
+			"id": "telephone_placeholder",
+			"label": "Placeholder Text for Telephone",
+			"default": "Telephone"
+		},
+		{
+			"type": "header",
+			"content": "Subject"
+		},
+		{
+			"type": "text",
+			"id": "subject_placeholder",
+			"label": "Placeholder Text for Subject",
+			"default": "Subject"
+		},
+		{
+			"type": "header",
+			"content": "Comment"
+		},
+		{
+			"type": "text",
+			"id": "comment_placeholder",
+			"label": "Placeholder Text for Comment",
+			"default": "Comment"
+		},
+		{
+			"type": "header",
+			"content": "Button"
+		},
+		{
+			"type": "text",
+			"id": "form_button_name",
+			"label": "Button Text",
+			"default": "Send Message"
+		}
+
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

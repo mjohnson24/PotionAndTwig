@@ -1,0 +1,49 @@
+/*!
+ * Added to website by Mark Johnson on 7-13-2022
+ * This is for needing to overwrite any custom css styles that may be needed. Write all CSS styles below this comment.
+ */
+
+.header-bottom-wrapper { height: 140px;}
+
+.handicraft-search-cart { margin-top: 7px; }
+
+@media only screen and (width: 767px) {
+  .mobile-menu { margin-top: 35px; }
+}
+
+
+/* .home_slider_special {
+  margin-top: -420px;
+    left: 100px;
+  top: 50px;
+    position: absolute;
+} */
+
+
+@media only screen and (min-width: 768px) {
+  p.home_slider_subtitle_small span { font-size: 1.5em; }
+  .handicraft-search-cart { margin-top: -30px; }
+  .mobile-menu { margin-top: 20px; }
+}
+/* START: THIS IS THE START OF MODIFYING CSS CODE FOR HOLIDAY BANNER */
+/* @media only screen and (min-width: 768px) and (max-width: 991px) {
+  .home_slider_title { 
+    margin-bottom: 15px !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .home_slider_title { 
+    margin-bottom: 15px !important;
+  }
+  .home_slider_subtitle { 
+    margin-bottom: 30px !important;
+  }
+}
+
+.home_slider_title, .home_slider_subtitle { text-transform: none !important;}
+
+
+.home_slider_subtitle { 
+    font-family: Corinthia, sans-serif;
+  } */
+/* END: THIS IS THE END OF MODIFYING CSS CODE FOR HOLIDAY BANNER */

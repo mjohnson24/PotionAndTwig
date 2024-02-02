@@ -1,0 +1,244 @@
+<div class="product-details-content {% if section.settings.product_details_style == 'style_4' %}sidebar-active{% endif %}">
+  <h3>{{ product.title }}</h3>
+  {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+          {%- if current_variant.sku.size > 0 and section.settings.product_sku_enable -%}
+          <div class="product-sku">{{ section.settings.product_sku_title }} <span class="variant-sku">{{ current_variant.sku }}</span></div>
+          {%- endif -%}
+  {% if section.settings.rating_enable %}
+  <div class="rating-number">
+    <div class="quick-view-rating">
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="details-price">
+    <span ><!-- id="ProductPrice" -->
+      {% if settings.show_price_with_percentage_off != "0" and settings.show_price_with_percentage_off != "" %}
+          {% assign discountprice = product.selected_or_first_available_variant.price | times: settings.show_price_with_percentage_off | divided_by: 100 %}
+          {{ product.selected_or_first_available_variant.price | minus: discountprice | money }} <span style="color:rgb(230, 0, 0);"><del>{{ product.selected_or_first_available_variant.price | money }}</del></span>
+      {% else %}
+      	{{ product.selected_or_first_available_variant.price | money }}
+        
+      {% endif %}
+      </span>
+    
+      {% if product.compare_at_price_max > product.price %}
+        <del><span id="ComparePrice">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span></del>
+      {% endif %}
+  </div>
+          
+  {%- if section.settings.product_inventory_enable -%}          
+  <script>       
+    var inv_qty = {};
+    {% for var in product.variants %}
+    inv_qty[{{- var.id -}}] = {{ var.inventory_quantity | default: 0 }};
+    {% endfor %}
+  </script>            
+  {% if current_variant.inventory_management == "shopify" %}
+  <div class="product-variant-inventory">
+    <span class="inventory-title">{{ section.settings.availability_title }}</span> <span class="variant-inventory">{{ current_variant.inventory_quantity }} {{ section.settings.left_in_stock_title }}</span>
+  </div>
+  {% endif %}
+  {%- endif -%}
+
+  {% if product.description contains '[short_description]' %}         
+  {% assign short_description_first = product.description | split:'[/short_description]' | first %}
+  {% assign short_description_final = short_description_first | split:'[short_description]' | last %}
+  {{ short_description_final }}          
+  {% else %}
+  {{ product.description | strip_html | truncatewords: 50 | split: '[affiliate_link]' | first | split: '[product_video]' | first | split: '[short_description]' | first | split: '[product_description]' | first | split: '[more_info]' | first }}
+  {% endif %}
+  
+
+  {%- if product.description contains '[countdown]' -%}
+  {%- assign count_down_first = product.description | split:'[/countdown]' | first -%}
+  {%- assign count_down_final = count_down_first | split:'[countdown]' | last -%}
+  <div class=" product_timing">
+    <h5>{{ section.settings.countdown_heading }}</h5>
+    <div class="product_coundown" data-countdown="{{ count_down_final }}"></div> 
+  </div>
+  {%- endif -%}
+
+  {% form 'product', product, id: "AddToCartForm" %}  
+    {% if section.settings.variant_style == 'select_opt' %}
+
+    {% if product.variants.size > 1 %}
+    <div class="quick-view-select">
+      <div class="select-option-part">
+        <select name="id" id="productSelect" class="product-single__variants email s-email s-wid" style="display:none;">
+          {% for variant in product.variants %}
+          {% if variant.available %}
+          <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" 
+                  value="{{ variant.id }}" data-title="{{ variant.title }}" data-price="{{ variant.price | money_with_currency }}" data-compareprice="{{ variant.compare_at_price | money_with_currency }}">{{ variant.title }} - {{ variant.price | money_with_currency }}
+          </option>
+
+          {% else %}
+          <option disabled="disabled">
+            {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+          </option>
+          {% endif %}
+          {% endfor %}
+        </select>                      
+      </div>
+    </div>  
+  <script>
+      $(document).ready(function () {
+            const $productSelect = $('#productSelect');
+            const $productSelectOption0 = $('#productSelect-option-0');
+            const $priceSpan = $('.details-price > span');
+            const $priceCompareSpan = $('.details-price del span');
+
+            // Add an event listener to the first select element
+        $('body').on('change', '#productSelect-option-0', function(){
+   
+                // Get the selected option's data-title
+                const selectedOption = $(this).find('option:selected');
+       
+                // Loop through the options in the second select element
+                $productSelect.find('option').each(function () {
+                    const $option = $(this);
+                    // Check if the option's data-title matches the selected data-title
+                    if ($option.data('title') === selectedOption.val()) {
+                        const dataPrice = $option.data('price');
+                      const dataComparePrice = $option.data('compareprice');
+
+                        // Set the HTML content of the price span
+                        $priceSpan.html(dataPrice.replace("USD",""));
+                        // $priceCompareSpan.html(dataComparePrice.replace("USD",""));
+                    }
+                });
+          
+            });
+        });
+  </script>
+    {% else %}
+    <select name="id" id="productSelect" class="product-single__variants email s-email s-wid" style="display:none;">
+      {% for variant in product.variants %}
+      {% if variant.available %}
+      <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" 
+              value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}
+      </option>
+
+      {% else %}
+      <option disabled="disabled">
+        {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+      </option>
+      {% endif %}
+      {% endfor %}
+    </select>
+    {% endif %}
+
+
+    {% else %}
+    <div class="wrapper_none">
+      {% include 'swatch-option' %}
+    </div>
+    {% endif %}
+
+
+    <div class="quickview-plus-minus">
+      <div class="cart-plus-minus">
+        <input type="text" value="1" name="quantity" class="cart-plus-minus-box">
+      </div>
+
+      <div class="quickview-btn-cart">
+        {% if product.description contains '[affiliate_link]' %}
+        {% assign affiliate_link_first = product.description | split:'[/affiliate_link]' | first %}
+        {% assign affiliate_link_final = affiliate_link_first | split:'[affiliate_link]' | last %}
+        <a class="btn-hover-black" href="{{ affiliate_link_final }}" data-toggle="tooltip" title="{{ settings.add_to_cart_text }}">
+          {{ settings.add_to_cart_text }}
+        </a>
+
+        {% elsif product.available %}
+        <a class="btn-hover-black addtocart cart-item" href="javascript:void(0);" onclick="{{ func }}; return false;" 
+           data-toggle="tooltip" title="{{ settings.add_to_cart_text }}">
+          <i class="pe-7s-settings animated rotateIn infinite"></i>
+          <i class="pe-7s-check"></i> {{ settings.add_to_cart_text }}
+        </a>
+
+
+        <script>
+          jQuery('.addtocart').click(function(e) {
+            e.preventDefault();
+            Shopify.addItemFromFormStart('AddToCartForm', {{ product.id }});
+                                         });
+        </script>
+
+
+        {% else %}
+        <a class="btn-hover-black disabled disabled-add-to-cart" href="#" data-toggle="tooltip" title="{{ settings.out_of_stock_text }}">
+          {{ settings.out_of_stock_text }}
+        </a>
+        {% endif %}
+      </div>
+
+      {% if section.settings.wishlist_enable %}
+      <div class="quickview-btn-wishlist">
+      {%- if product.handle != blank -%}
+        <a class="btn-hover action-wishlist tile-actions--btn wishlist-btn wishlist" href="javascript: void(0)" button-wishlist data-product-handle="{{ product.handle }}" title="Wishlist">
+           <span class="add-wishlist"><i class="pe-7s-like"></i></span>
+          <span class="loading-wishlist"><i class="pe-7s-settings animated rotateIn infinite"></i></span>
+          <span class="remove-wishlist"><i class="pe-7s-check"></i></span>
+        </a>
+          {%- endif -%}
+      </div>
+      {% endif %}
+      
+    </div>
+           
+                <div class="Payment_button">
+            {%- if product.available and section.settings.dynamic_checkout_button_enable -%}
+            {{ form | payment_button }}
+            {%- endif -%}
+          </div>
+  
+ {% endform %}
+
+
+
+  {% if section.settings.categories_enable %}
+  
+  <div class="product-details-cati-tag mt-20">
+    <ul>
+      {% if section.settings.categories_title != '' %}
+      <li class="categories-title">{{ section.settings.categories_title }} :</li>
+      {% endif %}
+
+      {% assign categories_list_limit = section.settings.categories_list_limit_handle %}
+      {% for c in product.collections limit: categories_list_limit %}
+      <li><a href="{{ c.url }}">{{ c.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+
+  {% if section.settings.tags_enable %}
+  
+  <div class="product-details-cati-tag mtb-10">
+    <ul>
+      {% if section.settings.tags_title != '' %}
+      <li class="categories-title">{{ section.settings.tags_title }}</li>
+      {% endif %}
+
+      {% assign tags_list_limit = section.settings.tags_list_limit_handle %}
+      {% for tag in product.tags limit: tags_list_limit %}
+      {% comment %}
+      <!-- MODIFIED BY MARK JOHNSON TO REMOVE LINKS ON TAGS -->
+      <li><a href="/collections/all/{{ tag | handle }}">{{ tag }}{% unless forloop.last %},{% endunless %}</a></li>
+      {% endcomment %}
+      <li>{{ tag }}{% unless forloop.last %},{% endunless %}</li>
+      {% endfor %}
+
+    </ul>
+  </div>
+  {% endif %}
+
+
+  {% if section.settings.product_share_enable %}    
+  <div class="{% if section.settings.product_share_style == 'style_2' %}product-details5-social{% else %}product-share{% endif %}">
+    {% include 'product-share' %}
+  </div>      
+  {% endif %}
+</div>

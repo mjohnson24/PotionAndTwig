@@ -1,0 +1,122 @@
+{% assign menu_item_font = section.settings.menu_item_font_family %}
+
+
+<nav{% if settings.enable_rtl %} class="text-right"{% endif %}>
+  <ul>
+    {% assign links_count = '' %}
+    {% for link in linklists.main-menu.links %}
+    {% assign childlink_handle = link.title | handle %}
+    {% if linklists[childlink_handle] and linklists[childlink_handle].links.size > 2 %}
+    <li class="linkNumber{{ links_count.size }} {% if request.path == link.url or request.page_type == 'collection' %}active{% endif %}"><a href="{{ link.url }}">{{ link.title }} {% if settings.header_style == 'style_5' or settings.header_style == 'style_6' %}<i class="pe-7s-angle-down"></i>{% endif %}</a>
+      <div class="single-dropdown {% if settings.header_style == 'style_1' %}header_fashion_cat{% endif %}">
+        {% for childlink in linklists[childlink_handle].links %}
+        {% assign grand_childlink_handle = childlink.title | handle %}
+        {% if linklists[grand_childlink_handle] and linklists[grand_childlink_handle].links.size > 0 %}
+        <div class="category-dropdown-style category-common2 mb-30">
+          <h4 class="categories-subtitle">{{ childlink.title }}</h4>
+          <ul>
+            {% for grand_childlink_handle in linklists[grand_childlink_handle].links %}  
+            <li class="{% if request.path == grand_childlink_handle.url %}active{% endif %}"><a href="{{ grand_childlink_handle.url }}">{{ grand_childlink_handle.title }}</a></li>
+            {% endfor %} 
+          </ul>
+        </div>
+        {% elsif childlink.type == "collection_link" and childlink.object.image %}
+        <div class="mega-banner-img {% if settings.header_style == 'style_1' %}header_fashion_mega_img{% endif %}"><a href="{{ childlink.url }}"><img class="lazyload" data-src="{{ childlink.object.image | img_url: 'master' }}" alt="" /></a></div>
+        {% else %}
+        <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+        {% endif %}
+        {% endfor %}
+      </div>      
+    </li>
+    {% elsif linklists[childlink_handle] and linklists[childlink_handle].links.size > 0 %}
+    <li class="linkNumber{{ links_count.size }} {% if request.path == link.url or request.page_type == 'collection' %}active{% endif %}"><a href="{{ link.url }}">{{ link.title }} {% if settings.header_style == 'style_5' or settings.header_style == 'style_6' %}<i class="pe-7s-angle-down"></i>{% endif %}</a>
+      <div class="single-dropdown">
+        {% for childlink in linklists[childlink_handle].links %}
+        {% assign grand_childlink_handle = childlink.title | handle %}
+        {% if linklists[grand_childlink_handle] and linklists[grand_childlink_handle].links.size > 0 %}
+        <div class="category-dropdown-style category-common2 mb-30">
+          <h4 class="categories-subtitle">{{ childlink.title }}</h4>
+          <ul>
+            {% for grand_childlink_handle in linklists[grand_childlink_handle].links %}  
+            
+            {% for collection in collections %}
+              {% if grand_childlink_handle.url == collection.url %}
+            
+                {% if collection.active %}
+                  <li class="{% if request.path == grand_childlink_handle.url %}active{% endif %}"><a href="{{ grand_childlink_handle.url }}">{{ grand_childlink_handle.title }}</a></li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            <li class="{% if request.path == grand_childlink_handle.url %}active{% endif %}"><a href="{{ grand_childlink_handle.url }}">{{ grand_childlink_handle.title }}</a></li>
+            {% endfor %} 
+          </ul>
+        </div>
+        {% elsif childlink.type == "collection_link" and childlink.object.image %}
+        <div class="mega-banner-img"><a href="{{ childlink.url }}"><img class="lazyload" data-src="{{ childlink.object.image | img_url: 'master' }}" alt="" /></a></div>
+        {% else %}
+        <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+        {% endif %}
+        {% endfor %}
+        
+        {% if section.settings.bottom_content_left or section.settings.bottom_content_middle or section.settings.bottom_content_right %}
+        <div class="clearfix"></div><div class="row">
+          
+        {% if section.settings.bottom_content_left %}
+          <div class="col-sm-4">
+        	{{section.settings.bottom_content_left}}
+          </div>
+        {% endif %}
+          {% if section.settings.bottom_content_middle %}
+          <div class="col-sm-4">
+        	{{section.settings.bottom_content_middle}}
+          </div>
+        {% endif %}
+          {% if section.settings.bottom_content_right %}
+          <div class="col-sm-4">
+        	{{section.settings.bottom_content_right}}
+          </div>
+        {% endif %}
+        </div>
+        {% endif %}
+        
+      </div>      
+    </li>
+    {% else %}
+    <li class="linkNumber{{ links_count.size }} {% if request.path == link.url %}active{% endif %}"><a href="{{ link.url }}">{{ link.title }}</a></li>
+    {% endif %}
+    {% assign links_count = links_count | append: 'x' %}
+    {% endfor %}
+  </ul>
+</nav>
+
+
+
+<script>
+  $('.category-common2').parent('div').addClass('category-menu-dropdown shop-menu');
+  $('.category-common2').parent('div').removeClass('single-dropdown');
+  {% if section.settings.menu_item_one_label and section.settings.menu_item_one_color %}
+  $('<label style="background-color:{{ section.settings.menu_item_one_color }};">{{ section.settings.menu_item_one_label }}</label>').insertBefore($('.linkNumber0 > a'));
+  {% endif %}
+  {% if section.settings.menu_item_two_label and section.settings.menu_item_two_color %}
+  	$('<label style="background-color:{{ section.settings.menu_item_two_color }};">{{ section.settings.menu_item_two_label }}</label>').insertBefore($('.linkNumber1 > a'));
+  {% endif %}
+  {% if section.settings.menu_item_three_label and section.settings.menu_item_three_color %}
+  	$('<label style="background-color:{{ section.settings.menu_item_three_color }};">{{ section.settings.menu_item_three_label }}</label>').insertBefore($('.linkNumber2 > a'));
+  {% endif %}
+  {% if section.settings.menu_item_four_label and section.settings.menu_item_four_color %}
+  	$('<label style="background-color:{{ section.settings.menu_item_four_color }};">{{ section.settings.menu_item_four_label }}</label>').insertBefore($('.linkNumber3 > a'));
+  {% endif %}
+  {% if section.settings.menu_item_five_label and section.settings.menu_item_five_color %}
+  	$('<label style="background-color:{{ section.settings.menu_item_five_color }};">{{ section.settings.menu_item_five_label }}</label>').insertBefore($('.linkNumber4 > a'));
+  {% endif %}
+</script>
+<style>
+  {{ menu_item_font | font_face }}
+  
+  #section-header-bottom .menu-style-2 ul li a{
+  font-family:{{ menu_item_font.family }}!important;
+    font-weight:{{ menu_item_font.weight }}!important;
+    font-style:{{ menu_item_font.style }}!important;
+  }
+
+</style>

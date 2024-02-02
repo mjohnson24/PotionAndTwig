@@ -1,0 +1,630 @@
+{% if section.settings.footer_bottom_enable %}
+<div class="footer-bottom" data-section-id="{{ section.id }}" id="section-{{ section.id }}">
+  
+  <div class="{% if section.settings.cl_page_width == 'full_wide' %}container-fluid{% else %}container{% endif %}">
+    <div class="row">
+      {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'copyright_text' %}
+      <div class="col-lg-{{ block.settings.copyright_col_lg }} col-md-{{ block.settings.copyright_col_md }} col-sm-12 
+                  {% if block.settings.copyright_text_position == 'left' %}text-left
+                  {% elsif block.settings.copyright_text_position == 'center' %}text-center
+                  {% else %}text-right{% endif %}" id="block-{{ block.id }}">
+        
+        <div class="copyright-handicraft">
+          <p>{{ block.settings.copyright_text }}</p>
+        </div>
+      </div>
+
+      {% when 'custom_menu' %}
+      <div class="col-lg-{{ block.settings.custom_menu_col_lg }} col-md-{{ block.settings.custom_menu_col_md }} col-sm-12 
+                  {% if block.settings.custom_menu_position == 'left' %}text-left
+                  {% elsif block.settings.custom_menu_position == 'center' %}text-center
+                  {% else %}text-right{% endif %}" id="block-{{ block.id }}">
+        
+        <div class="footer-menu">
+          <nav>
+            <ul>
+              {% assign custom_menu = block.settings.custom_menu_handle %}
+              {% for link in linklists[custom_menu].links %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </nav>
+        </div>
+      </div>
+      
+
+      {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+
+{%- include 'section-style' -%}
+
+<style>
+  
+  
+{% for block in section.blocks %}
+{% case block.type %}
+{% when 'copyright_text' %}
+  
+  #block-{{ block.id }} .copyright-handicraft p {
+    color: {{ block.settings.copyright_color }};
+  }
+  #block-{{ block.id }} .copyright-handicraft p a {
+    color: {{ block.settings.copyright_anchor_color }};
+  }
+  
+        {% when 'custom_menu' %}
+  
+  #block-{{ block.id }} .footer-menu li a {
+    color: {{ block.settings.menu_color }};
+}
+  
+  #block-{{ block.id }} .footer-menu li a:hover {
+    color: {{ block.settings.menu_hover_color }};
+}
+  
+  
+{% endcase %}
+{% endfor %}
+  
+  
+</style>
+
+
+
+
+{% schema %}
+  {
+    "name": "Footer Bottom",
+    "settings": [
+        {
+          "type": "radio",
+          "id": "cl_page_width",
+          "label": "Collection Page Width",
+          "options":[
+                {
+                  "label": "Full Wide",
+                  "value": "full_wide"
+                },
+                {
+                  "label": "Wide",
+                  "value": "wide"
+                }
+			],
+        	"default": "wide"
+        },
+		{
+			"type": "checkbox",
+			"id": "footer_bottom_enable",
+			"label": "Enable Footer Bottom",
+			"default": true
+		}
+	],
+    "blocks": [
+		{
+			"type": "copyright_text",
+			"name": "Copyright Text",
+			"settings": [
+                {
+                    "type": "html",
+                    "id": "copyright_text",
+                    "label": "Copyright Text",
+                    "info": "HTML code available"
+                },
+                {
+                  "type": "radio",
+                  "id": "copyright_text_style",
+                  "label": "Copyright Text Style",
+                  "options":[
+                        {
+                          "label": "Style 1",
+                          "value": "style_1"
+                        },
+                        {
+                          "label": "Style 2",
+                          "value": "style_2"
+                        }
+                    ],
+                    "default": "style_1"
+                },
+                {
+                  "type": "radio",
+                  "id": "copyright_text_position",
+                  "label": "Copyright Text Position",
+                  "options":[
+                        {
+                          "label": "Left",
+                          "value": "left"
+                        },
+                        {
+                          "label": "Right",
+                          "value": "right"
+                        },
+                        {
+                          "label": "Center",
+                          "value": "center"
+                        }
+                    ],
+                    "default": "left"
+                },
+                {
+                  "type": "select",
+                  "id": "copyright_col_lg",
+                  "label": "Column for Large Device",
+                  "options":[
+                        {
+                          "label": "1 (1/12)",
+                          "value": "1"
+                        },
+                        {
+                          "label": "2 (2/12)",
+                          "value": "2"
+                        },
+                        {
+                          "label": "3 (3/12)",
+                          "value": "3"
+                        },
+                        {
+                          "label": "4 (4/12)",
+                          "value": "4"
+                        },
+                        {
+                          "label": "5 (5/12)",
+                          "value": "5"
+                        },
+                        {
+                          "label": "6 (6/12)",
+                          "value": "6"
+                        },
+                        {
+                          "label": "7 (7/12)",
+                          "value": "7"
+                        },
+                        {
+                          "label": "8 (8/12)",
+                          "value": "8"
+                        },
+                        {
+                          "label": "9 (9/12)",
+                          "value": "9"
+                        },
+                        {
+                          "label": "10 (10/12)",
+                          "value": "10"
+                        },
+                        {
+                          "label": "11 (11/12)",
+                          "value": "11"
+                        },
+                        {
+                          "label": "12 (12/12)",
+                          "value": "12"
+                        }
+                    ],
+                    "default": "6"
+                },
+                {
+                  "type": "select",
+                  "id": "copyright_col_md",
+                  "label": "Column for Tablet Device",
+                  "options":[
+                        {
+                          "label": "1 (1/12)",
+                          "value": "1"
+                        },
+                        {
+                          "label": "2 (2/12)",
+                          "value": "2"
+                        },
+                        {
+                          "label": "3 (3/12)",
+                          "value": "3"
+                        },
+                        {
+                          "label": "4 (4/12)",
+                          "value": "4"
+                        },
+                        {
+                          "label": "5 (5/12)",
+                          "value": "5"
+                        },
+                        {
+                          "label": "6 (6/12)",
+                          "value": "6"
+                        },
+                        {
+                          "label": "7 (7/12)",
+                          "value": "7"
+                        },
+                        {
+                          "label": "8 (8/12)",
+                          "value": "8"
+                        },
+                        {
+                          "label": "9 (9/12)",
+                          "value": "9"
+                        },
+                        {
+                          "label": "10 (10/12)",
+                          "value": "10"
+                        },
+                        {
+                          "label": "11 (11/12)",
+                          "value": "11"
+                        },
+                        {
+                          "label": "12 (12/12)",
+                          "value": "12"
+                        }
+                    ],
+                    "default": "5"
+                },
+                  {
+                    "type": "header",
+                    "content": "Color"
+                  },
+                  {
+                    "type": "color",
+                    "id": "copyright_color",
+                    "label": "Copy Right Color",
+                    "default": "#333333"
+                  },
+                  {
+                    "type": "color",
+                    "id": "copyright_anchor_color",
+                    "label": "Copy Right Anchor Color",
+                    "default": "#686868"
+                  }
+           ]
+		},
+		{
+			"type": "custom_menu",
+			"name": "Custom Menu",
+			"settings": [
+                {
+                    "type": "link_list",
+                    "id": "custom_menu_handle",
+                    "label": "Select Menu"
+                },
+                {
+                  "type": "radio",
+                  "id": "custom_menu_position",
+                  "label": "Custom Menu Position",
+                  "options":[
+                        {
+                          "label": "Left",
+                          "value": "left"
+                        },
+                        {
+                          "label": "Right",
+                          "value": "right"
+                        },
+                        {
+                          "label": "Center",
+                          "value": "center"
+                        }
+                    ],
+                    "default": "left"
+                },
+                {
+                  "type": "select",
+                  "id": "custom_menu_col_lg",
+                  "label": "Column for Large Device",
+                  "options":[
+                        {
+                          "label": "1 (1/12)",
+                          "value": "1"
+                        },
+                        {
+                          "label": "2 (2/12)",
+                          "value": "2"
+                        },
+                        {
+                          "label": "3 (3/12)",
+                          "value": "3"
+                        },
+                        {
+                          "label": "4 (4/12)",
+                          "value": "4"
+                        },
+                        {
+                          "label": "5 (5/12)",
+                          "value": "5"
+                        },
+                        {
+                          "label": "6 (6/12)",
+                          "value": "6"
+                        },
+                        {
+                          "label": "7 (7/12)",
+                          "value": "7"
+                        },
+                        {
+                          "label": "8 (8/12)",
+                          "value": "8"
+                        },
+                        {
+                          "label": "9 (9/12)",
+                          "value": "9"
+                        },
+                        {
+                          "label": "10 (10/12)",
+                          "value": "10"
+                        },
+                        {
+                          "label": "11 (11/12)",
+                          "value": "11"
+                        },
+                        {
+                          "label": "12 (12/12)",
+                          "value": "12"
+                        }
+                    ],
+                    "default": "6"
+                },
+                {
+                  "type": "select",
+                  "id": "custom_menu_col_md",
+                  "label": "Column for Tablet Device",
+                  "options":[
+                        {
+                          "label": "1 (1/12)",
+                          "value": "1"
+                        },
+                        {
+                          "label": "2 (2/12)",
+                          "value": "2"
+                        },
+                        {
+                          "label": "3 (3/12)",
+                          "value": "3"
+                        },
+                        {
+                          "label": "4 (4/12)",
+                          "value": "4"
+                        },
+                        {
+                          "label": "5 (5/12)",
+                          "value": "5"
+                        },
+                        {
+                          "label": "6 (6/12)",
+                          "value": "6"
+                        },
+                        {
+                          "label": "7 (7/12)",
+                          "value": "7"
+                        },
+                        {
+                          "label": "8 (8/12)",
+                          "value": "8"
+                        },
+                        {
+                          "label": "9 (9/12)",
+                          "value": "9"
+                        },
+                        {
+                          "label": "10 (10/12)",
+                          "value": "10"
+                        },
+                        {
+                          "label": "11 (11/12)",
+                          "value": "11"
+                        },
+                        {
+                          "label": "12 (12/12)",
+                          "value": "12"
+                        }
+                    ],
+                    "default": "7"
+                },
+                  {
+                    "type": "header",
+                    "content": "Color"
+                  },
+                  {
+                    "type": "color",
+                    "id": "menu_color",
+                    "label": "Menu Color",
+                    "default": "#7b7b7b"
+                  },
+                  {
+                    "type": "color",
+                    "id": "menu_hover_color",
+                    "label": "Menu Hover Color",
+                    "default": "#c09578"
+                  }
+			]
+		},
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

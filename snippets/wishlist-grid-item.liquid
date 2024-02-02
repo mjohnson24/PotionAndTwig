@@ -1,0 +1,52 @@
+{% assign variant = product.selected_or_first_available_variant %}
+
+{% if product.available %}
+{% assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" %}
+{% endif %} 
+
+
+
+
+<div class="product-fruit-wrapper wishlist-tile-container wishlist-product-item product-tile-container wishlist-tile-container test-class" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
+  <div class="product-fruit-img wishlist-tile">
+    <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ featured_image.alt }}">
+    </a>
+    <div class="product-furit-action">
+      {% if product.description contains '[affiliate_link]' %}
+      {% assign affiliate_link_first = product.description | split:'[/affiliate_link]' | first %}
+      {% assign affiliate_link_final = affiliate_link_first | split:'[affiliate_link]' | last %}
+      <a class="furit-animate-left" href="{{ affiliate_link_final }}" title="{{ settings.add_to_cart_text }}">
+        <i class="pe-7s-cart"></i>
+      </a>
+
+      {% elsif product.available %}
+      <a class="furit-animate-left add_cart cart-item" title="{{ settings.add_to_cart_text }}" href="javascript:void(0);" onclick="{{ func }}; return false;">
+        <i class="pe-7s-cart"></i>
+        <i class="pe-7s-settings animated rotateIn infinite"></i>
+        <i class="pe-7s-check"></i>
+      </a>
+      {% else %}
+      <a href="#" class="disabled-add-to-cart furit-animate-left" title="{{ settings.out_of_stock_text }}">
+        <i class="pe-7s-cart"></i>
+      </a>
+      {% endif %}
+      {%- if product.handle != blank -%}
+      <a class="furit-animate-right wishlist-style-2 action-wishlist tile-actions--btn wishlist-btn wishlist" href="javascript: void(0)" button-wishlist data-product-handle="{{ product.handle }}" title="Wishlist">
+        <span class="add-wishlist"><i class="pe-7s-like"></i></span>
+        <span class="loading-wishlist"><i class="pe-7s-settings animated rotateIn infinite"></i></span>
+        <span class="remove-wishlist"><i class="pe-7s-check"></i></span>
+      </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="product-fruit-content text-center">
+    <h4><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h4>
+    {% if on_sale %}
+    <span>{{ product.price | money }}</span> <del>{{ product.compare_at_price | money }}</del>
+    {% else %}
+    <span>{{ product.price | money }}</span>
+    {% endif %}
+  </div>
+</div>

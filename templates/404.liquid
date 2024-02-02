@@ -1,0 +1,16 @@
+<div class="area-404 ptb-100">  
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="error-content text-center">
+          {% if settings.opps_404 %}
+          <img src="{{ settings.opps_404 | img_url: 'master' }}" alt="" />
+          {% endif %}
+          <h4 class="text-light-black mt-40">{{ settings.heading_404 }}</h4>
+          <h5 class="text-light-black mt-40">{{ settings.sub_text_404 }}</h5>
+          <a class="btn-hover contact-btn limited-btn mt-60" href="{{ settings.button_url }}" data-text="{{ settings.button_title }}" >{{ settings.button_title }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

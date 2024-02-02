@@ -1,0 +1,515 @@
+<div class="cart-main-area" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        {% if cart.item_count > 0 %}
+
+        {% if section.settings.page_title %}
+        <h1 class="cart-heading">{{ section.settings.page_title }}</h1>
+        {% endif %}
+       
+        <form action="/cart" method="post" enctype="multipart/form-data" novalidate>
+          	
+          <div class="table-content cart-table table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>{{ section.settings.remove_title }}</th>
+                  <th>{{ section.settings.image_title }}</th>
+                  <th>{{ section.settings.product_title }}</th>
+                  <th>{{ section.settings.price_title }}</th>
+                  <th>{{ section.settings.quantity_title }}</th>
+                  <th>{{ section.settings.total_title }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in cart.items %}
+                <tr>
+                  <td class="product-remove"><a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><i class="pe-7s-close"></i></a></td>
+                  <td class="product-thumbnail">
+                    <a href="{{ item.url }}"><img src="{{ item | img_url: '85x' }}" alt=""></a>
+                  </td>
+                  <td class="product-name">
+                  <a href="{{ item.url }}">{{ item.title }} </a>
+                     {% assign property_size = item.properties | size %}
+                      {% if property_size > 0 %}
+                        <br />
+                      {% for p in item.properties %}
+                        {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                        {{ p.last }}
+                      {% endfor %}
+                      {% endif %}
+                  </td>
+                  <td class="product-price-cart"><span class="amount">{{ item.price | money }}</span></td>
+                  <td class="product-quantity">
+                    <input value="{{ item.quantity }}" type="number" name="updates[]">
+                  </td>
+                  <td class="product-subtotal">{{ item.line_price | money }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="row flex-row-reverse">
+            <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
+              <div class="coupon-all">
+                <div class="coupon2 update_cart_btn">
+                  <input class="button" name="cart_update" name="update_cart" value="{{ 'cart.general.update' | t }}" type="submit">
+                </div>
+              </div>
+              <div class="cart-page-total">
+                <h2>{{ section.settings.cart_box_title }}</h2>
+                <ul>
+                  <li>{{ section.settings.cart_subtotal_title }}<span>{{ cart.total_price | money }}</span></li>
+                  <li>{{ section.settings.cart_total_title }}<span>{{ cart.total_price | money }}</span></li>
+                  <li class="cartfooterdiscount"></li>
+                  <li>Total After Discounts <span id="stack-discounts-subtotal">{{ cart.total_price | money }}</span></li>
+                </ul>
+                <span style="text-align:right;float:right;font-weight:bold;"><small>Tax is only charged in Louisiana</small></span>
+             <div style="clear:both;"></div>
+                <a class="btnCheckout" href="/checkout">{{ section.settings.checkout_button_text }}</a>
+                
+                 </div>
+            </div>
+
+
+            <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+              <div class="coupon-all">                
+                <h6 class="mb-30">{{ 'cart.general.note' | t }}</h6>
+                <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+              </div>
+            </div>
+          </div> 
+        </form>
+        {% else %}
+
+        <div class="cart-page-total empty-cart-page">
+          <h2>{{ 'cart.general.empty' | t }}</h2>
+          <a href="{{ section.settings.continue_shopping_url }}">{{ section.settings.continue_shopping_title }}</a>
+        </div>       
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $(function(){
+
+    var urlParams = new URLSearchParams(window.location.search);
+
+    console.log('applying discount');
+    
+    if(urlParams.has('coupon')){
+      setTimeout(function(){ 
+        
+       let coupon = urlParams.get('coupon');
+     
+     console.log('test start');
+     const addTheCoupon = couponItem =>
+        new Promise(resolve =>
+          setTimeout(function(){ 
+            $('#coupons_stacker_input').val(couponItem);
+            $('#coupons_stacker_add_button').click();
+            resolve(couponItem); 
+          }, 2000)
+        );
+        
+      const addCoupons = (theCoupons) => {
+        $('.btnCheckout').hide();
+        for (couponItem of theCoupons) {
+          const addCoupon = addTheCoupon(couponItem);
+          console.log(`Coupon added: ${addCoupon}`);
+        }
+        setTimeout(function(){ 
+          console.log('All coupons were added');
+          $('.btnCheckout').fadeIn();
+        }, 4000)
+      };
+      
+      if(coupon.includes("|")){
+        addCoupons(coupon.split('|'));
+      }else{
+        addCoupons([coupon]);
+      }
+     }, 1750);
+   	}
+});
+</script>
+
+{%- include 'section-style' -%}
+
+
+
+
+<style>
+  @media (max-width: 767px) {
+    /* Force table to not be like tables anymore */
+    .cart-table table, .cart-table thead, .cart-table tbody, .cart-table th, .cart-table td, .cart-table tr { 
+      display: block; 
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    .cart-table thead tr { 
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    .cart-table tr { border: 1px solid #ccc; }
+
+    .cart-table td { 
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee; 
+      position: relative;
+      padding-left: 50%; 
+    }
+
+    .cart-table td:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding-right: 0;
+      white-space: nowrap;
+    }
+
+    /*
+    Label the data
+    
+    td:nth-of-type(1):before { content: "{{ section.settings.table_image_title }}"; }
+    td:nth-of-type(2):before { content: "{{ section.settings.table_product_title }}"; }
+    td:nth-of-type(3):before { content: "{{ section.settings.table_price_title }}"; }
+    td:nth-of-type(4):before { content: "{{ section.settings.table_quantity_title }}"; }
+    td:nth-of-type(5):before { content: "{{ section.settings.table_total_title }}"; }
+    td:nth-of-type(6):before { content: "{{ section.settings.table_reomove_title }}"; }
+    */
+    .cart-table table tbody tr td.pro-thumbnail {
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-thumbnail {
+      width: auto;
+      max-width: 100%;
+      min-width: 100%;
+      text-align: center;
+    }
+    .cart-table table tbody tr td.pro-thumbnail a {
+      display: block;
+      min-width: unset;
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-thumbnail a img {
+      width: auto;
+      max-width: 100%;
+    }
+    .cart-table table tbody tr td.pro-title {
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-price {
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-quantity {
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-subtotal {
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-remove {
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-remove a {
+      width: auto;
+    }
+    .cart-table table tbody tr td {
+      padding: 5px 5px;
+    }
+    .cart-table td.pro-thumbnail a {
+      border: 0px solid #eee;
+    }
+    .cart-table table tbody tr td {
+      border-bottom: 0px solid #ddd;
+    }
+  }
+</style>
+
+
+
+
+{% schema %}
+  {
+    "name": "Cart Page",
+    "settings": [
+		{
+			"type": "text",
+			"id": "page_title",
+			"label": "Cart Page Title",
+			"default": "Cart"
+		},
+		{
+			"type": "text",
+			"id": "continue_shopping_title",
+			"label": "Continue Shopping Title",
+			"default": "Continue Shopping"
+		},
+		{
+			"type": "url",
+			"id": "continue_shopping_url",
+			"label": "Continue Shopping URL",
+			"default": "/collections/all"
+		},
+		{
+			"type": "header",
+			"content": "Cart Table"
+		},
+		{
+			"type": "text",
+			"id": "remove_title",
+			"label": "Remove Title",
+			"default": "Remove"
+		},
+		{
+			"type": "text",
+			"id": "image_title",
+			"label": "Image Title",
+			"default": "Images"
+		},
+		{
+			"type": "text",
+			"id": "product_title",
+			"label": "Product Title",
+			"default": "Product"
+		},
+		{
+			"type": "text",
+			"id": "price_title",
+			"label": "Price Title",
+			"default": "Price"
+		},
+		{
+			"type": "text",
+			"id": "quantity_title",
+			"label": "Quantity Title",
+			"default": "Quantity"
+		},
+		{
+			"type": "text",
+			"id": "total_title",
+			"label": "Total Title",
+			"default": "Total"
+		},
+		{
+			"type": "header",
+			"content": "Cart Box"
+		},
+		{
+			"type": "text",
+			"id": "cart_box_title",
+			"label": "Cart Box Title",
+			"default": "Cart Totals"
+		},
+		{
+			"type": "text",
+			"id": "cart_subtotal_title",
+			"label": "Sub-total Title",
+			"default": "Subtotal"
+		},
+		{
+			"type": "text",
+			"id": "cart_total_title",
+			"label": "Total Title",
+			"default": "Total"
+		},
+		{
+			"type": "text",
+			"id": "checkout_button_text",
+			"label": "Checkout Button text",
+			"default": "Proceed to Checkout"
+		}
+	],
+    "blocks": [
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}

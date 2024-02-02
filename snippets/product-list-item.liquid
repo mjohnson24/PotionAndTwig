@@ -1,0 +1,119 @@
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+{% assign variant = product.selected_or_first_available_variant %}
+
+{% if product.available %}
+{% assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" %}
+{% endif %} 
+
+
+
+
+<div class="product-wrapper mb-30 single-product-list product-list-right-pr mb-60">
+  <div class="product-img list-img-width">
+    <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | img_url: '312x' }}" alt="{{ featured_image.alt }}">
+    </a>
+
+    {% if product.description contains '[hot_products]' and settings.hot_sticker_enable %}         
+    {% assign hot_products_first = product.description | split:'[/hot_products]' | first %}
+    {% assign hot_products_final = hot_products_first | split:'[hot_products]' | last %}
+    <span>{{ hot_products_final }}</span>
+    {% endif %}
+
+    <!-- product new label/stiker with shortcode start -->
+    {% if product.description contains '[new_products]' %}      
+    {% assign new_products_first = product.description | split:'[/new_products]' | first %}
+    {% assign new_products_final = new_products_first | split:'[new_products]' | last %} 
+
+    {% comment %}Date calculate{% endcomment %}
+    {% assign date_pub_y = product.published_at | date:'%Y' %}
+    {% assign date_pub_d = product.published_at | date:'%j' %}
+    {% assign date_now_y = 'now' | date:'%Y' %}
+    {% assign date_now_d = 'now' | date:'%j' %}
+    {% assign dates_diff_y = date_now_y | minus: date_pub_y | times: 365 %}
+    {% assign dates_diff_d = date_now_d | minus: date_pub_d %}
+    {% assign dates_diff = dates_diff_y | plus: dates_diff_d %}
+    {% assign new_products_period = new_products_final | plus: 0 %}
+
+
+    {% if dates_diff <= new_products_period and settings.new_sticker_enable %}
+    <span class="sticker_new">{{ settings.new_sticker }}</span>
+    {% endif %}      
+    {% endif %}
+
+    {% if on_sale and settings.on_sale_sticker_enable %}
+    <span class="sticker_sale">{{ settings.sale_sticker }}</span>    
+    {% endif %}
+ 
+
+    <div class="product-action-list-style">      
+      <a title="Quick View" data-toggle="modal" data-target="#exampleModal" class="animate-right" href="javascript:void(0);" 
+         onclick="quiqview('{{ product.handle | handleize }}')"><i class="pe-7s-look"></i>
+      </a>
+    </div>
+  </div>
+  <div class="product-content-list">
+    <div class="product-list-info">
+      <h4><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h4>
+      {% if on_sale %}
+      <span>{{ product.price | money }}</span> <del>{{ product.compare_at_price | money }}</del>
+      {% else %}
+      <span>{{ product.price | money }}</span>
+      {% endif %}
+
+      {% if product.description contains '[short_description]' %}         
+      {% assign short_description_first = product.description | split:'[/short_description]' | first %}
+      {% assign short_description_final = short_description_first | split:'[short_description]' | last %}
+      {{ short_description_final }} 
+      {% else %}
+      <p>{{ product.description | strip_html | truncatewords: 50 | split: '[affiliate_link]' | first | split: '[product_video]' | first | split: '[short_description]' | first | split: '[product_description]' | first | split: '[more_info]' | first }}</p>
+      {% endif %}
+    
+      
+      {%- if product.description contains '[countdown]' -%}
+      {%- assign count_down_first = product.description | split:'[/countdown]' | first -%}
+      {%- assign count_down_final = count_down_first | split:'[countdown]' | last -%}
+      <div class=" product_timing product-list">
+        <div class="product_coundown" data-countdown="{{ count_down_final }}"></div> 
+      </div>
+      {%- endif -%}
+      
+      
+    </div>
+    <div class="product-list-cart-wishlist">
+      <div class="product-list-cart">
+        {% if product.description contains '[affiliate_link]' %}
+        {% assign affiliate_link_first = product.description | split:'[/affiliate_link]' | first %}
+        {% assign affiliate_link_final = affiliate_link_first | split:'[affiliate_link]' | last %}
+        <a class="btn-hover list-btn-style" href="{{ affiliate_link_final }}" title="{{ settings.add_to_cart_text }}">{{ settings.add_to_cart_text }}</a>
+
+        {% elsif product.available %}
+        <a class="btn-hover list-btn-style add_cart cart-item" title="{{ settings.add_to_cart_text }}" href="javascript:void(0);" onclick="{{ func }}; return false;">
+          <i class="pe-7s-settings animated rotateIn infinite"></i>
+          <i class="pe-7s-check"></i> {{ settings.add_to_cart_text }}
+        </a>
+        {% else %}
+        <a href="#" class="disabled-add-to-cart btn-hover list-btn-style" title="{{ settings.out_of_stock_text }}">{{ settings.out_of_stock_text }}</a>
+        {% endif %}
+      </div>
+      <div class="product-list-wishlist">
+        {%- if product.handle != blank -%}
+        <a class="btn-hover list-btn-wishlist action-wishlist tile-actions--btn wishlist-btn wishlist" href="javascript: void(0)" button-wishlist data-product-handle="{{ product.handle }}" title="Wishlist">
+          <span class="add-wishlist"><i class="pe-7s-like"></i></span>
+          <span class="loading-wishlist"><i class="pe-7s-settings animated rotateIn infinite"></i></span>
+          <span class="remove-wishlist"><i class="pe-7s-check"></i></span>
+        </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>

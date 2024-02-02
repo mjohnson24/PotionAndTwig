@@ -1,0 +1,87 @@
+{% if section.settings.loca_details_enable %}
+<div class="contact-info-wrapper" data-section-id="{{ section.id }}">
+  {% if section.settings.loca_details_title != blank %}
+  <div class="contact-title">
+    <h4>{{ section.settings.loca_details_title }}</h4>
+  </div>
+  {% endif %}
+  <div class="contact-info">
+    {% for block in section.blocks %}
+    <div class="single-contact-info">
+      {% if block.settings.contact_info_icon != blank %}
+      <div class="contact-info-icon">
+        <i class="{{ block.settings.contact_info_icon }}"></i>
+      </div>
+      {% endif %}
+      
+      {% if block.settings.address_description != blank %}
+      <div class="contact-info-text">
+        <p> {% if block.settings.address_title != blank %}<span>{{ block.settings.address_title }}</span>{% endif %} {{ block.settings.address_description }}</p>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}    
+  </div>
+</div>
+{% endif %}
+
+
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Location Details",
+    "settings": [
+		{
+			"type": "checkbox",
+			"id": "loca_details_enable",
+			"label": "Show Location & Details Section",
+			"default": true
+		},
+		{
+			"type": "text",
+			"id": "loca_details_title",
+			"label": "Location Details Title",
+			"default": "Location & Details"
+		}
+	],
+    "blocks": [
+		{
+			"type": "contact_details",
+			"name": "Contact Details",
+			"settings": [
+				{
+					"type": "text",
+					"id": "contact_info_icon",
+					"label": "Icon Name",
+					"default": "pe-7s-map-marker",
+					"info": "e.g. ti-location-pin [See Icon](http:\/\/themes-pixeden.com\/font-demos\/7-stroke)"
+				},
+                {
+                    "type": "textarea",
+                    "id": "address_title",
+                    "label": "Title",
+                    "default": "Address: "
+                },
+                {
+                    "type": "textarea",
+                    "id": "address_description",
+                    "label": "Details",
+                    "default": "Your address goes here...",
+                    "info": "Use '<br>' tag for line break"
+                }
+			]
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

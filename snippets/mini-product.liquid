@@ -1,0 +1,49 @@
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+{% assign variant = product.selected_or_first_available_variant %}
+
+{% if product.available %}
+{% assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" %}
+{% endif %}
+
+
+
+<div class="single-top-seller">
+  <div class="top-seller-img">
+    <a href="{{ product.url | within: collection }}"><img src="{{ product.featured_image.src | img_url: '130x' }}" alt="{{ featured_image.alt }}"></a>
+  </div>
+  <div class="top-seller-content">
+    <h5><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h5>
+    <div class="fruit-price">
+
+      {% if on_sale %}
+      <span>{{ product.price | money }}</span>
+      <span class="old">{{ product.compare_at_price | money }}</span>
+      {% else %}
+      <span>{{ product.price | money }}</span>
+      {% endif %}
+    </div>
+
+    {% if product.description contains '[affiliate_link]' %}
+    {% assign affiliate_link_first = product.description | split:'[/affiliate_link]' | first %}
+    {% assign affiliate_link_final = affiliate_link_first | split:'[affiliate_link]' | last %}
+    <a href="{{ affiliate_link_final }}">{{ settings.add_to_cart_text }}</a>
+
+    {% elsif product.available %}
+    <a class="cart-item" href="javascript:void(0);" onclick="{{ func }}; return false;">
+      <i class="pe-7s-settings animated rotateIn infinite"></i>
+      <i class="pe-7s-check"></i> {{ settings.add_to_cart_text }}
+    </a>
+    {% else %}
+    <a href="#" class="disabled-add-to-cart">{{ settings.out_of_stock_text }}</a>
+    {% endif %}
+  </div>
+</div>

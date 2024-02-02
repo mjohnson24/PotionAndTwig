@@ -1,0 +1,433 @@
+<div class="electro-product-wrapper bg-img" data-section-id="{{ section.id }}"  id="section-{{ section.id }}">
+  <div class="{% if section.settings.cl_page_width == 'full_wide' %}container-fluid{% else %}container{% endif %}">
+    {% if section.settings.section_title != '' %}
+    <div class="section-title-4 {% if section.settings.section_text_align == 'section_text_left' %}text-left{% elsif section.settings.section_text_align == 'section_text_center' %}text-center{% elsif section.settings.section_text_align == 'section_text_right' %}text-right{% endif %}  mb-30">
+      <h2>{{ section.settings.section_title }}</h2>
+    </div>
+    {% endif %}
+    <div class="row match_height">      
+      {% assign featured_product = collections[section.settings.featured_product_handle] %}
+      {% for product in featured_product.products limit: section.settings.featured_product_limit_handle  %}
+      <div class="col-lg-{{ section.settings.product_column_lg }} col-xl-{{ section.settings.product_column_xl }} col-md-6">
+        {% include 'product-grid-item' %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{%- include 'section-style' -%}
+
+
+<style>
+
+      #section-{{ section.id }} .section-title-4  > h2 {
+        color: {{ section.settings.section_title_color }};
+}
+      
+      #section-{{ section.id }} .section-title-4  > h2::before {
+    background-color: {{ section.settings.section_title_left_border_color }};
+}
+      #section-{{ section.id }} .section-title-4  > h2::after {
+    background-color: {{ section.settings.section_title_right_border_color }};
+}
+  
+  
+</style>
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Featured Product",
+    "settings": [
+        {
+          "type": "radio",
+          "id": "cl_page_width",
+          "label": "Collection Page Width",
+          "options":[
+                {
+                  "label": "Full Wide",
+                  "value": "full_wide"
+                },
+                {
+                  "label": "Wide",
+                  "value": "wide"
+                }
+			],
+        	"default": "wide"
+        },
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "radio",
+          "id": "section_text_align",
+          "label": "Heading Text Align",
+		  "options":[
+				{
+					"label": "Left",
+					"value": "section_text_left"
+				},
+				{
+					"label": "Center",
+					"value": "section_text_center"
+				},
+				{
+					"label": "Right",
+					"value": "section_text_right"
+				}
+			],
+			"default": "section_text_center"
+      	},
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "New Arrival"
+      	},
+		{
+			"type": "collection",
+            "id": "featured_product_handle",
+            "label": "Select Your Collection"
+        },
+		{
+          "type": "select",
+          "id": "product_column_xl",
+          "label": "Product Column for Extra Large Device",
+		  "options":[
+                {
+                  "label": "1 (12/12)",
+                  "value": "12"
+                },
+                {
+                  "label": "2 (6/12)",
+                  "value": "6"
+                },
+                {
+                  "label": "3 (4/12)",
+                  "value": "4"
+                },
+                {
+                  "label": "4 (3/12)",
+                  "value": "3"
+                },
+                {
+                  "label": "6 (2/12)",
+                  "value": "2"
+                }
+			],
+			"default": "3"
+      	},
+		{
+          "type": "select",
+          "id": "product_column_lg",
+          "label": "Product Column for Large Device",
+		  "options":[
+                {
+                  "label": "1 (12/12)",
+                  "value": "12"
+                },
+                {
+                  "label": "2 (6/12)",
+                  "value": "6"
+                },
+                {
+                  "label": "3 (4/12)",
+                  "value": "4"
+                },
+                {
+                  "label": "4 (3/12)",
+                  "value": "3"
+                },
+                {
+                  "label": "6 (2/12)",
+                  "value": "2"
+                }
+			],
+			"default": "4"
+      	},
+		{
+          "type": "select",
+          "id": "featured_product_limit_handle",
+          "label": "Product Limit",
+		  "options":[
+				{
+					"label": "3 Products",
+					"value": "3"
+				},
+				{
+					"label": "4 Products",
+					"value": "4"
+				},
+				{
+					"label": "5 Products",
+					"value": "5"
+				},
+				{
+					"label": "6 Products",
+					"value": "6"
+				},
+				{
+					"label": "7 Products",
+					"value": "7"
+				},
+				{
+					"label": "8 Products",
+					"value": "8"
+				},
+				{
+					"label": "9 Products",
+					"value": "9"
+				},
+				{
+					"label": "10 Products",
+					"value": "10"
+				},
+				{
+					"label": "12 Products",
+					"value": "12"
+				},
+				{
+					"label": "14 Products",
+					"value": "14"
+				},
+				{
+					"label": "16 Products",
+					"value": "16"
+				},
+				{
+					"label": "Unlimited",
+					"value": "100"
+				}
+			],
+			"default": "8"
+      	},
+		{
+          "type": "header",
+          "content": "Color"
+        }, 
+        {
+           "type": "color",
+           "id": "section_title_color",
+           "label": "Section Title Color",
+           "default": "#383838"
+        }, 
+        {
+           "type": "color",
+           "id": "section_title_left_border_color",
+           "label": "Section Title Border Left Color",
+           "default": "#9b9b9b"
+        }, 
+        {
+           "type": "color",
+           "id": "section_title_right_border_color",
+           "label": "Section Title Border Right Color",
+           "default": "#9b9b9b"
+        }
+	],
+	"blocks": [
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+    	{
+          "name": "Featured Product",
+          "category": "Collection"
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+{% if product %}
+<script class="gpo-featured-product">
+  window.GPOConfigs = window.GPOConfigs || {}
+  window.GPOConfigs.featuredProduct = {{ product | json }} || null
+  window.GPOConfigs.featuredProduct.collections = {{ product.collections | map: 'id' | json }}
+</script>
+{% endif %}
+
+<!-- GPO installed -->

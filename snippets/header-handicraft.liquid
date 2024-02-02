@@ -1,0 +1,186 @@
+<div class="header-bottom wrapper-padding-2 res-header-sm header_handi {% if template == 'index' %}hb_css{% endif %}" id="section-{{ section.id }}">
+  <div class="{% if section.settings.cl_page_width == 'full_wide' %}container-fluid{% else %}container{% endif %}">
+    <div class="header-bottom-wrapper">
+      <div class="logo-2 ptb-20">
+        <a href="/">
+          {% if section.settings.logo %}
+          <img src="{{ section.settings.logo | img_url: '500x' }}" alt="{{ shop.name }}" width="175px" height="92px">
+          {% else %}
+          {{ shop.name }}
+          {% endif %}
+        </a>
+      </div>
+      <div class="menu-style-2 handicraft-menu menu-hover">
+{% include 'main-menu' %}
+      </div>
+      <div class="handicraft-search-cart" style="margin-right: 12px;">
+        <div class="my-account-container">
+        <i class="pe-7s-user"></i>
+          <div class="my-account-link">
+  <div class="toplinks-content">
+    <ul class="top-links">
+      {% if customer %}
+        <li class="account-link">
+          <a href="/account">{{ 'customer.account.title' | t }}</a>
+        </li>
+      	<li class="logout-link">
+          {{ 'layout.customer.log_out' | t | customer_logout_link }}
+        </li>
+      {% else %}
+        <li class="login-link">
+          <a href="/account/login" class="no-account">{{ 'customer.login.sign_in' | t }}</a>
+        </li>
+        <li class="register-link">
+          <a href="/account/register" class="no-account">{{ 'customer.register.title' | t }}</a>
+        </li>
+      {% endif %}
+     
+    </ul>
+  </div>
+</div>
+        </div>
+        
+        <div class="handicraft-search">
+          <button class="search-toggle">
+            <i class="pe-7s-search s-open"></i>
+            <i class="pe-7s-close s-close"></i>
+          </button>
+          
+          
+          <div class="handicraft-content">
+            <form action="/search" method="get" role="search">
+              <input id="search" type="search" name="q" class="input-text" value="{{ search.terms | escape }}" placeholder="{{ settings.search_text }}">
+            </form> 
+          </div>
+        </div>
+        
+        
+        <div class="header-cart-4">
+          {% include 'mini-cart' %}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      {% include 'mobile-menu' %}
+    </div>
+  </div>
+</div>
+
+
+
+{%- include 'section-style' -%}
+
+<style>
+   
+  #section-{{ section.id }} .mean-container a.meanmenu-reveal span{
+    background: {{ section.settings.mobile_menu_icon_color }};
+}
+#section-{{ section.id }} .mean-container a.meanmenu-reveal {
+    color: {{ section.settings.mobile_menu_icon_color }};
+}
+  
+  #section-{{ section.id }} .mean-container a.meanmenu-reveal {
+    border: 1px solid {{ section.settings.mobile_menu_border_color }};
+}
+ #section-{{ section.id }}  .meanmenu-reveal.meanclose::before,#section-{{ section.id }} .mean-container a.meanmenu-reveal.meanclose {
+    color: {{ section.settings.mobile_menu_close_icon_color }};
+}
+    
+   #section-{{ section.id }}  .mean-container .mean-nav ul li {
+    background: {{ section.settings.mobile_menu_bg_color }} none repeat scroll 0 0;
+    border-top: 1px solid {{ section.settings.mobile_menu_border_top_color }};
+}
+  
+   #section-{{ section.id }}  .mean-container .mean-nav ul li a {
+    background: {{ section.settings.mobile_menu_bg_color }} none repeat scroll 0 0;
+    color: {{ section.settings.mobile_menu_color }};
+}
+   #section-{{ section.id }}  .mean-container .mean-nav ul li:hover > a {
+    color: {{ section.settings.mobile_menu_hover_color }};
+}
+
+  #section-{{ section.id }}   .mean-container .mean-nav ul li ul li a {
+    border-top: 1px solid {{ section.settings.mobile_sub_menu_border_top_color }};
+    color: {{ section.settings.mobile_sub_menu_color }};
+}
+      #section-{{ section.id }}  .mean-container .mean-nav ul li ul li:hover > a {
+    color: {{ section.settings.mobile_sub_menu_hover_color }};
+}
+   #section-{{ section.id }}  .mean-container .mean-nav ul li ul li ul li  a {
+    border-top: 1px solid {{ section.settings.mobile_mega_menu_border_top_color }};
+    color: {{ section.settings.mobile_mega_menu_color }};
+}
+     #section-{{ section.id }}  .mean-container .mean-nav ul li ul li ul li:hover > a {
+    color: {{ section.settings.mobile_mega_menu_hover_color }};
+}
+  
+  .logo-2 img{
+  width:175px;
+  }
+
+  #section-{{ section.id }} .handicraft-search .search-toggle i,#section-{{ section.id }} .header-cart-4 > a > i {
+    color: {{ section.settings.icon_color }};
+}
+   #section-{{ section.id }} .handicraft-search .handicraft-content form input {
+    background-color: {{ section.settings.search_input_bg_color }};
+    border: 1px solid {{ section.settings.search_input_border_color }};
+    color: {{ section.settings.search_input_text_color }};
+}
+  
+ #section-{{ section.id }} .header-cart-4 > a span {
+    background-color: {{ section.settings.counter_text_bg_color }};
+    color: {{ section.settings.counter_text_color }};
+}
+  
+  #section-{{ section.id }} .cart-btn {
+    background: {{ section.settings.cart_button_bg_color }} none repeat scroll 0 0;
+    border: 1px solid {{ section.settings.cart_button_border_color }};
+    color: {{ section.settings.cart_button_text_color }};
+}
+  
+  #section-{{ section.id }} .cart-btn.btn-hover::before {
+    background: {{ section.settings.cart_button_bg_hover_color }} none repeat scroll 0 0;
+}
+  
+  #section-{{ section.id }} .cart-btn:hover {
+    border: 1px solid {{ section.settings.cart_button_border_hover_color }};
+    color: {{ section.settings.cart_button_text_hover_color }};
+}
+  
+  #section-{{ section.id }} .menu-style-2 nav > ul > li > a {
+    color: {{ section.settings.menu_color }};
+}
+  #section-{{ section.id }} .menu-style-2 ul li a:hover {
+    color: {{ section.settings.menu_hover_color }};
+}
+  #section-{{ section.id }} .single-dropdown {
+    background-color: {{ section.settings.sub_menu_bg_color }};
+}
+  #section-{{ section.id }} .menu-hover ul li .single-dropdown a{
+    color: {{ section.settings.sub_menu_color }};
+}
+  #section-{{ section.id }} .menu-hover ul li .single-dropdown a:hover {
+    color: {{ section.settings.sub_menu_hover_color }};
+}
+  #section-{{ section.id }} .category-menu-dropdown {
+    background: {{ section.settings.mega_menu_bg_color }} none repeat scroll 0 0;
+}
+  #section-{{ section.id }} .categories-subtitle {
+    color: {{ section.settings.mega_menu_title_color }};
+}
+  #section-{{ section.id }} .categories-subtitle::before {
+    background-color: {{ section.settings.mega_menu_title_border_bottom_color }};
+}
+  
+  #section-{{ section.id }} .shop-menu .category-dropdown-style ul li a {
+    color: {{ section.settings.mega_menu_color }};
+}
+  
+   #section-{{ section.id }} .shop-menu .category-dropdown-style ul li a:hover {
+    color: {{ section.settings.mega_menu_hover_color }};
+}
+  .jdgm-widget.jdgm--done-setup .jdgm-prev-badge { padding-bottom: 15px!important; }
+  
+
+  
+</style>

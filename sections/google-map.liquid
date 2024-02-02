@@ -1,0 +1,67 @@
+{% if section.settings.google_map_enable %}
+<div class="contact-map mb-40" data-section-id="{{ section.id }}">
+  <div id="hastech2"></div>
+</div>
+
+
+<script>
+  var myCenter=new google.maps.LatLng({{ settings.latitude }}, {{ settings.languid }});
+  function initialize()
+  {
+    var mapProp = {
+      center:myCenter,
+      scrollwheel: false,
+      zoom:15,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+    var map=new google.maps.Map(document.getElementById("hastech2"),mapProp);
+    var marker=new google.maps.Marker({
+      position:myCenter,
+      animation:google.maps.Animation.BOUNCE,
+      icon:'{% if settings.map_icon_image %}{{ settings.map_icon_image | img_url: 'small' }}{% else %}https://via.placeholder.com/100x150{% endif %}',
+      map: map,
+    });
+    var styles = [
+      {
+        stylers: [
+          { hue: "#c5c5c5" },
+          { saturation: -100 }
+        ]
+      },
+    ];
+    map.setOptions({styles: styles});
+    marker.setMap(map);
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+
+
+
+{% endif %}
+
+
+
+{% schema %}
+  {
+    "name": "Google Map",
+    "settings": [
+          {
+              "type": "checkbox",
+              "id": "google_map_enable",
+              "label": "Show Map Section",
+              "default": true
+          },
+		  {
+              "type": "paragraph",
+              "content": "Set Longitude, Latitude and API Key from General Settings"
+          }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
